@@ -12,7 +12,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Comment;
-use App\Entity\Post;
+use App\Entity\LeaseRequest;
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Utils\Slugger;
@@ -68,7 +68,7 @@ class AppFixtures extends Fixture
     private function loadPosts(ObjectManager $manager): void
     {
         foreach ($this->getPostData() as [$title, $slug, $summary, $content, $publishedAt, $author, $tags]) {
-            $post = new Post();
+            $post = new LeaseRequest();
             $post->setTitle($title);
             $post->setSlug($slug);
             $post->setSummary($summary);

@@ -12,10 +12,10 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
-use App\Entity\Post;
+use App\Entity\LeaseRequest;
 use App\Events;
 use App\Form\CommentType;
-use App\Repository\PostRepository;
+use App\Repository\LeaseRequestRepository;
 use App\Repository\TagRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -47,7 +47,7 @@ class BlogController extends AbstractController
      * Content-Type header for the response.
      * See https://symfony.com/doc/current/quick_tour/the_controller.html#using-formats
      */
-    public function index(Request $request, int $page, string $_format, PostRepository $posts, TagRepository $tags): Response
+    public function index(Request $request, int $page, string $_format, LeaseRequestRepository $posts, TagRepository $tags): Response
     {
         $tag = null;
         if ($request->query->has('tag')) {
@@ -69,28 +69,24 @@ class BlogController extends AbstractController
      * value given in the route.
      * See https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
      */
-    public function postShow(Post $post): Response
+    public function leaseRequestShow(LeaseRequest $post): Response
     {
         // Symfony's 'dump()' function is an improved version of PHP's 'var_dump()' but
         // it's not available in the 'prod' environment to prevent leaking sensitive information.
         // It can be used both in PHP files and Twig templates, but it requires to
         // have enabled the DebugBundle. Uncomment the following line to see it in action:
         //
-        // dump($post, $this->getUser(), new \DateTime());
+        dump($post, $this->getUser(), new \DateTime());
 
         return $this->render('blog/post_show.html.twig', ['post' => $post]);
     }
 
     /**
-     * @Route("/comment/{postSlug}/new", methods={"POST"}, name="comment_new")
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
-     * @ParamConverter("post", options={"mapping": {"postSlug": "slug"}})
-     *
      * NOTE: The ParamConverter mapping is required because the route parameter
      * (postSlug) doesn't match any of the Doctrine entity properties (slug).
      * See https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html#doctrine-converter
      */
-    public function commentNew(Request $request, Post $post, EventDispatcherInterface $eventDispatcher): Response
+    public function commentNew(Request $request, LeaseRequest $post, EventDispatcherInterface $eventDispatcher): Response
     {
         $comment = new Comment();
         $comment->setAuthor($this->getUser());
@@ -135,7 +131,7 @@ class BlogController extends AbstractController
      * The "id" of the Post is passed in and then turned into a Post object
      * automatically by the ParamConverter.
      */
-    public function commentForm(Post $post): Response
+    public function commentForm(LeaseRequest $post): Response
     {
         $form = $this->createForm(CommentType::class);
 
@@ -148,7 +144,7 @@ class BlogController extends AbstractController
     /**
      * @Route("/search", methods={"GET"}, name="blog_search")
      */
-    public function search(Request $request, PostRepository $posts): Response
+    public function search(Request $request, LeaseRequestRepository $posts): Response
     {
         if (!$request->isXmlHttpRequest()) {
             return $this->render('blog/search.html.twig');

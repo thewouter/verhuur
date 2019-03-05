@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class Post
+class LeaseRequest
 {
     /**
      * Use constants to define configuration options that rarely change instead
@@ -228,5 +228,61 @@ class Post
     public function getTags(): Collection
     {
         return $this->tags;
+    }
+
+    private $start_date;
+
+    private $end_date;
+
+    private $association_type;
+
+    private $price;
+
+    public function getStartDate(): ?\DateTimeInterface
+    {
+        return $this->start_date;
+    }
+
+    public function setStartDate(?\DateTimeInterface $start_date): self
+    {
+        $this->start_date = $start_date;
+
+        return $this;
+    }
+
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->end_date;
+    }
+
+    public function setEndDate(?\DateTimeInterface $end_date): self
+    {
+        $this->end_date = $end_date;
+
+        return $this;
+    }
+
+    public function getAssociationType(): ?string
+    {
+        return $this->association_type;
+    }
+
+    public function setAssociationType(string $association_type): self
+    {
+        $this->association_type = $association_type;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): self
+    {
+        $this->price = $price;
+
+        return $this;
     }
 }

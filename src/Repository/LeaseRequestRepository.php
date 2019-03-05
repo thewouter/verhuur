@@ -11,7 +11,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Post;
+use App\Entity\LeaseRequest;
 use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -30,11 +30,11 @@ use Doctrine\ORM\EntityRepository;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class PostRepository extends ServiceEntityRepository
+class LeaseRequestRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Post::class);
+        parent::__construct($registry, LeaseRequest::class);
     }
 
     public function findLatest(int $page = 1, Tag $tag = null): Pagerfanta
@@ -58,16 +58,16 @@ class PostRepository extends ServiceEntityRepository
     private function createPaginator(Query $query, int $page): Pagerfanta
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query));
-        $paginator->setMaxPerPage(Post::NUM_ITEMS);
+        $paginator->setMaxPerPage(LeaseRequest::NUM_ITEMS);
         $paginator->setCurrentPage($page);
 
         return $paginator;
     }
 
     /**
-     * @return Post[]
+     * @return LeaseRequest[]
      */
-    public function findBySearchQuery(string $rawQuery, int $limit = Post::NUM_ITEMS): array
+    public function findBySearchQuery(string $rawQuery, int $limit = LeaseRequest::NUM_ITEMS): array
     {
         $query = $this->sanitizeSearchQuery($rawQuery);
         $searchTerms = $this->extractSearchTerms($query);

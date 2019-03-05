@@ -1,6 +1,6 @@
-App\Entity\Post:
+App\Entity\LeaseRequest:
     type: entity
-    table: post
+    table: lease_request
 
     id:
         id:
@@ -40,7 +40,23 @@ App\Entity\Post:
             type: datetime
             nullable: false
             column: published_at
-
+        start_date:
+            type: datetime
+            nullable: true
+            column: start_date
+        end_date:
+            type: datetime
+            nullable: true
+            column: end_date
+        association_type:
+            type: string
+            nullable: false
+            column: association_type
+        price:
+            type: float
+            nullable: true
+            column: price
+    
     manyToOne:
         author:
             targetEntity: User

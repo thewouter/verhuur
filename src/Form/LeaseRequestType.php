@@ -11,7 +11,7 @@
 
 namespace App\Form;
 
-use App\Entity\Post;
+use App\Entity\LeaseRequest;
 use App\Form\Type\DateTimePickerType;
 use App\Form\Type\TagsInputType;
 use Symfony\Component\Form\AbstractType;
@@ -26,7 +26,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class PostType extends AbstractType
+class LeaseRequestType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -73,7 +73,7 @@ class PostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Post::class,
+            'data_class' => LeaseRequest::class,
         ]);
     }
 }

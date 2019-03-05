@@ -11,9 +11,9 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Post;
+use App\Entity\LeaseRequest;
 use App\Form\PostType;
-use App\Repository\PostRepository;
+use App\Repository\LeaseRequestRepository;
 use App\Utils\Slugger;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -53,7 +53,7 @@ class BlogController extends AbstractController
      * @Route("/", methods={"GET"}, name="admin_index")
      * @Route("/", methods={"GET"}, name="admin_post_index")
      */
-    public function index(PostRepository $posts): Response
+    public function index(LeaseRequestRepository $posts): Response
     {
         $authorPosts = $posts->findBy(['author' => $this->getUser()], ['publishedAt' => 'DESC']);
 
@@ -71,7 +71,7 @@ class BlogController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $post = new Post();
+        $post = new LeaseRequest();
         $post->setAuthor($this->getUser());
 
         // See https://symfony.com/doc/current/book/forms.html#submitting-forms-with-multiple-buttons
@@ -115,7 +115,7 @@ class BlogController extends AbstractController
      *
      * @Route("/{id<\d+>}", methods={"GET"}, name="admin_post_show")
      */
-    public function show(Post $post): Response
+    public function show(LeaseRequest $post): Response
     {
         // This security check can also be performed
         // using an annotation: @IsGranted("show", subject="post", message="Posts can only be shown to their authors.")
@@ -132,9 +132,9 @@ class BlogController extends AbstractController
      * @Route("/{id<\d+>}/edit",methods={"GET", "POST"}, name="admin_post_edit")
      * @IsGranted("edit", subject="post", message="Posts can only be edited by their authors.")
      */
-    public function edit(Request $request, Post $post): Response
+    public function edit(Request $request, LeaseRequest $post): Response
     {
-        $form = $this->createForm(PostType::class, $post);
+        $form = $this->createForm(LeaseRequest::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -158,7 +158,7 @@ class BlogController extends AbstractController
      * @Route("/{id}/delete", methods={"POST"}, name="admin_post_delete")
      * @IsGranted("delete", subject="post")
      */
-    public function delete(Request $request, Post $post): Response
+    public function delete(Request $request, LeaseRequest $post): Response
     {
         if (!$this->isCsrfTokenValid('delete', $request->request->get('token'))) {
             return $this->redirectToRoute('admin_post_index');
