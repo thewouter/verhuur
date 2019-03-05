@@ -12,9 +12,11 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\User;
 use App\Entity\LeaseRequest;
 use App\Events;
 use App\Form\CommentType;
+use App\Form\UserType;
 use App\Repository\LeaseRequestRepository;
 use App\Repository\TagRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
@@ -26,6 +28,13 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+
 
 /**
  * Controller used to manage blog contents in the public part of the site.
@@ -35,10 +44,15 @@ use Symfony\Component\Routing\Annotation\Route;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class BlogController extends AbstractController
-{
+class BlogController extends AbstractController{
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder) {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     /**
-     * @Route("/", defaults={"page": "1", "_format"="html"}, methods={"GET"}, name="blog_index")
+     * @Route("/", defaults={"page": "1", "_format"="html"}, methods={"GET", "POST"}, name="blog_index")
      * @Route("/rss.xml", defaults={"page": "1", "_format"="xml"}, methods={"GET"}, name="blog_rss")
      * @Route("/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods={"GET"}, name="blog_index_paginated")
      * @Cache(smaxage="10")
@@ -47,18 +61,45 @@ class BlogController extends AbstractController
      * Content-Type header for the response.
      * See https://symfony.com/doc/current/quick_tour/the_controller.html#using-formats
      */
-    public function index(Request $request, int $page, string $_format, LeaseRequestRepository $posts, TagRepository $tags): Response
+    public function index(Request $request, int $page, string $_format, LeaseRequestRepository $posts, TagRepository $tags, AuthenticationUtils $helper, EventDispatcherInterface $dispatcher): Response
     {
-        $tag = null;
-        if ($request->query->has('tag')) {
-            $tag = $tags->findOneBy(['name' => $request->query->get('tag')]);
-        }
-        $latestPosts = $posts->findLatest($page, $tag);
+        $last_username = $helper->getLastUsername();
+        $error = $helper->getLastAuthenticationError();
 
-        // Every template name also has two extensions that specify the format and
-        // engine for that template.
-        // See https://symfony.com/doc/current/templating.html#template-suffix
-        return $this->render('blog/index.'.$_format.'.twig', ['posts' => $latestPosts]);
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        if ($request->getMethod() == "POST"){
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()){
+                $em = $this->getDoctrine()->getManager();
+                $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
+                $user->setRoles($user->getRoles());
+                $em->persist($user);
+                $em->flush();
+
+                $token = new UsernamePasswordToken($user->getUsername(), $user->getPassword(), "main", $user->getRoles());
+                $event = new InteractiveLoginEvent($request, $token);
+                $dispatcher->dispatch("security.interactive_login", $event);
+
+            }
+        }
+
+        return $this->render('blog/index.html.twig', array(
+            'last_username' => $last_username,
+            'error' => $error,
+            'new_user_form' => $form->createView()));
+    }
+
+    /**
+     * @Route("/overview", methods={"GET"}, name="lease_overview")
+     *
+     * NOTE: The $post controller argument is automatically injected by Symfony
+     * after performing a database query looking for a Post with the 'slug'
+     * value given in the route.
+     * See https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
+     */
+    public function leaseStatus(Request $request): Response {
+        return $this->render('blog/overview.html.twig', array());
     }
 
     /**
