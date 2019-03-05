@@ -17,8 +17,10 @@ use App\Entity\LeaseRequest;
 use App\Events;
 use App\Form\CommentType;
 use App\Form\UserType;
+use App\Form\LeaseRequestType;
 use App\Repository\LeaseRequestRepository;
 use App\Repository\TagRepository;
+use App\Utils\Slugger;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -80,7 +82,7 @@ class BlogController extends AbstractController{
                 $token = new UsernamePasswordToken($user->getUsername(), $user->getPassword(), "main", $user->getRoles());
                 $event = new InteractiveLoginEvent($request, $token);
                 $dispatcher->dispatch("security.interactive_login", $event);
-
+                return $this->redirectToRoute('lease_overview');
             }
         }
 
@@ -91,15 +93,32 @@ class BlogController extends AbstractController{
     }
 
     /**
-     * @Route("/overview", methods={"GET"}, name="lease_overview")
+     * @Route("/overview", methods={"GET", "POST"}, name="lease_overview")
      *
-     * NOTE: The $post controller argument is automatically injected by Symfony
-     * after performing a database query looking for a Post with the 'slug'
-     * value given in the route.
      * See https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
      */
     public function leaseStatus(Request $request): Response {
-        return $this->render('blog/overview.html.twig', array());
+        $repository = $this->getDoctrine()->getRepository('App:LeaseRequest');
+
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        $user = $this->getUser();
+        $leaseRequest = new LeaseRequest();
+        $form = $this->createForm(LeaseRequestType::class, $leaseRequest);
+        if ($request->getMethod() == "POST"){
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()){
+                $em = $this->getDoctrine()->getManager();
+                $leaseRequest->setAuthor($user);
+                $leaseRequest->setSlug(Slugger::slugify($user->getFullName().'-'.$leaseRequest->getStartDate()->format("Y-m-d")));
+                $em->persist($leaseRequest);
+                $em->flush();
+
+                return $this->redirectToRoute('lease_overview');
+            }
+        }
+        return $this->render('blog/overview.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**

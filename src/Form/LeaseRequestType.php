@@ -16,8 +16,10 @@ use App\Form\Type\DateTimePickerType;
 use App\Form\Type\TagsInputType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Defines the form used to create and manipulate blog posts.
@@ -51,23 +53,20 @@ class LeaseRequestType extends AbstractType
                 'help' => 'help.post_summary',
                 'label' => 'label.summary',
             ])
-            ->add('content', null, [
-                'attr' => ['rows' => 20],
-                'help' => 'help.post_content',
-                'label' => 'label.content',
-            ])
-            ->add('publishedAt', DateTimePickerType::class, [
-                'label' => 'label.published_at',
-                'help' => 'help.post_publication',
-            ])
-            ->add('tags', TagsInputType::class, [
-                'label' => 'label.tags',
-                'required' => false,
-            ])
-            ->add('association_type', null, [
+            ->add('association_type', ChoiceType::class, [
                 'label' => 'label.association_type',
+                'choices' => LeaseRequest::ASSOCIATION_TYPES,
                 'required' => true,
-            ]);
+            ])
+            ->add('start_date', DateTimePickerType::class, [
+                'label' => 'label.start_date',
+                'required' => true,
+            ])
+            ->add('end_date', DateTimePickerType::class, [
+                'label' => 'label.end_date',
+                'required' => true,
+            ])
+            ->add('submit', SubmitType::class, array());
     }
 
     /**

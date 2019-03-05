@@ -30,12 +30,6 @@ App\Entity\LeaseRequest:
             length: 255
             options:
                 fixed: false
-        content:
-            type: text
-            nullable: false
-            length: null
-            options:
-                fixed: false
         publishedAt:
             type: datetime
             nullable: false
@@ -56,7 +50,7 @@ App\Entity\LeaseRequest:
             type: float
             nullable: true
             column: price
-    
+
     manyToOne:
         author:
             targetEntity: User

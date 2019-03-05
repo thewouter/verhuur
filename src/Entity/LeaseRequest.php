@@ -40,7 +40,11 @@ class LeaseRequest
      * See https://symfony.com/doc/current/best_practices/configuration.html#constants-vs-configuration-options
      */
     public const NUM_ITEMS = 10;
-    public const ASSOCIATION_TYPES = array("Scouting Regio", "Scouting buiten regio", "Dispuut", "Studievereniging");
+    public const ASSOCIATION_TYPES = array(
+        "Scouting Regio" => 'ass_type.regio',
+        "Scouting buiten regio" => 'ass_type.scouting',
+        "Dispuut" => 'ass_type.dispuut',
+        "Studievereniging" => 'ass_type.sv');
 
     /**
      * @var int
@@ -74,15 +78,6 @@ class LeaseRequest
      * @Assert\Length(max=255)
      */
     private $summary;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="post.blank_content")
-     * @Assert\Length(min=10, minMessage="post.too_short_content")
-     */
-    private $content;
 
     /**
      * @var \DateTime
@@ -152,16 +147,6 @@ class LeaseRequest
     public function setSlug(string $slug): void
     {
         $this->slug = $slug;
-    }
-
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): void
-    {
-        $this->content = $content;
     }
 
     public function getPublishedAt(): \DateTime
