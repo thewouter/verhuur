@@ -1,10 +1,7 @@
 App\Entity\Post:
     type: entity
     table: post
-    indexes:
-        IDX_58A92E65F675F31B:
-            columns:
-                - author_id
+
     id:
         id:
             type: integer
@@ -15,12 +12,6 @@ App\Entity\Post:
             generator:
                 strategy: IDENTITY
     fields:
-        authorId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: author_id
         title:
             type: string
             nullable: false
@@ -49,4 +40,29 @@ App\Entity\Post:
             type: datetime
             nullable: false
             column: published_at
+
+    manyToOne:
+        author:
+            targetEntity: User
+            joinColumn:
+                name: author_id
+                referencedColumnName: id
+
+    OneToMany:
+        comments:
+            targetEntity: App\Entity\Comment
+            mappedBy: post
+            orphanRemoval: true
+            cascade:
+                -persist
+
+    manyToMany:
+        tags:
+            targetEntity: App\Entity\Tag
+            joinTable:
+                name: post_tag
+                joinColumns:
+                    user:
+                        referencedColumnName: id
+
     lifecycleCallbacks: {  }

@@ -18,13 +18,13 @@ App\Entity\Comment:
             generator:
                 strategy: IDENTITY
     fields:
-        postId:
+        post:
             type: integer
             nullable: false
             options:
                 unsigned: false
             column: post_id
-        authorId:
+        author:
             type: integer
             nullable: false
             options:
