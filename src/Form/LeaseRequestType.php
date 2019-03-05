@@ -64,7 +64,10 @@ class LeaseRequestType extends AbstractType
                 'label' => 'label.tags',
                 'required' => false,
             ])
-        ;
+            ->add('association_type', null, [
+                'label' => 'label.association_type',
+                'required' => true,
+            ]);
     }
 
     /**

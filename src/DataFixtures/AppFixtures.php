@@ -76,6 +76,7 @@ class AppFixtures extends Fixture
             $post->setPublishedAt($publishedAt);
             $post->setAuthor($author);
             $post->addTag(...$tags);
+            $post->setAssociationType(LeaseRequest::ASSOCIATION_TYPES[0]);
 
             foreach (range(1, 5) as $i) {
                 $comment = new Comment();

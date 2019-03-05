@@ -40,6 +40,7 @@ class LeaseRequest
      * See https://symfony.com/doc/current/best_practices/configuration.html#constants-vs-configuration-options
      */
     public const NUM_ITEMS = 10;
+    public const ASSOCIATION_TYPES = array("Scouting Regio", "Scouting buiten regio", "Dispuut", "Studievereniging");
 
     /**
      * @var int
