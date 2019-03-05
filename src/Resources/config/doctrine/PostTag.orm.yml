@@ -1,0 +1,26 @@
+App\Entity\Tag:
+    type: entity
+    table: post_tag
+    indexes:
+        IDX_6ABC1CC4BAD26311:
+            columns:
+                - tag_id
+        IDX_6ABC1CC44B89032C:
+            columns:
+                - post_id
+    id:
+        postId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: post_id
+        tagId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: tag_id
+    lifecycleCallbacks: {  }

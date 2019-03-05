@@ -18,6 +18,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * This custom Doctrine repository contains some methods which are useful when

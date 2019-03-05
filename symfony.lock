@@ -122,6 +122,9 @@
     "monolog/monolog": {
         "version": "1.x-dev"
     },
+    "nikic/php-parser": {
+        "version": "v4.2.1"
+    },
     "ocramius/proxy-manager": {
         "version": "2.1.x-dev"
     },
@@ -166,6 +169,15 @@
     },
     "swiftmailer/swiftmailer": {
         "version": "6.1-dev"
+    },
+    "symfony/apache-pack": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "c82bead70f9a4f656354a193df7bf0ca2114efa0"
+        }
     },
     "symfony/asset": {
         "version": "4.2-dev"
@@ -262,6 +274,15 @@
     },
     "symfony/intl": {
         "version": "4.2-dev"
+    },
+    "symfony/maker-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
+        }
     },
     "symfony/monolog-bridge": {
         "version": "4.2-dev"

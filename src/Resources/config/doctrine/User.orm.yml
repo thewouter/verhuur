@@ -1,0 +1,52 @@
+App\Entity\User:
+    type: entity
+    table: user
+    uniqueConstraints:
+        UNIQ_8FB094A1E7927C74:
+            columns:
+                - email
+        UNIQ_8FB094A1F85E0677:
+            columns:
+                - username
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        fullName:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: full_name
+        username:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        email:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        roles:
+            type: text
+            nullable: false
+            length: null
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }
