@@ -164,7 +164,7 @@ class BlogController extends AbstractController
 
             $message = (new \Swift_Message('Hello Email'))
                 ->setFrom('verhuurder@radixenschede.nl')
-                ->setTo('wouter@woutervanharten.nl')
+                ->setTo($this->getUser()->getEmail())
                 ->setBody(
                     $this->renderView(
                         'email/new_message.html.twig',

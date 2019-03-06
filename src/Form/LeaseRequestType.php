@@ -70,10 +70,6 @@ class LeaseRequestType extends AbstractType
                 'label' => 'label.num_attendants',
                 'required' => true,
             ])
-            ->add('price', IntegerType::class, [
-                'label' => 'label.num_attendants',
-                'required' => true,
-            ])
             ->add('submit', SubmitType::class, array(
                  'attr'   => array('class' =>'btn btn-primary',),
             ));
