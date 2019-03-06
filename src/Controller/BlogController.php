@@ -174,7 +174,7 @@ class BlogController extends AbstractController{
             $em->flush();
             $this->addFlash('success', 'post.commented');
 
-            return $this->redirectToRoute('admin_post_edit', ['id' => $leaseRequest->getId()]);
+            return $this->redirectToRoute('lease_edit', ['slug' => $leaseRequest->getSlug()]);
         }
         return $this->render('blog/edit.html.twig', array(
            'form' => $form->createView(),

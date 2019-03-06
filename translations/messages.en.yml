@@ -129,6 +129,7 @@ lease.new: New lease application
 
 radix_lease_application: The radix lease application
 
+post.commented: Opmerking geplaatst.
 no_account: Don't have an account? Make one here!
 request.updated: Your request has been updated!
 overview: Overview lease requests

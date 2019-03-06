@@ -138,6 +138,7 @@ class BlogController extends AbstractController
      */
     public function edit(Request $request, LeaseRequest $leaseRequest): Response
     {
+        dump($leaseRequest);
         $form = $this->createForm(LeaseRequestAdminType::class, $leaseRequest);
         $form->handleRequest($request);
 

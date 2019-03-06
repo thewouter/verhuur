@@ -130,7 +130,7 @@ class BlogControllerTest extends WebTestCase
             'PHP_AUTH_USER' => 'jane_admin',
             'PHP_AUTH_PW' => 'kitten',
         ]);
-        $crawler = $client->request('GET', '/en/admin/post/1/edit');
+        $crawler = $client->request('GET', '/en/admin/popst/1/edit');
         $form = $crawler->selectButton('Save changes')->form([
             'post[title]' => $newBlogPostTitle,
         ]);
