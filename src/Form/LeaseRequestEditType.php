@@ -80,7 +80,9 @@ class LeaseRequestEditType extends AbstractType
                 'required' => false,
                 'disabled' => true,
             ])
-            ->add('submit', SubmitType::class, array());
+            ->add('submit', SubmitType::class, array(
+                 'attr'   => array('class' =>'btn btn-primary',),
+             ));
     }
 
     /**

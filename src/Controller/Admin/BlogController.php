@@ -65,8 +65,8 @@ class BlogController extends AbstractController
      */
     public function index(LeaseRequestRepository $posts): Response
     {
-        $authorPosts = $posts->findBy(['author' => $this->getUser()], ['publishedAt' => 'DESC']);
-
+        $authorPosts = $posts->findLatest();
+        dump($authorPosts);
         return $this->render('admin/blog/index.html.twig', ['posts' => $authorPosts]);
     }
 

@@ -47,7 +47,8 @@ class CommentType extends AbstractType
                 'label' => $label
             ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'label.submit'
+                'label' => 'label.submit',
+                'attr'   => array('class' =>'btn btn-primary',),
             ))
         ;
     }

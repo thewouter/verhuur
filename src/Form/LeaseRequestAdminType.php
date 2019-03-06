@@ -78,7 +78,9 @@ class LeaseRequestAdminType extends AbstractType
                 'choices' => array_flip(LeaseRequest::STATUSES),
                 'required' => true,
             ])
-            ->add('submit', SubmitType::class, array());
+            ->add('submit', SubmitType::class, array(
+                 'attr'   => array('class' =>'btn btn-primary',),
+             ));
     }
 
     /**

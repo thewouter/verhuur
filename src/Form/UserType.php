@@ -47,6 +47,7 @@ class UserType extends AbstractType
             ])
             ->add('submit', SubmitType::class, array(
                 'label' => 'label.submit',
+                'attr'   => array('class' =>'btn btn-primary',),
             ))
         ;
     }
