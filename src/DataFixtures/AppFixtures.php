@@ -67,7 +67,7 @@ class AppFixtures extends Fixture
 
     private function loadPosts(ObjectManager $manager): void
     {
-        foreach ($this->getPostData() as [$title, $slug, $summary, $content, $publishedAt, $author, $tags]) {
+        /*foreach ($this->getPostData() as [$title, $slug, $summary, $content, $publishedAt, $author, $tags]) {
             $post = new LeaseRequest();
             $post->setTitle($title);
             $post->setSlug($slug);
@@ -90,7 +90,7 @@ class AppFixtures extends Fixture
             $manager->persist($post);
         }
 
-        $manager->flush();
+        $manager->flush();*/
     }
 
     private function getUserData(): array

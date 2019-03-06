@@ -5,7 +5,7 @@
         <description>{{ 'rss.description'|trans }}</description>
         <pubDate>{{ 'now'|date('r', timezone='GMT') }}</pubDate>
         <lastBuildDate>{{ (posts|last).publishedAt|default('now')|date('r', timezone='GMT') }}</lastBuildDate>
-        <link>{{ url('blog_index') }}</link>
+        <link>{{ url('homepage') }}</link>
         <language>{{ app.request.locale }}</language>
 
         {% for post in posts %}

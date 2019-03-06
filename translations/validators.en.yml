@@ -1,0 +1,8 @@
+post.blank_summary: Give your post a summary!
+post.blank_content: Your post should have some content!
+post.too_short_content: Post content is too short ({ limit } characters minimum)
+post.too_many_tags: Too many tags (add { limit } tags or less)
+comment.blank: Please don't leave your comment blank!
+comment.too_short: Comment is too short ({ limit } characters minimum)
+comment.too_long: Comment is too long ({ limit } characters maximum)
+comment.is_spam: The content of this comment is considered spam.

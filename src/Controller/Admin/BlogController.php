@@ -162,7 +162,7 @@ class BlogController extends AbstractController
             $em->flush();
             $this->addFlash('success', 'post.commented');
 
-            $message = (new \Swift_Message('Hello Email'))
+            $message = (new \Swift_Message('Radix Lambarene'))
                 ->setFrom('verhuurder@radixenschede.nl')
                 ->setTo($this->getUser()->getEmail())
                 ->setBody(

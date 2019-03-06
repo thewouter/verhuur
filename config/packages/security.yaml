@@ -33,7 +33,7 @@ security:
                 check_path: security_login
                 # The name of the route where the login form lives
                 # When the user tries to access a protected page, they are redirected here
-                login_path: blog_index
+                login_path: homepage
                 # Secure the login form against CSRF
                 # Reference: https://symfony.com/doc/current/security/csrf_in_login_form.html
                 csrf_token_generator: security.csrf.token_manager

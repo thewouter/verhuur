@@ -42,7 +42,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 /**
  * Controller used to manage blog contents in the public part of the site.
  *
- * @Route("/blog")
+ * @Route("")
  *
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
@@ -57,7 +57,7 @@ class BlogController extends AbstractController{
     }
 
     /**
-     * @Route("/", defaults={"page": "1", "_format"="html"}, methods={"GET", "POST"}, name="blog_index")
+     * @Route("/", defaults={"page": "1", "_format"="html"}, methods={"GET", "POST"}, name="homepage")
      * @Route("/rss.xml", defaults={"page": "1", "_format"="xml"}, methods={"GET"}, name="blog_rss")
      * @Route("/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods={"GET"}, name="blog_index_paginated")
      * @Cache(smaxage="10")
@@ -84,6 +84,7 @@ class BlogController extends AbstractController{
                 $em->persist($user);
                 $em->flush();
 
+                $this->addFlash('success', 'account.succesfull');
                 /*$token = new UsernamePasswordToken($user->getUsername(), $user->getPassword(), "main", $user->getRoles());
                 $event = new InteractiveLoginEvent($request, $token);
                 $dispatcher->dispatch("security.interactive_login", $event);
@@ -107,8 +108,8 @@ class BlogController extends AbstractController{
         $repository = $this->getDoctrine()->getRepository('App:LeaseRequest');
 
         $leases = $user->getLeases();
-        dump($leases);
-        if( is_null($leases) || empty($leases)){
+        dump($this->getUser()->getRoles());
+        if( (is_null($leases) || $leases->isEmpty()) && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
             return $this->redirectToRoute('lease_add');
         }
 

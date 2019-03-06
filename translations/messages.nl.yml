@@ -1,0 +1,120 @@
+note: NOTITIE
+tip: TIP
+not_available: Niet beschikbaar
+mit_license: MIT Licentie
+http_error.name: Fout {status_code, number}
+http_error.description: Een onbekende fout (HTTP {status_code, number}) is opgetreden, waardoor de aanvraag niet gelukt is.
+http_error.suggestion: Probeer de pagina over een paar minuten te herladen, of <a href="{url}">ga terug naar de beginpagina</a>.
+http_error_403.description: Je hebt geen toestemming om deze bron op te vragen.
+http_error_403.suggestion: Vraag je manager of systeembeheerder om toegang tot deze bron te krijgen.
+http_error_404.description: We konden de pagina die je opvroeg niet vinden.
+http_error_404.suggestion: Controleer de URL op typefouten, of <a href="{url}">ga terug naar de beginpagina</a>.
+http_error_500.description: Er is een interne serverfout opgetreden.
+http_error_500.suggestion: Probeer de pagina over een paar minuten te herladen, of <a href="{url}">ga terug naar de beginpagina</a>.
+title.homepage: Welkom bij de <strong>Symfony Demo</strong> applicatie
+title.source_code: Broncode van deze pagina
+title.controller_code: Controller code
+title.twig_template_code: Twig template code
+title.login: Veilig inloggen
+title.post_list: Berichtenlijst
+title.edit_post: 'Bewerk bericht #{id, number}'
+title.add_comment: Voeg een reactie toe
+title.comment_error: Er is een fout opgetreden bij het opslaan van je reactie
+action.show: Weergeven
+action.show_post: Bericht weergeven
+action.show_code: Code weergeven
+action.edit: Bewerken
+action.edit_post: Bericht bewerken
+action.save: Opslaan
+action.delete_post: Bericht verwijderen
+delete_post_modal.title: Weet je zeker dat je dit bericht wilt verwijderen?
+delete_post_modal.body: Deze actie kan niet ongedaan gemaakt worden.
+label.delete_post: Bericht verwijderen
+label.cancel: Annuleren
+action.create_post: Maak nieuw bericht
+label.create_post: Bericht maken
+label.save_and_create_new: Opslaan en nieuwe maken
+action.back_to_list: Terug naar de berichtenlijst
+action.publish_comment: Reactie opslaan
+action.sign_in: Inloggen
+action.browse_app: Applicatie bekijken
+action.browse_admin: Beheerpaneel bekijken
+label.title: Titel
+label.author: Auteur
+label.author_email: Auteur e-mail
+label.username: Gebruikersnaam
+label.password: Wachtwoord
+label.role: Rol
+label.content: Inhoud
+label.summary: Samenvatting
+label.published_at: Geplaatst op
+label.tags: Tags
+label.actions: Acties
+title.post_new: Bericht aanmaken
+action.edit_contents: Inhoud bewerken
+menu.toggle_nav: Wissel navigatie
+menu.choose_language: Taalkeuze
+menu.post_list: Berichtenlijst
+menu.back_to_blog: Terug naar de blog
+menu.homepage: Beginpagina
+menu.admin: Beheerpaneel
+menu.logout: Uitloggen
+menu.rss: Blogberichten RSS
+menu.search: Zoek
+post.to_publish_a_comment: om een reactie toe te voegen
+post.num_comments: '{count, plural, one {# reactie} other {# reacties}}'
+post.commented_on: gereageerd op
+post.no_comments: Reageer als eerste op dit bericht.
+post.no_posts_found: Geen berichten gevonden.
+post.created_successfully: Bericht met succes aangemaakt!
+post.updated_successfully: Bericht met succes bijgewerkt!
+post.deleted_successfully: Bericht met succes verwijderd!
+post.search_for: Zoek naar...
+post.search_no_results: No results found
+notification.comment_created: Er is een reactie bij je bericht geplaatst!
+notification.comment_created.description: Er is een nieuwe reactie bij je bericht "{title}"geplaatst. Je kunt de reactie lezen op <a href="{link}">deze link</a>
+help.app_description: Dit is een <strong>voorbeeld applicatie</strong>, gemaakt met het Symfony Framework, die je een indruk geeft van de aanbevolen manier om een Symfony applicatie te ontwikkelen.
+help.show_code: Klik op deze knop om de broncode te bekijken van de <strong>Controller</strong> en <strong>template</strong>, die gebruikt zijn bij het weergeven van deze pagina.
+help.browse_app: Bekijk het <strong>publieke gedeelte</strong> van de demo applicatie.
+help.browse_admin: Bekijk het <strong>Beheerpaneel</strong> van de demo applicatie.
+help.login_users: Probeer één van de volgende gebruikers
+help.role_user: normale gebruiker
+help.role_admin: beheerder
+help.reload_fixtures: 'Als het niet lukt om in te loggen met deze gebruikers, herlaad dan de applicatie instellingen door dit commando in de terminal uit te voeren:'
+help.add_user: 'Als u een nieuwe gebruiker wilt toevoegen, voer dan dit commando uit:'
+help.more_information: Voor meer informatie, bekijk de <a href="https://symfony.com/doc">Symfony documentatie</a>.
+rss.title: Symfony Demo blog
+rss.description: De meest recente berichten, gepubliceerd op De Symfony Demo blog
+
+label.association_type: soort vereniging
+label.start_date: Aankomstdatum
+label.end_date: Vertrekdatum
+label.num_attendants: Aantal deelnemers
+label.price: Prijs
+label.status: Huidige status
+label.response: Antwoorden
+label.submit: Versturen
+label.name: Huurder
+label.updated: Laatste actie van huurder
+label.date: Datum van verhuur
+label.question: Stel een vraag:
+
+status.placed: Aanvraag ingediend
+status.contract: Contract verstuurd
+status.signed: Contract ondertekend
+status.leased: Verhuur heeft plaatsgevonden
+
+lease.title: Verhuurzaak
+lease.status: Status
+lease.date: Datum verhuur
+lease.manage: Bekijk Aanvraag
+lease.edit: Bekijk
+lease.new: Nieuwe verhuuraanvraag maken
+
+radix_lease_application: De radix verhuuraanvraag tool
+
+no_account: Heb je nog geen account? Maak er dan hier een aan.
+
+overview: Overzicht verhuuraanvragen
+request.updated: Je aanvraag is geupdated!
+menu.user: Account
