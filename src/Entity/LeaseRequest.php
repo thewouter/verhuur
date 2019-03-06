@@ -298,10 +298,10 @@ class LeaseRequest
         $days = $this->getEndDate()->diff($this->getStartDate())->format("%a");
         switch ($this->getAssociationType()) {
             case 'ass_type.regio':
-                return min(self::REGIO_PP*$this->getNumAttendants(), self::REGIO_MIN)*$days;
+                return max(self::REGIO_PP*$this->getNumAttendants(), self::REGIO_MIN)*$days;
                 break;
             case 'ass_type.scouting':
-                return min(self::SCOUTING_pp*$this->getNumAttendants(), self::SCOUTING_MIN)*$days;
+                return max(self::SCOUTING_pp*$this->getNumAttendants(), self::SCOUTING_MIN)*$days;
                 break;
             default:
                 if ($this->getNumAttendants() < 16) {
