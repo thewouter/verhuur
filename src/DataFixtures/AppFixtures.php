@@ -76,6 +76,7 @@ class AppFixtures extends Fixture
             $post->setAuthor($author);
             $post->addTag(...$tags);
             $post->setAssociationType(LeaseRequest::ASSOCIATION_TYPES["Scouting Regio"]);
+            $post->setNumAttendants(49);
 
             foreach (range(1, 5) as $i) {
                 $comment = new Comment();
