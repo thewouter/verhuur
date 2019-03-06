@@ -66,7 +66,6 @@ class BlogController extends AbstractController
     public function index(LeaseRequestRepository $posts): Response
     {
         $authorPosts = $posts->findLatest();
-        dump($authorPosts);
         return $this->render('admin/blog/index.html.twig', ['posts' => $authorPosts]);
     }
 
@@ -138,7 +137,6 @@ class BlogController extends AbstractController
      */
     public function edit(Request $request, LeaseRequest $leaseRequest): Response
     {
-        dump($leaseRequest);
         $form = $this->createForm(LeaseRequestAdminType::class, $leaseRequest);
         $form->handleRequest($request);
 
