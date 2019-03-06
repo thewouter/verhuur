@@ -11,9 +11,11 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -28,8 +30,19 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class User implements UserInterface, \Serializable
-{
+class User implements UserInterface, \Serializable {
+
+    /**
+    * @var ArrayCollection
+    *
+    */
+    private $leases;
+
+    public function __construct() {
+        $this->leases = new ArrayCollection();
+    }
+
+
     /**
      * @var int
      *
@@ -184,5 +197,36 @@ class User implements UserInterface, \Serializable
     {
         // add $this->salt too if you don't use Bcrypt or Argon2i
         [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    /**
+     * @return Collection|LeaseRequest[]
+     */
+    public function getLeases(): Collection
+    {
+        return $this->leases;
+    }
+
+    public function addLease(LeaseRequest $lease): self
+    {
+        if (!$this->leases->contains($lease)) {
+            $this->leases[] = $lease;
+            $lease->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLease(LeaseRequest $lease): self
+    {
+        if ($this->leases->contains($lease)) {
+            $this->leases->removeElement($lease);
+            // set the owning side to null (unless already changed)
+            if ($lease->getAuthor() === $this) {
+                $lease->setAuthor(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -20,6 +20,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+
 
 /**
  * Defines the form used to create and manipulate blog posts.
@@ -64,6 +66,10 @@ class LeaseRequestType extends AbstractType
             ])
             ->add('end_date', DateTimePickerType::class, [
                 'label' => 'label.end_date',
+                'required' => true,
+            ])
+            ->add('num_attendants', IntegerType::class, [
+                'label' => 'label.num_attendants',
                 'required' => true,
             ])
             ->add('submit', SubmitType::class, array());

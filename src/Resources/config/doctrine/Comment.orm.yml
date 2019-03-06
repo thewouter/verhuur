@@ -18,12 +18,6 @@ App\Entity\Comment:
             generator:
                 strategy: IDENTITY
     fields:
-        post:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: post_id
         author:
             type: integer
             nullable: false
@@ -40,4 +34,14 @@ App\Entity\Comment:
             type: datetime
             nullable: false
             column: published_at
+
+    manyToOne:
+        post:
+            targetEntity: LeaseRequest
+            inversedBy: comments
+            cascade: [ persist, remove ]
+            joinColumn:
+                name: post_id
+                referencedColumnName: id
+
     lifecycleCallbacks: {  }

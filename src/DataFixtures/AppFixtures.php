@@ -72,7 +72,6 @@ class AppFixtures extends Fixture
             $post->setTitle($title);
             $post->setSlug($slug);
             $post->setSummary($summary);
-            $post->setContent($content);
             $post->setPublishedAt($publishedAt);
             $post->setAuthor($author);
             $post->addTag(...$tags);

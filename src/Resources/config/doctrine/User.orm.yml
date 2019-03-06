@@ -49,4 +49,10 @@ App\Entity\User:
             length: null
             options:
                 fixed: false
+
+    oneToMany:
+        leases:
+            targetEntity: LeaseRequest
+            mappedBy: author
+
     lifecycleCallbacks: {  }

@@ -3,9 +3,7 @@
 {% block body_id 'blog_index' %}
 
 {% block main %}
-     {% for lease in leases %}
-        {{lease.title}}
-     {% endfor %}
+     {{form(form)}}
 {% endblock %}
 
 {% block sidebar %}

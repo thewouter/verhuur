@@ -17,6 +17,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
+use App\Entity\User;
 use Pagerfanta\Pagerfanta;
 use Doctrine\ORM\EntityRepository;
 
@@ -90,6 +91,14 @@ class LeaseRequestRepository extends ServiceEntityRepository
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findByAuthor(User $user){
+        $qb = $this->createQueryBuilder('p')
+            ->addSelect('p')
+            ->where('p.author <= :user')
+            ->setParameter('user', $user);
+        return $qb->getQuery()->getResult();
     }
 
     /**

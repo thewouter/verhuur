@@ -95,13 +95,31 @@ class BlogController extends AbstractController{
     /**
      * @Route("/overview", methods={"GET", "POST"}, name="lease_overview")
      *
-     * See https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
      */
     public function leaseStatus(Request $request): Response {
-        $repository = $this->getDoctrine()->getRepository('App:LeaseRequest');
-
         $this->denyAccessUnlessGranted('ROLE_USER');
         $user = $this->getUser();
+        $repository = $this->getDoctrine()->getRepository('App:LeaseRequest');
+
+        $leases = $user->getLeases();
+        dump($leases);
+        if( is_null($leases) || empty($leases)){
+            return $this->redirectToRoute('lease_add');
+        }
+
+        return $this->render('blog/overview.html.twig', array(
+            'leases' => $leases,
+        ));
+    }
+
+    /**
+     * @Route("/addlease", methods={"GET", "POST"}, name="lease_add")
+     *
+     */
+    public function leaseAdd(Request $request): Response {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        $user = $this->getUser();
+
         $leaseRequest = new LeaseRequest();
         $form = $this->createForm(LeaseRequestType::class, $leaseRequest);
         if ($request->getMethod() == "POST"){
@@ -110,13 +128,14 @@ class BlogController extends AbstractController{
                 $em = $this->getDoctrine()->getManager();
                 $leaseRequest->setAuthor($user);
                 $leaseRequest->setSlug(Slugger::slugify($user->getFullName().'-'.$leaseRequest->getStartDate()->format("Y-m-d")));
+                $user->addLease($leaseRequest);
                 $em->persist($leaseRequest);
                 $em->flush();
 
                 return $this->redirectToRoute('lease_overview');
             }
         }
-        return $this->render('blog/overview.html.twig', array(
+        return $this->render('blog/add.html.twig', array(
             'form' => $form->createView(),
         ));
     }

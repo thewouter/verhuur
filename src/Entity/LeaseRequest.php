@@ -46,6 +46,10 @@ class LeaseRequest
         "Dispuut" => 'ass_type.dispuut',
         "Studievereniging" => 'ass_type.sv');
 
+    private $status;
+
+    private $num_attendants;
+
     /**
      * @var int
      *
@@ -268,6 +272,30 @@ class LeaseRequest
     public function setPrice(?float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getNumAttendants(): ?int
+    {
+        return $this->num_attendants;
+    }
+
+    public function setNumAttendants(int $num_attendants): self
+    {
+        $this->num_attendants = $num_attendants;
 
         return $this;
     }

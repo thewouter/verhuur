@@ -1,6 +1,7 @@
 App\Entity\LeaseRequest:
     type: entity
     table: lease_request
+    repositoryClass: App\Repository\LeaseRequestRepository
 
     id:
         id:
@@ -50,21 +51,31 @@ App\Entity\LeaseRequest:
             type: float
             nullable: true
             column: price
+        status:
+            type: string
+            nullable: true
+            column: status
+        num_attendants:
+            type: integer
+            nullable: false
+            default: 0
+            column: num_attendants
 
     manyToOne:
         author:
             targetEntity: User
+            inversedBy: leases
+            cascade: [ persist, remove ]
             joinColumn:
                 name: author_id
                 referencedColumnName: id
 
-    OneToMany:
+    oneToMany:
         comments:
             targetEntity: App\Entity\Comment
             mappedBy: post
             orphanRemoval: true
-            cascade:
-                -persist
+            cascade: [ persist ]
 
     manyToMany:
         tags:
