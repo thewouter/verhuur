@@ -1,0 +1,38 @@
+<style>
+    .row {
+        display: flex;
+    }
+
+    .column {
+        flex: 50%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .container_comments {
+        display: flex;
+        flex-direction: column;
+        border: inset;
+        border-color: #2c3e50;
+        background: #ecf0f1;
+        border-radius: 5px;
+        height: 500px;
+        overflow: scroll;
+    }
+
+    .comment {
+        padding: 10px;
+    }
+    hr {
+        margin: 0px;
+        border-color: #2c3e50;
+    }
+
+</style>
+
+<div> {{form(commentForm)}} </div>
+<div class="container_comments">
+    {% for comment in leaseRequest.comments %}
+           <div class="comment">  {{comment.author.fullName}}: <br><br>{{comment.content | nl2br }}</div> <hr/>
+    {% endfor %}
+ </div>

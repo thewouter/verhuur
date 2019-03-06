@@ -16,6 +16,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Defines the form used to create and manipulate blog comments. Although in this
@@ -41,9 +42,11 @@ class CommentType extends AbstractType
         // $builder->add('content', null, ['required' => false]);
 
         $builder
-            ->add('content', TextareaType::class, [
-                'help' => 'help.comment_content',
+        ->add('content', TextareaType::class, [
             ])
+        ->add('submit', SubmitType::class, array(
+            'label' => 'label.submit'
+        ))
         ;
     }
 

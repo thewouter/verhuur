@@ -12,6 +12,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\LeaseRequest;
+use App\Entity\Comment;
 use App\Form\PostType;
 use App\Repository\LeaseRequestRepository;
 use App\Utils\Slugger;
@@ -21,6 +22,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\LeaseRequestType;
+use App\Form\LeaseRequestAdminType;
+use App\Form\CommentType;
 
 /**
  * Controller used to manage blog contents in the backend.
@@ -115,12 +119,7 @@ class BlogController extends AbstractController
      *
      * @Route("/{id<\d+>}", methods={"GET"}, name="admin_post_show")
      */
-    public function show(LeaseRequest $post): Response
-    {
-        // This security check can also be performed
-        // using an annotation: @IsGranted("show", subject="post", message="Posts can only be shown to their authors.")
-        $this->denyAccessUnlessGranted('show', $post, 'Posts can only be shown to their authors.');
-
+    public function show(LeaseRequest $post): Response{
         return $this->render('admin/blog/show.html.twig', [
             'post' => $post,
         ]);
@@ -130,25 +129,42 @@ class BlogController extends AbstractController
      * Displays a form to edit an existing Post entity.
      *
      * @Route("/{id<\d+>}/edit",methods={"GET", "POST"}, name="admin_post_edit")
-     * @IsGranted("edit", subject="post", message="Posts can only be edited by their authors.")
      */
-    public function edit(Request $request, LeaseRequest $post): Response
+    public function edit(Request $request, LeaseRequest $leaseRequest): Response
     {
-        $form = $this->createForm(LeaseRequest::class, $post);
+        $form = $this->createForm(LeaseRequestAdminType::class, $leaseRequest);
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $post->setSlug(Slugger::slugify($post->getTitle()));
-            $this->getDoctrine()->getManager()->flush();
+            $leaseRequest->setSlug(Slugger::slugify($leaseRequest->getTitle()));
+            $em->flush();
 
             $this->addFlash('success', 'post.updated_successfully');
 
-            return $this->redirectToRoute('admin_post_edit', ['id' => $post->getId()]);
+            return $this->redirectToRoute('admin_post_edit', ['id' => $leaseRequest->getId()]);
         }
 
+        $comment = new Comment();
+        $commentForm = $this->createForm(CommentType::class, $comment);
+        $commentForm->handleRequest($request);
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment->setAuthor($this->getUser());
+            $leaseRequest->addComment($comment);
+            $em->persist($comment);
+            $em->flush();
+            $this->addFlash('success', 'post.commented');
+
+            return $this->redirectToRoute('admin_post_edit', ['id' => $leaseRequest->getId()]);
+        }
+
+        dump($leaseRequest->getComments());
+
         return $this->render('admin/blog/edit.html.twig', [
-            'post' => $post,
+            'leaseRequest' => $leaseRequest,
             'form' => $form->createView(),
+            'commentForm' => $commentForm->createView(),
         ]);
     }
 

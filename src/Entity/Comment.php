@@ -52,7 +52,7 @@ class Comment
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="comment.blank")
      * @Assert\Length(
-     *     min=5,
+     *     min=1,
      *     minMessage="comment.too_short",
      *     max=10000,
      *     maxMessage="comment.too_long"

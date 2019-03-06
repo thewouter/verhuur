@@ -18,6 +18,7 @@ use App\Events;
 use App\Form\CommentType;
 use App\Form\UserType;
 use App\Form\LeaseRequestType;
+use App\Form\LeaseRequestEditType;
 use App\Repository\LeaseRequestRepository;
 use App\Repository\TagRepository;
 use App\Utils\Slugger;
@@ -63,11 +64,13 @@ class BlogController extends AbstractController{
      * Content-Type header for the response.
      * See https://symfony.com/doc/current/quick_tour/the_controller.html#using-formats
      */
-    public function index(Request $request, int $page, string $_format, LeaseRequestRepository $posts, TagRepository $tags, AuthenticationUtils $helper, EventDispatcherInterface $dispatcher): Response
-    {
+    public function index(Request $request, int $page, string $_format, LeaseRequestRepository $posts, TagRepository $tags, AuthenticationUtils $helper, EventDispatcherInterface $dispatcher): Response{
+        if ($this->getUser()){
+            return $this->redirectToRoute('lease_overview');
+        }
+
         $last_username = $helper->getLastUsername();
         $error = $helper->getLastAuthenticationError();
-
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         if ($request->getMethod() == "POST"){
@@ -79,10 +82,10 @@ class BlogController extends AbstractController{
                 $em->persist($user);
                 $em->flush();
 
-                $token = new UsernamePasswordToken($user->getUsername(), $user->getPassword(), "main", $user->getRoles());
+                /*$token = new UsernamePasswordToken($user->getUsername(), $user->getPassword(), "main", $user->getRoles());
                 $event = new InteractiveLoginEvent($request, $token);
                 $dispatcher->dispatch("security.interactive_login", $event);
-                return $this->redirectToRoute('lease_overview');
+                return $this->redirectToRoute('lease_overview');*/
             }
         }
 
@@ -137,6 +140,43 @@ class BlogController extends AbstractController{
         }
         return $this->render('blog/add.html.twig', array(
             'form' => $form->createView(),
+        ));
+    }
+
+
+    /**
+     * @Route("/edit/{slug}", methods={"GET", "POST"}, name="lease_edit")
+     */
+    public function editLease(Request $request, LeaseRequest $leaseRequest): Response {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        $user = $this->getUser();
+        $form = $this->createForm(LeaseRequestEditType::class, $leaseRequest);
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->getMethod() == "POST"){
+           $form->handleRequest($request);
+           if($form->isSubmitted() && $form->isValid()){
+               $leaseRequest->setAuthor($user);
+               $leaseRequest->setSlug(Slugger::slugify($user->getFullName().'-'.$leaseRequest->getStartDate()->format("Y-m-d")));
+               $em->flush();
+           }
+        }
+        $comment = new Comment();
+        $commentForm = $this->createForm(CommentType::class, $comment);
+        $commentForm->handleRequest($request);
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment->setAuthor($this->getUser());
+            $leaseRequest->addComment($comment);
+            $em->persist($comment);
+            $em->flush();
+            $this->addFlash('success', 'post.commented');
+
+            return $this->redirectToRoute('admin_post_edit', ['id' => $leaseRequest->getId()]);
+        }
+        return $this->render('blog/edit.html.twig', array(
+           'form' => $form->createView(),
+           'leaseRequest' => $leaseRequest,
+           'commentForm' => $commentForm->createView(),
         ));
     }
 

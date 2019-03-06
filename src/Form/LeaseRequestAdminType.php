@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
 
 /**
@@ -30,7 +31,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class LeaseRequestType extends AbstractType
+class LeaseRequestAdminType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -72,9 +73,11 @@ class LeaseRequestType extends AbstractType
                 'label' => 'label.num_attendants',
                 'required' => true,
             ])
-            ->add('submit', SubmitType::class, array(
-                 'attr'   => array('class' =>'btn btn-primary',),
-            ));
+            ->add('price', MoneyType::class, [
+                'label' => 'label.num_attendants',
+                'required' => true,
+            ])
+            ->add('submit', SubmitType::class, array());
     }
 
     /**

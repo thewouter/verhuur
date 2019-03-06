@@ -30,7 +30,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class LeaseRequestType extends AbstractType
+class LeaseRequestEditType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -50,6 +50,7 @@ class LeaseRequestType extends AbstractType
             ->add('title', null, [
                 'attr' => ['autofocus' => true],
                 'label' => 'label.title',
+                'disabled' => true,
             ])
             ->add('summary', TextareaType::class, [
                 'help' => 'help.post_summary',
@@ -59,22 +60,24 @@ class LeaseRequestType extends AbstractType
                 'label' => 'label.association_type',
                 'choices' => LeaseRequest::ASSOCIATION_TYPES,
                 'required' => true,
+                'disabled' => true,
             ])
             ->add('start_date', DateTimePickerType::class, [
                 'label' => 'label.start_date',
                 'required' => true,
+                'disabled' => true,
             ])
             ->add('end_date', DateTimePickerType::class, [
                 'label' => 'label.end_date',
                 'required' => true,
+                'disabled' => true,
             ])
             ->add('num_attendants', IntegerType::class, [
                 'label' => 'label.num_attendants',
                 'required' => true,
+                'disabled' => true,
             ])
-            ->add('submit', SubmitType::class, array(
-                 'attr'   => array('class' =>'btn btn-primary',),
-            ));
+            ->add('submit', SubmitType::class, array());
     }
 
     /**

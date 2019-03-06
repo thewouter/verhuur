@@ -58,7 +58,6 @@ App\Entity\LeaseRequest:
         num_attendants:
             type: integer
             nullable: false
-            default: 0
             column: num_attendants
 
     manyToOne:
@@ -76,6 +75,7 @@ App\Entity\LeaseRequest:
             mappedBy: post
             orphanRemoval: true
             cascade: [ persist ]
+            orderBy: {'publishedAt': 'DESC'}
 
     manyToMany:
         tags:

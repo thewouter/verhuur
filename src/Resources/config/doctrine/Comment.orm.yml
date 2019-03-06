@@ -18,12 +18,6 @@ App\Entity\Comment:
             generator:
                 strategy: IDENTITY
     fields:
-        author:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: author_id
         content:
             type: text
             nullable: false
@@ -36,6 +30,12 @@ App\Entity\Comment:
             column: published_at
 
     manyToOne:
+        author:
+            targetEntity: User
+            nullable: false
+            options:
+                unsigned: false
+            column: author_id
         post:
             targetEntity: LeaseRequest
             inversedBy: comments

@@ -1,6 +1,8 @@
-{% extends 'admin/layout.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block body_id 'admin_post_edit' %}
+{% block body_id 'blog_index' %}
+
+
 
 {% block main %}
     <div class="row">
@@ -9,4 +11,9 @@
          {{ include('blog/comments.html.twig') }}
      </div>
     </div>
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+
 {% endblock %}

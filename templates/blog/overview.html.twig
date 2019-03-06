@@ -3,9 +3,17 @@
 {% block body_id 'blog_index' %}
 
 {% block main %}
+<div class="well"> <p>{{ 'overview' | trans }} </p>
+<table class="table">
+    <tr> <th scope="col">{{ 'lease.title' | trans}}</th><th scope="col">{{ 'lease.status' | trans}}</th> <th scope="col">{{ 'lease.manage' | trans}}</th> </tr>
+
      {% for lease in leases %}
-        {{lease.title}}
+        <tr><td> {{lease.title}} </td> <td> {{lease.status}} </td> <td> <form action="{{path('lease_edit', {slug: lease.slug})}}"><input class="btn btn-primary" type="submit" value="{{ 'lease.edit' | trans }}" /></form></td> </tr>
      {% endfor %}
+
+</table>
+</div>
+
 {% endblock %}
 
 {% block sidebar %}

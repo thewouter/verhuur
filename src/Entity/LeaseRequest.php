@@ -184,6 +184,7 @@ class LeaseRequest
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
         }
+        $this->setPublishedAt(new \DateTime());
     }
 
     public function removeComment(Comment $comment): void
