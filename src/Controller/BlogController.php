@@ -108,7 +108,6 @@ class BlogController extends AbstractController{
         $repository = $this->getDoctrine()->getRepository('App:LeaseRequest');
 
         $leases = $user->getLeases();
-        dump($this->getUser()->getRoles());
         if( (is_null($leases) || $leases->isEmpty()) && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
             return $this->redirectToRoute('lease_add');
         }
@@ -194,13 +193,6 @@ class BlogController extends AbstractController{
      */
     public function leaseRequestShow(LeaseRequest $post): Response
     {
-        // Symfony's 'dump()' function is an improved version of PHP's 'var_dump()' but
-        // it's not available in the 'prod' environment to prevent leaking sensitive information.
-        // It can be used both in PHP files and Twig templates, but it requires to
-        // have enabled the DebugBundle. Uncomment the following line to see it in action:
-        //
-        dump($post, $this->getUser(), new \DateTime());
-
         return $this->render('blog/post_show.html.twig', ['post' => $post]);
     }
 
