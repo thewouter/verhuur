@@ -46,14 +46,20 @@ class LeaseRequest
         "Dispuut" => 'ass_type.dispuut',
         "Studievereniging" => 'ass_type.sv');
 
+    public const STATUSES = array(
+        "status.placed",
+        "status.contract",
+        "status.signed",
+        "status.leased");
+
     private const REGIO_PP = 2;
     private const SCOUTING_pp = 3;
     private const REGIO_MIN = 30;
     private const SCOUTING_MIN = 50;
     private const OTHER_MIN = 105;
     private const OTHER_MAX = 145;
-    private const BORG_SCOUITNG = 100;
-    private const BORG_OTHER = 250;
+    private const DEPOSIT_SCOUITNG = 100;
+    private const DEPOSIT_OTHER = 250;
 
     private $status;
 
@@ -135,6 +141,8 @@ class LeaseRequest
         $this->publishedAt = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->setStatus(self::STATUSES[0]);
+        $this->status = 0;
     }
 
     public function getId(): ?int
@@ -309,6 +317,14 @@ class LeaseRequest
     public function getStatus(): ?string
     {
         return $this->status;
+    }
+
+    public function getStatusText(): ?string
+    {
+        if(is_null($this->status)){
+            return self::STATUSES[0];
+        }
+        return self::STATUSES[$this->getStatus()];
     }
 
     public function setStatus(?string $status): self

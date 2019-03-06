@@ -20,7 +20,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
 
 /**
@@ -53,8 +55,8 @@ class LeaseRequestEditType extends AbstractType
                 'disabled' => true,
             ])
             ->add('summary', TextareaType::class, [
-                'help' => 'help.post_summary',
                 'label' => 'label.summary',
+                'disabled' => true,
             ])
             ->add('association_type', ChoiceType::class, [
                 'label' => 'label.association_type',
@@ -62,19 +64,30 @@ class LeaseRequestEditType extends AbstractType
                 'required' => true,
                 'disabled' => true,
             ])
-            ->add('start_date', DateTimePickerType::class, [
+            ->add('start_date', DateType::class, [
                 'label' => 'label.start_date',
                 'required' => true,
+                'widget' => 'single_text',
+                'years' => array(date('Y'), date('Y')+1),
+                'model_timezone' => 'Europe/Amsterdam',
                 'disabled' => true,
             ])
-            ->add('end_date', DateTimePickerType::class, [
+            ->add('end_date', DateType::class, [
                 'label' => 'label.end_date',
                 'required' => true,
+                'widget' => 'single_text',
+                'years' => array(date('Y'), date('Y')+1),
+                'model_timezone' => 'Europe/Amsterdam',
                 'disabled' => true,
             ])
             ->add('num_attendants', IntegerType::class, [
                 'label' => 'label.num_attendants',
                 'required' => true,
+                'disabled' => true,
+            ])
+            ->add('price', MoneyType::class, [
+                'label' => 'label.price',
+                'required' => false,
                 'disabled' => true,
             ])
             ->add('submit', SubmitType::class, array());

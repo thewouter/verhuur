@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 
 /**
@@ -37,14 +38,6 @@ class LeaseRequestType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // For the full reference of options defined by each form field type
-        // see https://symfony.com/doc/current/reference/forms/types.html
-
-        // By default, form fields include the 'required' attribute, which enables
-        // the client-side form validation. This means that you can't test the
-        // server-side validation errors from the browser. To temporarily disable
-        // this validation, set the 'required' attribute to 'false':
-        // $builder->add('title', null, ['required' => false, ...]);
 
         $builder
             ->add('title', null, [
@@ -52,7 +45,6 @@ class LeaseRequestType extends AbstractType
                 'label' => 'label.title',
             ])
             ->add('summary', TextareaType::class, [
-                'help' => 'help.post_summary',
                 'label' => 'label.summary',
             ])
             ->add('association_type', ChoiceType::class, [
@@ -60,15 +52,25 @@ class LeaseRequestType extends AbstractType
                 'choices' => LeaseRequest::ASSOCIATION_TYPES,
                 'required' => true,
             ])
-            ->add('start_date', DateTimePickerType::class, [
+            ->add('start_date', DateType::class, [
                 'label' => 'label.start_date',
                 'required' => true,
+                'widget' => 'single_text',
+                'years' => array(date('Y'), date('Y')+1),
+                'model_timezone' => 'Europe/Amsterdam',
             ])
-            ->add('end_date', DateTimePickerType::class, [
+            ->add('end_date', DateType::class, [
                 'label' => 'label.end_date',
                 'required' => true,
+                'widget' => 'single_text',
+                'years' => array(date('Y'), date('Y')+1),
+                'model_timezone' => 'Europe/Amsterdam',
             ])
             ->add('num_attendants', IntegerType::class, [
+                'label' => 'label.num_attendants',
+                'required' => true,
+            ])
+            ->add('price', IntegerType::class, [
                 'label' => 'label.num_attendants',
                 'required' => true,
             ])
