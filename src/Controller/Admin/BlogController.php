@@ -43,6 +43,12 @@ use App\Form\CommentType;
  */
 class BlogController extends AbstractController
 {
+    private $mailer;
+
+    public function __construct(\Swift_Mailer $mailer) {
+        $this->mailer = $mailer;
+    }
+
     /**
      * Lists all Post entities.
      *
@@ -147,7 +153,7 @@ class BlogController extends AbstractController
         }
 
         $comment = new Comment();
-        $commentForm = $this->createForm(CommentType::class, $comment);
+        $commentForm = $this->createForm(CommentType::class, $comment, array('is_admin' => true));
         $commentForm->handleRequest($request);
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $comment->setAuthor($this->getUser());
@@ -156,10 +162,19 @@ class BlogController extends AbstractController
             $em->flush();
             $this->addFlash('success', 'post.commented');
 
+            $message = (new \Swift_Message('Hello Email'))
+                ->setFrom('verhuurder@radixenschede.nl')
+                ->setTo('wouter@woutervanharten.nl')
+                ->setBody(
+                    $this->renderView(
+                        'email/new_message.html.twig',
+                        ['content' => $comment->getContent()]
+                    ),
+                    'text/html'
+                );
+                $this->mailer->send($message);
             return $this->redirectToRoute('admin_post_edit', ['id' => $leaseRequest->getId()]);
         }
-
-        dump($leaseRequest->getComments());
 
         return $this->render('admin/blog/edit.html.twig', [
             'leaseRequest' => $leaseRequest,

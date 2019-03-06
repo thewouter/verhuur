@@ -46,6 +46,15 @@ class LeaseRequest
         "Dispuut" => 'ass_type.dispuut',
         "Studievereniging" => 'ass_type.sv');
 
+    private const REGIO_PP = 2;
+    private const SCOUTING_pp = 3;
+    private const REGIO_MIN = 30;
+    private const SCOUTING_MIN = 50;
+    private const OTHER_MIN = 105;
+    private const OTHER_MAX = 145;
+    private const BORG_SCOUITNG = 100;
+    private const BORG_OTHER = 250;
+
     private $status;
 
     private $num_attendants;
@@ -275,6 +284,26 @@ class LeaseRequest
         $this->price = $price;
 
         return $this;
+    }
+
+    public function guessPrice(): float {
+        $days = $this->getEndDate()->diff($this->getStartDate())->format("%a");
+        switch ($this->getAssociationType()) {
+            case 'ass_type.regio':
+                return min(self::REGIO_PP*$this->getNumAttendants(), self::REGIO_MIN)*$days;
+                break;
+            case 'ass_type.scouting':
+                return min(self::SCOUTING_pp*$this->getNumAttendants(), self::SCOUTING_MIN)*$days;
+                break;
+            default:
+                if ($this->getNumAttendants() < 16) {
+                    return self::OTHER_MIN*$days;
+                } else {
+                    return self::OTHER_MAX*$days;
+                }
+                break;
+        }
+        return 0;
     }
 
     public function getStatus(): ?string

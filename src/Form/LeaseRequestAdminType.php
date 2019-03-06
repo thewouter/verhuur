@@ -22,6 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 
 /**
@@ -61,21 +62,27 @@ class LeaseRequestAdminType extends AbstractType
                 'choices' => LeaseRequest::ASSOCIATION_TYPES,
                 'required' => true,
             ])
-            ->add('start_date', DateTimePickerType::class, [
+            ->add('start_date', DateType::class, [
                 'label' => 'label.start_date',
                 'required' => true,
+                'widget' => 'single_text',
+                'years' => array(date('Y'), date('Y')+1),
+                'model_timezone' => 'Europe/Amsterdam',
             ])
-            ->add('end_date', DateTimePickerType::class, [
+            ->add('end_date', DateType::class, [
                 'label' => 'label.end_date',
                 'required' => true,
+                'widget' => 'single_text',
+                'years' => array(date('Y'), date('Y')+1),
+                'model_timezone' => 'Europe/Amsterdam',
             ])
             ->add('num_attendants', IntegerType::class, [
                 'label' => 'label.num_attendants',
                 'required' => true,
             ])
             ->add('price', MoneyType::class, [
-                'label' => 'label.num_attendants',
-                'required' => true,
+                'label' => 'label.price',
+                'required' => false,
             ])
             ->add('submit', SubmitType::class, array());
     }

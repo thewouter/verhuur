@@ -41,12 +41,14 @@ class CommentType extends AbstractType
         // this validation, set the 'required' attribute to 'false':
         // $builder->add('content', null, ['required' => false]);
 
+        $label = ($options['is_admin']? 'label.response' : 'label.question');
         $builder
-        ->add('content', TextareaType::class, [
-            ])
-        ->add('submit', SubmitType::class, array(
-            'label' => 'label.submit'
-        ))
+            ->add('content', TextareaType::class, array(
+                'label' => $label
+            ))
+            ->add('submit', SubmitType::class, array(
+                'label' => 'label.submit'
+            ))
         ;
     }
 
@@ -57,6 +59,7 @@ class CommentType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Comment::class,
+            'is_admin' => false,
         ]);
     }
 }

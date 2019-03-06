@@ -105,16 +105,12 @@
         <div class="container body-container">
             {% block body %}
                 <div class="row">
-                    <div id="main" class="col-sm-9">
+                    <div id="main" class="col-sm-12">
                         {{ include('default/_flash_messages.html.twig') }}
 
                         {% block main %}{% endblock %}
                     </div>
 
-                    <div id="sidebar" class="col-sm-3">
-                        {% block sidebar %}
-                        {% endblock %}
-                    </div>
                 </div>
             {% endblock %}
         </div>

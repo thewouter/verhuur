@@ -49,9 +49,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class BlogController extends AbstractController{
     private $passwordEncoder;
+    private $mailer;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder) {
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer) {
         $this->passwordEncoder = $passwordEncoder;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -132,6 +134,7 @@ class BlogController extends AbstractController{
                 $leaseRequest->setAuthor($user);
                 $leaseRequest->setSlug(Slugger::slugify($user->getFullName().'-'.$leaseRequest->getStartDate()->format("Y-m-d")));
                 $user->addLease($leaseRequest);
+                $leaseRequest->setPrice($leaseRequest->guessPrice());
                 $em->persist($leaseRequest);
                 $em->flush();
 
