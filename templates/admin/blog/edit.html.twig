@@ -4,7 +4,13 @@
 
 {% block main %}
     <div class="row">
-     <div class="column">{{form(form)}}</div>
+     <div class="column">{{form(form)}}
+         {% if is_granted('ROLE_ADMIN') %}
+             <form action="{{path('admin_contract_pdf', {'id' : leaseRequest.id })}}"  style="text-align: center;">
+                 <input class="btn btn-primary" type="submit" value="{{ 'contract.show' | trans }}" />
+             </form>
+         {% endif %}
+    </div>
      <div class="column">
          {{ include('blog/comments.html.twig') }}
      </div>

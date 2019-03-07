@@ -63,6 +63,10 @@ App\Entity\LeaseRequest:
             type: string
             nullable: false
             column: association
+        contract:
+            type: string
+            nullable: true
+            column: contract
 
     manyToOne:
         author:

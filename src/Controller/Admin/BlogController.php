@@ -25,6 +25,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\LeaseRequestType;
 use App\Form\LeaseRequestAdminType;
 use App\Form\CommentType;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * Controller used to manage blog contents in the backend.
@@ -65,70 +67,10 @@ class BlogController extends AbstractController
      */
     public function index(LeaseRequestRepository $posts): Response
     {
-        $authorPosts = $posts->findLatest();
-        return $this->render('admin/blog/index.html.twig', ['posts' => $authorPosts]);
+        $requests = $posts->findLatest();
+        return $this->render('admin/blog/index.html.twig', ['posts' => $requests]);
     }
 
-    /**
-     * Creates a new Post entity.
-     *
-     * @Route("/new", methods={"GET", "POST"}, name="admin_post_new")
-     *
-     * NOTE: the Method annotation is optional, but it's a recommended practice
-     * to constraint the HTTP methods each controller responds to (by default
-     * it responds to all methods).
-     */
-    public function new(Request $request): Response
-    {
-        $post = new LeaseRequest();
-        $post->setAuthor($this->getUser());
-
-        // See https://symfony.com/doc/current/book/forms.html#submitting-forms-with-multiple-buttons
-        $form = $this->createForm(PostType::class, $post)
-            ->add('saveAndCreateNew', SubmitType::class);
-
-        $form->handleRequest($request);
-
-        // the isSubmitted() method is completely optional because the other
-        // isValid() method already checks whether the form is submitted.
-        // However, we explicitly add it to improve code readability.
-        // See https://symfony.com/doc/current/best_practices/forms.html#handling-form-submits
-        if ($form->isSubmitted() && $form->isValid()) {
-            $post->setSlug(Slugger::slugify($post->getTitle()));
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($post);
-            $em->flush();
-
-            // Flash messages are used to notify the user about the result of the
-            // actions. They are deleted automatically from the session as soon
-            // as they are accessed.
-            // See https://symfony.com/doc/current/book/controller.html#flash-messages
-            $this->addFlash('success', 'post.created_successfully');
-
-            if ($form->get('saveAndCreateNew')->isClicked()) {
-                return $this->redirectToRoute('admin_post_new');
-            }
-
-            return $this->redirectToRoute('admin_post_index');
-        }
-
-        return $this->render('admin/blog/new.html.twig', [
-            'post' => $post,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * Finds and displays a Post entity.
-     *
-     * @Route("/{id<\d+>}", methods={"GET"}, name="admin_post_show")
-     */
-    public function show(LeaseRequest $post): Response{
-        return $this->render('admin/blog/show.html.twig', [
-            'post' => $post,
-        ]);
-    }
 
     /**
      * Displays a form to edit an existing Post entity.
@@ -207,4 +149,59 @@ class BlogController extends AbstractController
 
         return $this->redirectToRoute('admin_post_index');
     }
+
+    /**
+     *
+     *
+     *@Route("/{id}/contract.html", methods={"GET"}, name="admin_contract_html")
+     */
+     public function contractHtml(Request $request, LeaseRequest $leaseRequest): Response {
+         return $this->render('pdf/contract.html.twig', array(
+             'leaseRequest' => $leaseRequest));
+     }
+
+     /**
+      *
+      *
+      *@Route("/{id}/contract.pdf", methods={"GET"}, name="admin_contract_pdf")
+      */
+      public function contractPdf(Request $request, LeaseRequest $leaseRequest): Response {
+          // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->set('enable_remote', true);
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('pdf/contract.html.twig', [
+            'title' => "Contract Radix Enschede Verhuur",
+            'leaseRequest' => $leaseRequest,
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $output = $dompdf->output();
+        $publicDirectory = $this->getParameter('contract_directory');
+        // e.g /var/www/project/public/mypdf.pdf
+        $pdfFilepath =  $publicDirectory . '/contract_' . $leaseRequest->getId() . '.pdf';
+        file_put_contents($pdfFilepath, $output);
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => true
+        ]);
+
+
+         return $this->render('pdf/contract.html.twig', array(
+              'leaseRequest' => $leaseRequest));
+      }
 }

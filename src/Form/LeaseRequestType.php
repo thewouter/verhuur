@@ -16,6 +16,7 @@ use App\Form\Type\DateTimePickerType;
 use App\Form\Type\TagsInputType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -50,6 +51,10 @@ class LeaseRequestType extends AbstractType
             ->add('association_type', ChoiceType::class, [
                 'label' => 'label.association_type',
                 'choices' => LeaseRequest::ASSOCIATION_TYPES,
+                'required' => true,
+            ])
+            ->add('association', TextType::class, [
+                'label' => 'label.association',
                 'required' => true,
             ])
             ->add('start_date', DateType::class, [

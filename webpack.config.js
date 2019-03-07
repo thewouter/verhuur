@@ -12,6 +12,7 @@ Encore
     .enableSassLoader()
     .enableVersioning()
     .addEntry('js/app', './assets/js/app.js')
+    .addEntry('image/background_contract', './assets/image/background_contract.jpg')
     .addEntry('js/login', './assets/js/login.js')
     .addEntry('js/admin', './assets/js/admin.js')
     .addEntry('js/search', './assets/js/search.js')

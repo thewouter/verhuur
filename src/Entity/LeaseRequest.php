@@ -136,6 +136,10 @@ class LeaseRequest
      */
     private $tags;
 
+    private $association;
+
+    private $contract;
+
     public function __construct()
     {
         $this->publishedAt = new \DateTime();
@@ -342,6 +346,44 @@ class LeaseRequest
     public function setNumAttendants(int $num_attendants): self
     {
         $this->num_attendants = $num_attendants;
+
+        return $this;
+    }
+
+    public function getAssociation(): ?string
+    {
+        return $this->association;
+    }
+
+    public function setAssociation(string $association): self
+    {
+        $this->association = $association;
+
+        return $this;
+    }
+
+    public function getDeposit(): float {
+        switch ($this->getAssociationType()) {
+            case 'ass_type.regio':
+                return self::DEPOSIT_SCOUITNG;
+                break;
+            case 'ass_type.scouting':
+                return self::DEPOSIT_SCOUITNG;
+                break;
+            default:
+                return self::DEPOSIT_OTHER;
+                break;
+        }
+    }
+
+    public function getContract(): ?string
+    {
+        return $this->contract;
+    }
+
+    public function setContract(?string $contract): self
+    {
+        $this->contract = $contract;
 
         return $this;
     }
