@@ -56,6 +56,16 @@ class LeaseRequestRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page);
     }
 
+    public function findUpcomingAndLastYear(): array {
+        $yearAgo = new \DateTime();
+        $yearAgo->modify('-1 year');
+        $query = $this->createQueryBuilder('p')
+            ->where('p.start_date >= :start')
+            ->setParameter('start', $yearAgo);
+        $query->orderBy('p.publishedAt', 'ASC');
+        return $query->getQuery()->getResult();
+    }
+
     private function createPaginator(Query $query, int $page): Pagerfanta
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query));
