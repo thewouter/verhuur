@@ -6,7 +6,23 @@
 
 {% block main %}
     <div class="row">
-     <div class="column">{{form(form)}}</div>
+     <div class="column">
+         {{ form_start(form) }}
+         {{ form_row(form.title)}}
+         {{ form_row(form.summary)}}
+         {{ form_row(form.association_type)}}
+         {{ form_row(form.start_date)}}
+         {{ form_row(form.end_date)}}
+         {{ form_row(form.num_attendants)}}
+         {{ form_row(form.price)}}
+         {% if form.contract_signed is defined %}
+             {{ form_row(form.contract_signed)}}
+         {% else %}
+            <div class="well" style="display: flex;"> <i class="fa fa-check fa-5x text-success"></i> <div class="fa text-success" style="width: 400px;"> {{ 'label.signed' | trans}} </div> </div>
+         {% endif %}
+         {{ form_row(form.submit)}}
+         {{ form_end(form)}}
+     </div>
      <div class="column">
          {{ include('blog/comments.html.twig') }}
      </div>

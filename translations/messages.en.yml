@@ -113,12 +113,16 @@ label.submit: Submit
 label.name: Tenant
 label.updated: Last activity of tenant
 label.date: Date of lease
-label.question: Ask us a question:
+label.question: 'Ask us a question:'
+label.phone: Phone Number
+label.address: Address
 
 status.placed: Request placed
 status.contract: Contract send
 status.signed: Contract signed
 status.leased: Lease has taken place
+status.rejected: Lease rejected
+status.retracted: Lease retracted
 
 lease.title: Lease case
 lease.status: Status
@@ -133,3 +137,6 @@ post.commented: Opmerking geplaatst.
 no_account: Don't have an account? Make one here!
 request.updated: Your request has been updated!
 overview: Overview lease requests
+
+contract_signed_remove: Delete signed contract
+contract.show: Download contract

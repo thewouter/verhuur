@@ -32,4 +32,4 @@ yarn-error.log
 *.sqlite
 *.env
 
-ledgerware/static/*
+public/contracts/*

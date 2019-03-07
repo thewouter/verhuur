@@ -23,6 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 
 /**
@@ -79,10 +80,18 @@ class LeaseRequestEditType extends AbstractType
                 'label' => 'label.price',
                 'required' => false,
                 'disabled' => true,
-            ])
-            ->add('submit', SubmitType::class, array(
-                 'attr'   => array('class' =>'btn btn-primary',),
-             ));
+            ]);
+        if (!$options['signed_uploaded']) {
+            $builder->add('contract_signed', FileType::class, [
+                    'label' => 'label.upload_signed',
+                    'attr'   => array('class' =>'well',),
+                    'data_class' => null,
+                    'required' => false,
+                ]);
+        }
+        $builder->add('submit', SubmitType::class, array(
+                'attr'   => array('class' =>'btn btn-primary',),
+            ));
     }
 
     /**
@@ -92,6 +101,7 @@ class LeaseRequestEditType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => LeaseRequest::class,
+            'signed_uploaded' => false,
         ]);
     }
 }
