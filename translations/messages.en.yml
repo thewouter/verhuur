@@ -118,6 +118,7 @@ label.phone: Phone Number
 label.address: Address
 label.upload_signed: Upload the signed contract
 label.signed: You have signed the contract!
+label.association: Association
 
 status.placed: Request placed
 status.contract: Contract send

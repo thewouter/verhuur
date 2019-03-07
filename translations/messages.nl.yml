@@ -102,6 +102,7 @@ label.phone: Telefoonnummer
 label.address: Adres
 label.upload_signed: Upload het getekende contract
 label.signed: Je hebt het contract reeds getekend!
+label.association: Vereniging
 
 status.placed: Aanvraag ingediend
 status.contract: Contract verstuurd

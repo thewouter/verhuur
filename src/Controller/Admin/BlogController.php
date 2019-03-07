@@ -48,6 +48,9 @@ class BlogController extends AbstractController
 {
     private $mailer;
 
+        public const RULES_FILE = '/rules.pdf';
+        public const REQUIREMENTS_FILE = '/requirements.pdf';
+
     public function __construct(\Swift_Mailer $mailer) {
         $this->mailer = $mailer;
     }
@@ -230,11 +233,25 @@ class BlogController extends AbstractController
         $leaseRequest->setContract('/unsigned/contract_' . $this->generateUniqueFileName() . '.pdf');
         $this->getDoctrine()->getManager()->flush();
 
+        $message = (new \Swift_Message('Radix Lambarene'))
+            ->setFrom('verhuurder@radixenschede.nl')
+            ->setTo($leaseRequest->getAuthor()->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'email/contract.html.twig',
+                    ['leaseRequest' => $leaseRequest]
+                ),
+                'text/html'
+            )
+            ->attach(\Swift_Attachment::fromPath($pdfFilepath)->setFilename('contract.pdf'))
+            ->attach(\Swift_Attachment::fromPath($publicDirectory.self::RULES_FILE)->setFilename('kampregels.pdf'))
+            ->attach(\Swift_Attachment::fromPath($publicDirectory.self::REQUIREMENTS_FILE)->setFilename('huurvoorwaarden.pdf'));
+        $this->mailer->send($message);
         // Output the generated PDF to Browser (force download)
         $dompdf->stream("mypdf.pdf", [
             "Attachment" => true
         ]);
-
+        dump($pdfFilepath);
 
          return $this->render('pdf/contract.html.twig', array(
               'leaseRequest' => $leaseRequest));
