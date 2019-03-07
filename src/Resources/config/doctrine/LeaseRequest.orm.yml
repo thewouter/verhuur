@@ -59,6 +59,10 @@ App\Entity\LeaseRequest:
             type: integer
             nullable: false
             column: num_attendants
+        association:
+            type: string
+            nullable: false
+            column: association
 
     manyToOne:
         author:

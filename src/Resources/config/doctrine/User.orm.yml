@@ -49,6 +49,14 @@ App\Entity\User:
             length: null
             options:
                 fixed: false
+        address:
+            type: text
+            nullable: false
+            length: 255
+        phone:
+            type: text
+            length: 255
+            nullable: false
 
     oneToMany:
         leases:
