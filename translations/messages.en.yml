@@ -116,6 +116,8 @@ label.date: Date of lease
 label.question: 'Ask us a question:'
 label.phone: Phone Number
 label.address: Address
+label.upload_signed: Upload the signed contract
+label.signed: You have signed the contract!
 
 status.placed: Request placed
 status.contract: Contract send
