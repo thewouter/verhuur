@@ -320,14 +320,12 @@ class BlogController extends AbstractController{
      * @Route("/ical.ics", methods={"GET"}, name="ical")
      */
     public function ical(Request $request, LeaseRequestRepository $repository): Response {
-    print("adaaaaaaaaaaaafad:");
         $leaseRequests = $repository->findUpcomingAndLastYear();
         $response = $this->render('calendar/ical.ics.twig', array('leaseRequests' => $leaseRequests));
         $response->setContent(trim($response->getContent()));
         $response->headers->set('Content-Type', "text/calendar");
         $response->setPublic();
         $response->setMaxAge(7200);
-        print("adfad");
         return $response;
     }
 }
