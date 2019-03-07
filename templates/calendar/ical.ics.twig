@@ -5,7 +5,7 @@ METHOD:PUBLISH
 {% for leaseRequest in leaseRequests %}
 BEGIN:VEVENT
 UID:{{ leaseRequest.id }}@radixenschede.nl\n
-ORGANIZER:mailto:{% trans from 'emails' %}board@abacus.utwente.nl{% endtrans %}\n
+ORGANIZER:mailto:verhuurder@radixenschede.nl\n
 DTSTAMP:{{ 'now' | date('Ymd', 'UTC') }}T{{ 'now' | date('His', 'UTC') }}Z\n
 DTSTART:{{ leaseRequest.startDate | date('Ymd', 'UTC') }}T{{ leaseRequest.startDate | date('His', 'UTC') }}Z\n
 DTEND:{{ leaseRequest.endDate | date('Ymd', 'UTC') }}T{{ leaseRequest.endDate | date('His', 'UTC') }}Z\n
