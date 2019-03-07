@@ -50,7 +50,9 @@ class LeaseRequest
         "status.placed",
         "status.contract",
         "status.signed",
-        "status.leased");
+        "status.leased",
+        "status.rejected",
+        "status.retracted");
 
     private const REGIO_PP = 2;
     private const SCOUTING_pp = 3;
@@ -139,6 +141,8 @@ class LeaseRequest
     private $association;
 
     private $contract;
+
+    private $contract_signed;
 
     public function __construct()
     {
@@ -384,6 +388,18 @@ class LeaseRequest
     public function setContract(?string $contract): self
     {
         $this->contract = $contract;
+
+        return $this;
+    }
+
+    public function getContractSigned(): ?string
+    {
+        return $this->contract_signed;
+    }
+
+    public function setContractSigned(?string $contract_signed): self
+    {
+        $this->contract_signed = $contract_signed;
 
         return $this;
     }

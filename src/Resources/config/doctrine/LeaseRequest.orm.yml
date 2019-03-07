@@ -67,6 +67,10 @@ App\Entity\LeaseRequest:
             type: string
             nullable: true
             column: contract
+        contract_signed:
+            type: string
+            nullable: true
+            column: contract_signed
 
     manyToOne:
         author:
