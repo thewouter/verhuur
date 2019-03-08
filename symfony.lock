@@ -104,6 +104,9 @@
     "erusev/parsedown": {
         "version": "1.8.0-beta-5"
     },
+    "fig/link-util": {
+        "version": "1.0.0"
+    },
     "friendsofphp/php-cs-fixer": {
         "version": "2.2",
         "recipe": {
@@ -151,6 +154,9 @@
     },
     "psr/container": {
         "version": "1.0.x-dev"
+    },
+    "psr/link": {
+        "version": "1.0.0"
     },
     "psr/log": {
         "version": "1.0.x-dev"
@@ -418,6 +424,9 @@
     },
     "symfony/var-exporter": {
         "version": "4.2-dev"
+    },
+    "symfony/web-link": {
+        "version": "v4.2.4"
     },
     "symfony/web-profiler-bundle": {
         "version": "3.3",

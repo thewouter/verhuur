@@ -103,6 +103,7 @@ label.address: Adres
 label.upload_signed: Upload het getekende contract
 label.signed: Je hebt het contract reeds getekend!
 label.association: Vereniging
+label.checked_calendar: Ik heb de <a href="%url%">verhuur kalender</a> gechecked
 
 status.placed: Aanvraag ingediend
 status.contract: Contract verstuurd
@@ -129,3 +130,8 @@ menu.user: Account
 
 contract_signed_remove: Verwijder getekend contract
 contract.show: Download contract
+
+calendar.lease: De verhuurkalender van Lambarene
+
+menu.calendar: Verhuurkalender
+menu.ical: Verhuuragenda exporteren

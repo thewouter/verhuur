@@ -37,6 +37,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 
@@ -51,10 +52,12 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class BlogController extends AbstractController{
     private $passwordEncoder;
     private $mailer;
+    private $translator;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer) {
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer, TranslatorInterface $translator) {
         $this->passwordEncoder = $passwordEncoder;
         $this->mailer = $mailer;
+        $this->translator = $translator;
     }
 
     /**
@@ -135,9 +138,9 @@ class BlogController extends AbstractController{
     public function leaseAdd(Request $request): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $user = $this->getUser();
-
+        $txt = $this->translator->trans('label.checked_calendar', ['%url%'=>$this->get('router')->generate('calendar_show')]);
         $leaseRequest = new LeaseRequest();
-        $form = $this->createForm(LeaseRequestType::class, $leaseRequest);
+        $form = $this->createForm(LeaseRequestType::class, $leaseRequest, array('label' => $this->translator->trans('label.checked_calendar', ['%url%'=>$this->get('router')->generate('calendar_show')])));
         if ($request->getMethod() == "POST"){
             $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()){
@@ -154,6 +157,7 @@ class BlogController extends AbstractController{
         }
         return $this->render('blog/add.html.twig', array(
             'form' => $form->createView(),
+            'txt' => $txt,
         ));
     }
 
@@ -327,5 +331,12 @@ class BlogController extends AbstractController{
         $response->setPublic();
         $response->setMaxAge(7200);
         return $response;
+    }
+
+    /**
+     * @Route("/calendar", methods={"GET"}, name="calendar_show")
+     */
+    public function leaseCalendar(Request $request): Response {
+        return $this->render('calendar/show.html.twig',array());
     }
 }

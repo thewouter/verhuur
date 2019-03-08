@@ -119,6 +119,7 @@ label.address: Address
 label.upload_signed: Upload the signed contract
 label.signed: You have signed the contract!
 label.association: Association
+label.checked_calendar: I have checked the <a href="%url%">lease calendar</a>
 
 status.placed: Request placed
 status.contract: Contract send
@@ -143,3 +144,8 @@ overview: Overview lease requests
 
 contract_signed_remove: Delete signed contract
 contract.show: Download contract
+
+calendar.lease: The lease calendar
+
+menu.calendar: Lease calendar
+menu.ical: Export calendar

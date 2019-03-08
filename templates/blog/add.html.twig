@@ -3,7 +3,17 @@
 {% block body_id 'blog_index' %}
 
 {% block main %}
-     {{form(form)}}
+    {{ form_start(form) }}
+    {{ form_row(form.title)}}
+    {{ form_row(form.summary)}}
+    {{ form_row(form.association_type)}}
+    {{ form_row(form.association)}}
+    {{ form_row(form.start_date)}}
+    {{ form_row(form.end_date)}}
+    {{ form_row(form.num_attendants)}}
+    {{ form_row(form.checked_calendar)}}<label for="{{ form.checked_calendar.vars.id }}">{{ txt|raw }}</label>
+    {{ form_row(form.submit)}}
+    {{ form_end(form)}}
 {% endblock %}
 
 {% block sidebar %}

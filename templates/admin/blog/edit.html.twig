@@ -2,6 +2,10 @@
 
 {% block body_id 'admin_post_edit' %}
 
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
 {% block main %}
     <div class="row">
      <div class="column">{{form(form)}}
@@ -12,7 +16,15 @@
          {% endif %}
     </div>
      <div class="column">
-         {{ include('blog/comments.html.twig') }}
+        <div style="display: flex; justify-content:space-between">
+            <a class=" btn btn-default " > <i class="fa fa-check"></i> </a>
+            <a class=" btn btn-default " ><i class="fa fa-file-contract"></i></a>
+            <a class=" btn btn-default " ><i class="fa fa-file-signature"></i></a>
+            <a class=" btn btn-default " ><i class="fa fa-beer"></i></a>
+            <a class=" btn btn-default " ><i class="fab fa-creative-commons-nc-eu"></i></a>
+            <a class=" btn btn-default " ><i class="fa fa-phone-slash "></i></a>
+        </div>
+        {{ include('blog/comments.html.twig') }}
      </div>
     </div>
 {% endblock %}

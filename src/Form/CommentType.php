@@ -44,7 +44,8 @@ class CommentType extends AbstractType
         $label = ($options['is_admin']? 'label.response' : 'label.question');
         $builder
             ->add('content', TextareaType::class, array(
-                'label' => $label
+                'label' => $label,
+                'attr' => array('rows' => '7'),
             ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'label.submit',

@@ -23,6 +23,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 
 /**
@@ -47,6 +48,7 @@ class LeaseRequestType extends AbstractType
             ])
             ->add('summary', TextareaType::class, [
                 'label' => 'label.summary',
+                'attr' => array('rows' => '7'),
             ])
             ->add('association_type', ChoiceType::class, [
                 'label' => 'label.association_type',
@@ -75,6 +77,12 @@ class LeaseRequestType extends AbstractType
                 'label' => 'label.num_attendants',
                 'required' => true,
             ])
+            ->add('checked_calendar', CheckboxType::class, array(
+                    'data_class' => null,
+                    'required' => true,
+                    'mapped' => false,
+                    'label' => ' ',
+                ))
             ->add('submit', SubmitType::class, array(
                  'attr'   => array('class' =>'btn btn-primary',),
             ));
@@ -87,6 +95,7 @@ class LeaseRequestType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => LeaseRequest::class,
+            'label' => ""
         ]);
     }
 }
