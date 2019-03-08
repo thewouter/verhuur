@@ -3,8 +3,87 @@
 {% block body_id 'admin_post_edit' %}
 
 {% block javascripts %}
-    {{ parent() }}
+{{ encore_entry_script_tags('js/app') }}
+    <script language="JavaScript" type="text/javascript" src="/build/js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#default_1").click(function(){
+            $("#comment_content").text("Dag,\n\
+\n\
+Je aanvraag voor het huren van de Lambarene is goedgekeurd. Dit is geen definitieve bevestiging! De aanvraag is pas definitief als het getekende contract door ons ontvangen is.\n\
+\n\
+De huur voor de gewenste periode bedraagt €XXX,- exclusief de €250,- borg en de energiekosten.\n\
+\n\
+Dan rest verder de vraag hoe laat jullie bij het gebouw verwachten te zijn, en hoe laat jullie dit weer willen opleveren. Deze tijden wil ik liefst twee weken voor aanvang, uiterlijk één week voor aanvang hebben.\n\
+Door de week graag op een van de volgende tijden: 12:30, 17:30, 22:00. In het weekend zijn soepelere tijden mogelijk.\n\
+\n\
+=======================\n\
+\n\
+In antwoord op je vraag:\n\
+\n\
+===Wij hebben geen stookvergunning; echter in de praktijk willen huurders nog wel eens een (beschaafd) vuur stoken in de kampvuurkuil. Dit heeft in het verleden nooit tot problemen geleid - en dat zouden we graag zo houden.\n\
+\n\
+===Het terrein biedt plaats aan ca. 4 auto's\n\
+\n\
+===Kamperen kan, er is een plaats van ca. 5 bij 7 meter beschikbaar.\n\
+\n\
+===Het betreft een enkelwandige blokhut, in de wintermaanden kan het dus wat fris zijn. Mocht het onverhoopt toch vriezen dan mag je kosteloos 24 uur van tevoren annuleren.\n\
+\n\
+===De keukeninventaris bedraagt een 15-tal borden en mokken. Een waterkoker, gasfornuis zonder oven, koffiezetapparaat en een koelkast. Er zijn, zoals duidelijk te zien is op de website, geen bedden in het gebouw aanwezig.\n\
+\n\
+===Verder moet ik erbij vermelden dat wij maximaal plaats kunnen bieden aan 30 slapers.\n\
+\n\
+=========================\n\
+\n\
+        ")
+        });
+        $("#default_4").click(function(){
+            $("#comment_content").text("\n\
+\n\
+Tot slot nog een algemene opmerking die ik voor elke cantus maak: bij oplevering dient het gebouw schoon en bruikbaar te zijn, een volgende huurder moet er gewoon in kunnen overnachten zonder problemen. Er mag dus geen bloem (meer) aan het plafond zitten, het mag niet naar bier stinken (desnoods ruikt het dan naar schoonmaakmiddel), etc. Dit is geen kritiek op jullie, maar zeg ik enkel zodat jullie hiermee rekening kunnen houden. Eerdere cantussen hebben dit gedaan door een stuk zeil of plastic op de vloer te leggen zodat hier geen bierlucht in kan trekken, bijvoorbeeld.\n\
+\n\
+        ")
+        });
+        $("#default_2").click(function(){
+            $("#comment_content").text("Dag,\n\
+\n\
+Graag het contract ondertekenen en een gescand exemplaar uploaden of per mail retourneren.\n\
+\n\
+        ")
+        });
+        $("#default_3").click(function(){
+            $("#comment_content").text("\n\
+\n\
+Dag,\n\
+\n\
+Ik heb je onlangs een contract toegestuurd en volgens mijn administratie heb ik deze nog niet retour mogen ontvangen. Klopt dat?\n\
+        ")
+        });
+        $("#default_5").click(function(){
+            $("#comment_content").text("\n\
+            Dag,\n\
+\n\
+            Ik heb nog geen betaling van je mogen ontvangen voor de verhuur van de Lambarene. Klopt dat?\n\
+        ")
+        });
+        $("#default_6").click(function(){
+            $("#comment_content").text("Dag,\n\
+            De verhuur van de Lambarene wordt geregeld door een aantal leden van Radix op een vrijwillige basis. Omdat deze leden overdag en 's avonds niet altijd bereikbaar zijn handelen we het liefst alles per mail af. Normaliter heb je dan ook binnen een aantal dagen antwoord.\n\
+            Ook omdat de verhuur door meerdere mensen wordt afgehandeld, is het handig om alles wat besproken is op de mail te hebben staan.\n\
+\n\
+            Om zoveel mogelijk vragen af te vangen proberen we via onze site alvast zoveel mogelijk informatie te verschaffen. Zo staat de inventaris, impressiefoto's, en veel nuttige informatie op www.radixenschede.nl/verhuur.\n\
+\n\
+            Ik snap dat dit soms wat onpraktisch kan overkomen, tenslotte zou het met één telefoontje allemaal geregeld zijn. In de praktijk blijkt echter dat een hoop communicatie intern dan langs elkaar loopt, en het veelal niet bij één telefoontje blijft. Het desbetreffende lid dient vervolgens alles wat besproken is weer op de mail te zetten, zodat deze miscommunicatie juist niet ontstaat.\n\
+            Vaak dient een open mailconversatie ook als kattenbelletje dat er bijvoorbeeld nog een contract opgesteld moet worden, iets wat er na een telefoongesprek, wat haastig is gevoerd tijdens een college of onderweg, er nog wel eens bij in kan schieten.\n\
+\n\
+            Ik hoop dat ik voldoende heb gemotiveerd waarom we verhuurzaken uitsluitend per mail afhandelen.\n\
+        ")
+        });
+    });
+    </script>
 {% endblock %}
+
+
 
 {% block main %}
     <div class="row">
@@ -16,14 +95,6 @@
          {% endif %}
     </div>
      <div class="column">
-        <div style="display: flex; justify-content:space-between">
-            <a class=" btn btn-default " > <i class="fa fa-check"></i> </a>
-            <a class=" btn btn-default " ><i class="fa fa-file-contract"></i></a>
-            <a class=" btn btn-default " ><i class="fa fa-file-signature"></i></a>
-            <a class=" btn btn-default " ><i class="fa fa-beer"></i></a>
-            <a class=" btn btn-default " ><i class="fab fa-creative-commons-nc-eu"></i></a>
-            <a class=" btn btn-default " ><i class="fa fa-phone-slash "></i></a>
-        </div>
         {{ include('blog/comments.html.twig') }}
      </div>
     </div>
