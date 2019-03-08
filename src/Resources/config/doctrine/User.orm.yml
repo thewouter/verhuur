@@ -57,6 +57,10 @@ App\Entity\User:
             type: text
             length: 255
             nullable: false
+        password_reset:
+            type: text
+            lenght: 255
+            nullable: true
 
     oneToMany:
         leases:

@@ -127,6 +127,7 @@ post.commented: Comment posted.
 overview: Overzicht verhuuraanvragen
 request.updated: Je aanvraag is geupdated!
 menu.user: Account
+login.password_reset: Reset mijn wachtwoord
 
 contract_signed_remove: Verwijder getekend contract
 contract.show: Download contract

@@ -38,6 +38,8 @@ class User implements UserInterface, \Serializable {
     */
     private $leases;
 
+    private $password_reset;
+
     public function __construct() {
         $this->leases = new ArrayCollection();
     }
@@ -254,6 +256,18 @@ class User implements UserInterface, \Serializable {
     public function setPhone(string $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getPasswordReset(): ?string
+    {
+        return $this->password_reset;
+    }
+
+    public function setPasswordReset(?string $password_reset): self
+    {
+        $this->password_reset = $password_reset;
 
         return $this;
     }

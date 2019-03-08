@@ -141,6 +141,7 @@ post.commented: Opmerking geplaatst.
 no_account: Don't have an account? Make one here!
 request.updated: Your request has been updated!
 overview: Overview lease requests
+login.password_reset: Reset my password
 
 contract_signed_remove: Delete signed contract
 contract.show: Download contract

@@ -15,6 +15,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\User;
+use App\Form\ResetPasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Controller used to manage the application security.
@@ -25,6 +31,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  */
 class SecurityController extends AbstractController
 {
+    private $mailer;
+
+    public function __construct(\Swift_Mailer $mailer) {
+        $this->mailer = $mailer;
+    }
     /**
      * @Route("/login", name="security_login")
      */
@@ -44,5 +55,83 @@ class SecurityController extends AbstractController
     public function logout(): void
     {
         throw new \Exception('This should never be reached!');
+    }
+
+    /**
+     * @Route("/reset/{id<\d+>}/generate", name="security_reset_generate")
+     */
+    /*public function resetPasswordGenerate(Request $request, User $user): Response {
+        $resetLink = substr(md5(rand()), 0, 30);
+        $user->setPasswordReset($resetLink);
+        $this->getDoctrine()->getManager()->flush();
+
+        $message = (new \Swift_Message('Radix Lambarene'))
+            ->setFrom('verhuurder@radixenschede.nl')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'email/password_reset.html.twig',
+                    ['password_reset' => $resetLink]
+                ),
+                'text/html'
+            );
+            $this->mailer->send($message);
+
+        return $this->redirectToRoute('homepage');
+    }*/
+
+    /**
+     * @Route("/reset/{password_reset}", name="security_reset")
+     */
+    public function resetPassword(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response {
+        $form = $this->createForm(ResetPasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $user->setPassword($encoder->encodePassword($user, $form->get('password')->getData()));
+            $user->setPasswordReset(null);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('homepage');
+        }
+        return $this->render('security/password_reset.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/reset", name="security_reset_page")
+     */
+    public function resetPasswordGenerate(Request $request): Response {
+        $form = $this->createFormBuilder()
+            ->add('email', TextType::class)
+            ->add('submit', SubmitType::class, ['label' => 'submit'])
+            ->getForm();
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $user = $this->getDoctrine()->getRepository('App:User')->findByEmail($form->getData()['email']);
+            $resetLink = substr(md5(rand()), 0, 30);
+            $user = $user[0];
+            $user->setPasswordReset($resetLink);
+            $this->getDoctrine()->getManager()->flush();
+
+            $message = (new \Swift_Message('Radix Lambarene'))
+                ->setFrom('verhuurder@radixenschede.nl')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'email/password_reset.html.twig',
+                        ['password_reset' => $resetLink]
+                    ),
+                    'text/html'
+                );
+                $this->mailer->send($message);
+
+            return $this->redirectToRoute('homepage');
+        }
+        return $this->render('security/password_reset.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
