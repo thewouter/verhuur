@@ -58,29 +58,6 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/reset/{id<\d+>}/generate", name="security_reset_generate")
-     */
-    /*public function resetPasswordGenerate(Request $request, User $user): Response {
-        $resetLink = substr(md5(rand()), 0, 30);
-        $user->setPasswordReset($resetLink);
-        $this->getDoctrine()->getManager()->flush();
-
-        $message = (new \Swift_Message('Radix Lambarene'))
-            ->setFrom('verhuurder@radixenschede.nl')
-            ->setTo($user->getEmail())
-            ->setBody(
-                $this->renderView(
-                    'email/password_reset.html.twig',
-                    ['password_reset' => $resetLink]
-                ),
-                'text/html'
-            );
-            $this->mailer->send($message);
-
-        return $this->redirectToRoute('homepage');
-    }*/
-
-    /**
      * @Route("/reset/{password_reset}", name="security_reset")
      */
     public function resetPassword(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response {
@@ -91,6 +68,7 @@ class SecurityController extends AbstractController
             $user->setPassword($encoder->encodePassword($user, $form->get('password')->getData()));
             $user->setPasswordReset(null);
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'reset.succesfull');
             return $this->redirectToRoute('homepage');
         }
         return $this->render('security/password_reset.html.twig', [
@@ -112,6 +90,10 @@ class SecurityController extends AbstractController
 
             $user = $this->getDoctrine()->getRepository('App:User')->findByEmail($form->getData()['email']);
             $resetLink = substr(md5(rand()), 0, 30);
+            if (empty($user)){
+                $this->addFlash('error', 'user.not_found');
+                return $this->redirectToRoute('homepage');
+            }
             $user = $user[0];
             $user->setPasswordReset($resetLink);
             $this->getDoctrine()->getManager()->flush();
