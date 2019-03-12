@@ -218,6 +218,7 @@ class BlogController extends AbstractController{
            'form' => $form->createView(),
            'leaseRequest' => $leaseRequest,
            'commentForm' => $commentForm->createView(),
+           'admin' => false,
         ));
     }
 

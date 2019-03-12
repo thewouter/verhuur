@@ -11,6 +11,7 @@
                 <th scope="col">{{ 'label.name'|trans }}</th>
                 <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> {{ 'label.updated'|trans }}</th>
                 <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> {{ 'label.date'|trans }}</th>
+                <th scope="col"></th>
                 <th scope="col" class="text-center"><i class="fa fa-cogs" aria-hidden="true"></i> {{ 'label.actions'|trans }}</th>
             </tr>
         </thead>
@@ -21,6 +22,13 @@
                 <td>{{ post.author.fullName }}</td>
                 <td>{{ post.publishedAt|localizeddate('medium', 'short', null, 'Europe/Amsterdam') }}</td>
                 <td>{{ post.startDate|localizeddate('medium', 'none', null, 'UTC') }}</td>
+                <td class="text-right">
+                    <div class="item-actions">
+                        <a href="{{ path('admin_post_unread', {id: post.id}) }}" class="btn btn-sm btn-primary">
+                            <i class="far fa-envelope"></i>
+                        </a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="item-actions">
                         <a href="{{ path('admin_post_edit', {id: post.id}) }}" class="btn btn-sm btn-primary">
@@ -34,6 +42,8 @@
                 <td><b>{{ post.author.fullName }}</b></td>
                 <td><b>{{ post.publishedAt|localizeddate('medium', 'short', null, 'Europe/Amsterdam') }}</b></td>
                 <td><b>{{ post.startDate|localizeddate('medium', 'none', null, 'UTC') }}</b></td>
+                <td class="text-right">
+                </td>
                 <td class="text-right">
                     <div class="item-actions">
                         <a href="{{ path('admin_post_edit', {id: post.id}) }}" class="btn btn-sm btn-primary">

@@ -6,3 +6,4 @@ comment.too_short: Reactie is te kort (minimaal { limit } karakters)
 comment.too_long: Reactie is te lang (maximaal { limit } karakters)
 comment.is_spam: De inhoud van deze reactie wordt als spam gemarkeerd.
 daterange.violation.crossing: De einddatum moet na de begindatum zijn!
+daterange.violation.occupied: Deze data zijn al bezet.

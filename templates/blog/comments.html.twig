@@ -32,14 +32,14 @@
 
 <div> {{form_start(commentForm)}}
     {{form_row(commentForm.content)}}
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if admin %}
     <div style="display: flex; justify-content:space-between">
-        <div class=" btn btn-default" id="default_1" > <i class="fa fa-check"></i> </div>
-        <div class=" btn btn-default" id="default_2" ><i class="fa fa-file-contract"></i></div>
-        <div class=" btn btn-default" id="default_3" ><i class="fa fa-file-signature"></i></div>
-        <div class=" btn btn-default" id="default_4" ><i class="fa fa-beer"></i></div>
-        <div class=" btn btn-default" id="default_5" ><i class="fab fa-creative-commons-nc-eu"></i></div>
-        <div class=" btn btn-default" id="default_6" ><i class="fa fa-phone-slash "></i></div>
+        <div class=" btn btn-primary" id="default_1" > <i class="fa fa-check"></i> </div>
+        <div class=" btn btn-primary" id="default_2" ><i class="fa fa-file-contract"></i></div>
+        <div class=" btn btn-primary" id="default_3" ><i class="fa fa-file-signature"></i></div>
+        <div class=" btn btn-primary" id="default_4" ><i class="fa fa-beer"></i></div>
+        <div class=" btn btn-primary" id="default_5" ><i class="fab fa-creative-commons-nc-eu"></i></div>
+        <div class=" btn btn-primary" id="default_6" ><i class="fa fa-phone-slash "></i></div>
     </div>
     {% endif %}
         {{form_row(commentForm.submit)}}

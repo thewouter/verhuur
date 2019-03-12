@@ -56,6 +56,16 @@ class LeaseRequestRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page);
     }
 
+    public function findInDateRange(\DateTime $start, \DateTime $end): array {
+        return $this->createQueryBuilder('p')
+            ->where('p.start_date >= :start AND p.start_date < :end')
+            ->orWhere('p.end_date > :start AND p.end_date <= :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findUpcomingAndLastYear(): array {
         $yearAgo = new \DateTime();
         $yearAgo->modify('-1 year');

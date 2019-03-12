@@ -3,6 +3,7 @@
 {% block body_id 'blog_index' %}
 
 {% block main %}
+    {{ form_errors(form) }}
     {{ form_start(form) }}
     {{ form_row(form.title)}}
     {{ form_row(form.summary)}}

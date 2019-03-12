@@ -9,6 +9,7 @@ class DateRange extends Constraint {
     public $message = "daterange.violation.crossing";
     public $emptyStartDate = "daterange.violation.startDate";
     public $emptyEndDate = "daterange.violation.endDate";
+    public $messageOccupied = "daterange.violation.occupied";
 
     public $hasEndDate = true;
 

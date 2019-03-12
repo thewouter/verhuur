@@ -75,6 +75,16 @@ class BlogController extends AbstractController
         return $this->render('admin/blog/index.html.twig', ['posts' => $requests]);
     }
 
+    /**
+     * Unread lease request
+     *
+     * @route("{id<\d+>}/unread", name="admin_post_unread")
+     */
+    public function unread(Request $request, LeaseRequest $leaseRequest): Response {
+        $leaseRequest->setRead(false);
+        $this->getDoctrine()->getManager()->flush();
+        return $this->redirectToRoute('admin_index');
+    }
 
     /**
      * Displays a form to edit an existing LeaseRequest entity.
@@ -149,6 +159,7 @@ class BlogController extends AbstractController
             'leaseRequest' => $leaseRequest,
             'form' => $form->createView(),
             'commentForm' => $commentForm->createView(),
+            'admin' => true,
         ]);
     }
 
