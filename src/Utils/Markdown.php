@@ -23,19 +23,16 @@ use HtmlSanitizer\SanitizerInterface;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class Markdown
-{
+class Markdown {
     private $parser;
     private $sanitizer;
 
-    public function __construct(SanitizerInterface $sanitizer)
-    {
+    public function __construct(SanitizerInterface $sanitizer) {
         $this->parser = new \Parsedown();
         $this->sanitizer = $sanitizer;
     }
 
-    public function toHtml(string $text): string
-    {
+    public function toHtml(string $text): string {
         $html = $this->parser->text($text);
         $safeHtml = $this->sanitizer->sanitize($html);
 

@@ -46,8 +46,7 @@ use Symfony\Component\Stopwatch\Stopwatch;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class AddUserCommand extends Command
-{
+class AddUserCommand extends Command {
     // to make your command lazily loaded, configure the $defaultName static property,
     // so it will be instantiated only when the command is actually called.
     protected static $defaultName = 'app:add-user';
@@ -62,8 +61,7 @@ class AddUserCommand extends Command
     private $validator;
     private $users;
 
-    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, Validator $validator, UserRepository $users)
-    {
+    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, Validator $validator, UserRepository $users) {
         parent::__construct();
 
         $this->entityManager = $em;
@@ -75,8 +73,7 @@ class AddUserCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure(): void
-    {
+    protected function configure(): void {
         $this
             ->setDescription('Creates users and stores them in the database')
             ->setHelp($this->getCommandHelp())
@@ -94,8 +91,7 @@ class AddUserCommand extends Command
      * This optional method is the first one executed for a command after configure()
      * and is useful to initialize properties based on the input arguments and options.
      */
-    protected function initialize(InputInterface $input, OutputInterface $output): void
-    {
+    protected function initialize(InputInterface $input, OutputInterface $output): void {
         // SymfonyStyle is an optional feature that Symfony provides so you can
         // apply a consistent look to the commands of your application.
         // See https://symfony.com/doc/current/console/style.html
@@ -112,8 +108,7 @@ class AddUserCommand extends Command
      * quite a lot of work. However, if the command is meant to be used by external
      * users, this method is a nice way to fall back and prevent errors.
      */
-    protected function interact(InputInterface $input, OutputInterface $output)
-    {
+    protected function interact(InputInterface $input, OutputInterface $output) {
         if (null !== $input->getArgument('username') && null !== $input->getArgument('password') && null !== $input->getArgument('email') && null !== $input->getArgument('full-name')) {
             return;
         }
@@ -169,8 +164,7 @@ class AddUserCommand extends Command
      * This method is executed after interact() and initialize(). It usually
      * contains the logic to execute to complete this command task.
      */
-    protected function execute(InputInterface $input, OutputInterface $output): void
-    {
+    protected function execute(InputInterface $input, OutputInterface $output): void {
         $stopwatch = new Stopwatch();
         $stopwatch->start('add-user-command');
 
@@ -205,8 +199,7 @@ class AddUserCommand extends Command
         }
     }
 
-    private function validateUserData($username, $plainPassword, $email, $fullName): void
-    {
+    private function validateUserData($username, $plainPassword, $email, $fullName): void {
         // first check if a user with the same username already exists.
         $existingUser = $this->users->findOneBy(['username' => $username]);
 
@@ -232,8 +225,7 @@ class AddUserCommand extends Command
      * it's too long, it's better to define a separate method to maintain the
      * code readability.
      */
-    private function getCommandHelp(): string
-    {
+    private function getCommandHelp(): string {
         return <<<'HELP'
 The <info>%command.name%</info> command creates new users and saves them in the database:
 

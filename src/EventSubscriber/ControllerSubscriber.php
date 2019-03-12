@@ -25,24 +25,20 @@ use Symfony\Component\HttpKernel\KernelEvents;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class ControllerSubscriber implements EventSubscriberInterface
-{
+class ControllerSubscriber implements EventSubscriberInterface {
     private $twigExtension;
 
-    public function __construct(SourceCodeExtension $twigExtension)
-    {
+    public function __construct(SourceCodeExtension $twigExtension) {
         $this->twigExtension = $twigExtension;
     }
 
-    public static function getSubscribedEvents(): array
-    {
+    public static function getSubscribedEvents(): array {
         return [
             KernelEvents::CONTROLLER => 'registerCurrentController',
         ];
     }
 
-    public function registerCurrentController(FilterControllerEvent $event): void
-    {
+    public function registerCurrentController(FilterControllerEvent $event): void {
         // this check is needed because in Symfony a request can perform any
         // number of sub-requests. See
         // https://symfony.com/doc/current/components/http_kernel/introduction.html#sub-requests

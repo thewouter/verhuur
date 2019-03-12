@@ -18,8 +18,7 @@ namespace App\Utils;
  *
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class MomentFormatConverter
-{
+class MomentFormatConverter {
     /**
      * This defines the mapping between PHP ICU date format (key) and moment.js date format (value)
      * For ICU formats see http://userguide.icu-project.org/formatparse/datetime#TOC-Date-Time-Format-Syntax
@@ -43,8 +42,7 @@ class MomentFormatConverter
     /**
      * Returns associated moment.js format.
      */
-    public function convert(string $format): string
-    {
+    public function convert(string $format): string {
         return strtr($format, self::$formatConvertRules);
     }
 }

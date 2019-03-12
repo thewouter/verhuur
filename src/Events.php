@@ -20,8 +20,7 @@ namespace App;
  *
  * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
  */
-final class Events
-{
+final class Events {
     /**
      * For the event naming conventions, see:
      * https://symfony.com/doc/current/components/event_dispatcher.html#naming-conventions.

@@ -26,20 +26,17 @@ use Symfony\Component\Form\DataTransformerInterface;
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  * @author Jonathan Boyer <contact@grafikart.fr>
  */
-class TagArrayToStringTransformer implements DataTransformerInterface
-{
+class TagArrayToStringTransformer implements DataTransformerInterface {
     private $tags;
 
-    public function __construct(TagRepository $tags)
-    {
+    public function __construct(TagRepository $tags) {
         $this->tags = $tags;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function transform($tags): string
-    {
+    public function transform($tags): string {
         // The value received is an array of Tag objects generated with
         // Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer::transform()
         // The value returned is a string that concatenates the string representation of those objects
@@ -51,8 +48,7 @@ class TagArrayToStringTransformer implements DataTransformerInterface
     /**
      * {@inheritdoc}
      */
-    public function reverseTransform($string): array
-    {
+    public function reverseTransform($string): array {
         if ('' === $string || null === $string) {
             return [];
         }

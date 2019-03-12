@@ -26,8 +26,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  *
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class PostVoter extends Voter
-{
+class PostVoter extends Voter {
     // Defining these constants is overkill for this simple application, but for real
     // applications, it's a recommended practice to avoid relying on "magic strings"
     private const SHOW = 'show';
@@ -37,8 +36,7 @@ class PostVoter extends Voter
     /**
      * {@inheritdoc}
      */
-    protected function supports($attribute, $subject): bool
-    {
+    protected function supports($attribute, $subject): bool {
         // this voter is only executed for three specific permissions on Post objects
         return $subject instanceof Post && \in_array($attribute, [self::SHOW, self::EDIT, self::DELETE], true);
     }
@@ -46,8 +44,7 @@ class PostVoter extends Voter
     /**
      * {@inheritdoc}
      */
-    protected function voteOnAttribute($attribute, $post, TokenInterface $token): bool
-    {
+    protected function voteOnAttribute($attribute, $post, TokenInterface $token): bool {
         $user = $token->getUser();
 
         // the user must be logged in; if not, deny permission

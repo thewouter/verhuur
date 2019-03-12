@@ -33,8 +33,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class LeaseRequest
-{
+class LeaseRequest {
     /**
      * Use constants to define configuration options that rarely change instead
      * of specifying them under parameters section in config/services.yaml file.
@@ -148,8 +147,7 @@ class LeaseRequest
 
     private $contract_signed;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->publishedAt = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
@@ -157,58 +155,47 @@ class LeaseRequest
         $this->status = 0;
     }
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getTitle(): ?string
-    {
+    public function getTitle(): ?string {
         return $this->title;
     }
 
-    public function setTitle(string $title): void
-    {
+    public function setTitle(string $title): void {
         $this->title = $title;
     }
 
-    public function getSlug(): ?string
-    {
+    public function getSlug(): ?string {
         return $this->slug;
     }
 
-    public function setSlug(string $slug): void
-    {
+    public function setSlug(string $slug): void {
         $this->slug = $slug;
     }
 
-    public function getPublishedAt(): \DateTime
-    {
+    public function getPublishedAt(): \DateTime {
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(\DateTime $publishedAt): void
-    {
+    public function setPublishedAt(\DateTime $publishedAt): void {
         $this->publishedAt = $publishedAt;
     }
 
-    public function getAuthor(): ?User
-    {
+    public function getAuthor(): ?User {
         return $this->author;
     }
 
-    public function setAuthor(User $author): void
-    {
+    public function setAuthor(User $author): void {
         $this->author = $author;
     }
 
-    public function getComments(): Collection
-    {
+    public function getComments(): Collection {
         return $this->comments;
     }
 
-    public function addComment(Comment $comment): void
-    {
+    public function addComment(Comment $comment): void {
         $comment->setPost($this);
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
@@ -216,23 +203,19 @@ class LeaseRequest
         $this->setPublishedAt(new \DateTime());
     }
 
-    public function removeComment(Comment $comment): void
-    {
+    public function removeComment(Comment $comment): void {
         $this->comments->removeElement($comment);
     }
 
-    public function getSummary(): ?string
-    {
+    public function getSummary(): ?string {
         return $this->summary;
     }
 
-    public function setSummary(string $summary): void
-    {
+    public function setSummary(string $summary): void {
         $this->summary = $summary;
     }
 
-    public function addTag(Tag ...$tags): void
-    {
+    public function addTag(Tag ...$tags): void {
         foreach ($tags as $tag) {
             if (!$this->tags->contains($tag)) {
                 $this->tags->add($tag);
@@ -240,13 +223,11 @@ class LeaseRequest
         }
     }
 
-    public function removeTag(Tag $tag): void
-    {
+    public function removeTag(Tag $tag): void {
         $this->tags->removeElement($tag);
     }
 
-    public function getTags(): Collection
-    {
+    public function getTags(): Collection {
         return $this->tags;
     }
 
@@ -258,49 +239,41 @@ class LeaseRequest
 
     private $price;
 
-    public function getStartDate(): ?\DateTimeInterface
-    {
+    public function getStartDate(): ?\DateTimeInterface {
         return $this->start_date;
     }
 
-    public function setStartDate(?\DateTimeInterface $start_date): self
-    {
+    public function setStartDate(?\DateTimeInterface $start_date): self {
         $this->start_date = $start_date;
 
         return $this;
     }
 
-    public function getEndDate(): ?\DateTimeInterface
-    {
+    public function getEndDate(): ?\DateTimeInterface {
         return $this->end_date;
     }
 
-    public function setEndDate(?\DateTimeInterface $end_date): self
-    {
+    public function setEndDate(?\DateTimeInterface $end_date): self {
         $this->end_date = $end_date;
 
         return $this;
     }
 
-    public function getAssociationType(): ?string
-    {
+    public function getAssociationType(): ?string {
         return $this->association_type;
     }
 
-    public function setAssociationType(string $association_type): self
-    {
+    public function setAssociationType(string $association_type): self {
         $this->association_type = $association_type;
 
         return $this;
     }
 
-    public function getPrice(): ?float
-    {
+    public function getPrice(): ?float {
         return $this->price;
     }
 
-    public function setPrice(?float $price): self
-    {
+    public function setPrice(?float $price): self {
         $this->price = $price;
 
         return $this;
@@ -326,45 +299,38 @@ class LeaseRequest
         return 0;
     }
 
-    public function getStatus(): ?string
-    {
+    public function getStatus(): ?string {
         return $this->status;
     }
 
-    public function getStatusText(): ?string
-    {
-        if(is_null($this->status)){
+    public function getStatusText(): ?string {
+        if (is_null($this->status)) {
             return self::STATUSES[0];
         }
         return self::STATUSES[$this->getStatus()];
     }
 
-    public function setStatus(?string $status): self
-    {
+    public function setStatus(?string $status): self {
         $this->status = $status;
 
         return $this;
     }
 
-    public function getNumAttendants(): ?int
-    {
+    public function getNumAttendants(): ?int {
         return $this->num_attendants;
     }
 
-    public function setNumAttendants(int $num_attendants): self
-    {
+    public function setNumAttendants(int $num_attendants): self {
         $this->num_attendants = $num_attendants;
 
         return $this;
     }
 
-    public function getAssociation(): ?string
-    {
+    public function getAssociation(): ?string {
         return $this->association;
     }
 
-    public function setAssociation(string $association): self
-    {
+    public function setAssociation(string $association): self {
         $this->association = $association;
 
         return $this;
@@ -384,37 +350,31 @@ class LeaseRequest
         }
     }
 
-    public function getContract(): ?string
-    {
+    public function getContract(): ?string {
         return $this->contract;
     }
 
-    public function setContract(?string $contract): self
-    {
+    public function setContract(?string $contract): self {
         $this->contract = $contract;
 
         return $this;
     }
 
-    public function getContractSigned(): ?string
-    {
+    public function getContractSigned(): ?string {
         return $this->contract_signed;
     }
 
-    public function setContractSigned(?string $contract_signed): self
-    {
+    public function setContractSigned(?string $contract_signed): self {
         $this->contract_signed = $contract_signed;
 
         return $this;
     }
 
-    public function getRead(): ?bool
-    {
+    public function getRead(): ?bool {
         return $this->read;
     }
 
-    public function setRead(?bool $read): self
-    {
+    public function setRead(?bool $read): self {
         $this->read = $read;
 
         return $this;

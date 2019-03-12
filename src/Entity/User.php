@@ -97,56 +97,46 @@ class User implements UserInterface, \Serializable {
 
     private $phone;
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function setFullName(string $fullName): void
-    {
+    public function setFullName(string $fullName): void {
         $this->fullName = $fullName;
     }
 
-    public function getFullName(): ?string
-    {
+    public function getFullName(): ?string {
         return $this->fullName;
     }
 
-    public function getUsername(): ?string
-    {
+    public function getUsername(): ?string {
         return $this->username;
     }
 
-    public function setUsername(string $username): void
-    {
+    public function setUsername(string $username): void {
         $this->username = $username;
     }
 
-    public function getEmail(): ?string
-    {
+    public function getEmail(): ?string {
         return $this->email;
     }
 
-    public function setEmail(string $email): void
-    {
+    public function setEmail(string $email): void {
         $this->email = $email;
     }
 
-    public function getPassword(): ?string
-    {
+    public function getPassword(): ?string {
         return $this->password;
     }
 
-    public function setPassword(string $password): void
-    {
+    public function setPassword(string $password): void {
         $this->password = $password;
     }
 
     /**
      * Returns the roles or permissions granted to the user for security.
      */
-    public function getRoles(): array
-    {
+    public function getRoles(): array {
         $roles = $this->roles;
 
         // guarantees that a user always has at least one role for security
@@ -157,8 +147,7 @@ class User implements UserInterface, \Serializable {
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): void
-    {
+    public function setRoles(array $roles): void {
         $this->roles = $roles;
     }
 
@@ -167,8 +156,7 @@ class User implements UserInterface, \Serializable {
      *
      * {@inheritdoc}
      */
-    public function getSalt(): ?string
-    {
+    public function getSalt(): ?string {
         // See "Do you need to use a Salt?" at https://symfony.com/doc/current/cookbook/security/entity_provider.html
         // we're using bcrypt in security.yml to encode the password, so
         // the salt value is built-in and you don't have to generate one
@@ -181,8 +169,7 @@ class User implements UserInterface, \Serializable {
      *
      * {@inheritdoc}
      */
-    public function eraseCredentials(): void
-    {
+    public function eraseCredentials(): void {
         // if you had a plainPassword property, you'd nullify it here
         // $this->plainPassword = null;
     }
@@ -190,8 +177,7 @@ class User implements UserInterface, \Serializable {
     /**
      * {@inheritdoc}
      */
-    public function serialize(): string
-    {
+    public function serialize(): string {
         // add $this->salt too if you don't use Bcrypt or Argon2i
         return serialize([$this->id, $this->username, $this->password]);
     }
@@ -199,8 +185,7 @@ class User implements UserInterface, \Serializable {
     /**
      * {@inheritdoc}
      */
-    public function unserialize($serialized): void
-    {
+    public function unserialize($serialized): void {
         // add $this->salt too if you don't use Bcrypt or Argon2i
         [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
     }
@@ -208,13 +193,11 @@ class User implements UserInterface, \Serializable {
     /**
      * @return Collection|LeaseRequest[]
      */
-    public function getLeases(): Collection
-    {
+    public function getLeases(): Collection {
         return $this->leases;
     }
 
-    public function addLease(LeaseRequest $lease): self
-    {
+    public function addLease(LeaseRequest $lease): self {
         if (!$this->leases->contains($lease)) {
             $this->leases[] = $lease;
             $lease->setAuthor($this);
@@ -223,8 +206,7 @@ class User implements UserInterface, \Serializable {
         return $this;
     }
 
-    public function removeLease(LeaseRequest $lease): self
-    {
+    public function removeLease(LeaseRequest $lease): self {
         if ($this->leases->contains($lease)) {
             $this->leases->removeElement($lease);
             // set the owning side to null (unless already changed)
@@ -236,37 +218,31 @@ class User implements UserInterface, \Serializable {
         return $this;
     }
 
-    public function getAddress(): ?string
-    {
+    public function getAddress(): ?string {
         return $this->address;
     }
 
-    public function setAddress(string $address): self
-    {
+    public function setAddress(string $address): self {
         $this->address = $address;
 
         return $this;
     }
 
-    public function getPhone(): ?string
-    {
+    public function getPhone(): ?string {
         return $this->phone;
     }
 
-    public function setPhone(string $phone): self
-    {
+    public function setPhone(string $phone): self {
         $this->phone = $phone;
 
         return $this;
     }
 
-    public function getPasswordReset(): ?string
-    {
+    public function getPasswordReset(): ?string {
         return $this->password_reset;
     }
 
-    public function setPasswordReset(?string $password_reset): self
-    {
+    public function setPasswordReset(?string $password_reset): self {
         $this->password_reset = $password_reset;
 
         return $this;

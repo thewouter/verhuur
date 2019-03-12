@@ -27,35 +27,30 @@ use Twig\TwigFunction;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class SourceCodeExtension extends AbstractExtension
-{
+class SourceCodeExtension extends AbstractExtension {
     private $controller;
 
-    public function setController(?callable $controller)
-    {
+    public function setController(?callable $controller) {
         $this->controller = $controller;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getFunctions(): array
-    {
+    public function getFunctions(): array {
         return [
             new TwigFunction('show_source_code', [$this, 'showSourceCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
     }
 
-    public function showSourceCode(Environment $twig, $template): string
-    {
+    public function showSourceCode(Environment $twig, $template): string {
         return $twig->render('debug/source_code.html.twig', [
             'controller' => $this->getController(),
             'template' => $this->getTemplateSource($twig->resolveTemplate($template)),
         ]);
     }
 
-    private function getController(): ?array
-    {
+    private function getController(): ?array {
         // this happens for example for exceptions (404 errors, etc.)
         if (null === $this->controller) {
             return null;
@@ -79,8 +74,7 @@ class SourceCodeExtension extends AbstractExtension
      *
      * This logic is copied from Symfony\Component\HttpKernel\Controller\ControllerResolver::getArguments
      */
-    private function getCallableReflector(callable $callable): \ReflectionFunctionAbstract
-    {
+    private function getCallableReflector(callable $callable): \ReflectionFunctionAbstract {
         if (\is_array($callable)) {
             return new \ReflectionMethod($callable[0], $callable[1]);
         }
@@ -94,8 +88,7 @@ class SourceCodeExtension extends AbstractExtension
         return new \ReflectionFunction($callable);
     }
 
-    private function getTemplateSource(Template $template): array
-    {
+    private function getTemplateSource(Template $template): array {
         $templateSource = $template->getSourceContext();
 
         return [
@@ -113,8 +106,7 @@ class SourceCodeExtension extends AbstractExtension
      * Utility method that "unindents" the given $code when all its lines start
      * with a tabulation of four white spaces.
      */
-    private function unindentCode(string $code): string
-    {
+    private function unindentCode(string $code): string {
         $formattedCode = $code;
         $codeLines = explode("\n", $code);
 

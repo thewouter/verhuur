@@ -29,14 +29,12 @@ use Twig\TwigFunction;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Julien ITARD <julienitard@gmail.com>
  */
-class AppExtension extends AbstractExtension
-{
+class AppExtension extends AbstractExtension {
     private $parser;
     private $localeCodes;
     private $locales;
 
-    public function __construct(Markdown $parser, string $locales)
-    {
+    public function __construct(Markdown $parser, string $locales) {
         $this->parser = $parser;
         $this->localeCodes = explode('|', $locales);
     }
@@ -44,8 +42,7 @@ class AppExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFilters(): array
-    {
+    public function getFilters(): array {
         return [
             new TwigFilter('md2html', [$this, 'markdownToHtml'], ['is_safe' => ['html']]),
         ];
@@ -54,8 +51,7 @@ class AppExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions(): array
-    {
+    public function getFunctions(): array {
         return [
             new TwigFunction('locales', [$this, 'getLocales']),
         ];
@@ -64,8 +60,7 @@ class AppExtension extends AbstractExtension
     /**
      * Transforms the given Markdown content into HTML content.
      */
-    public function markdownToHtml(string $content): string
-    {
+    public function markdownToHtml(string $content): string {
         return $this->parser->toHtml($content);
     }
 
@@ -74,8 +69,7 @@ class AppExtension extends AbstractExtension
      * application and returns an array with the name of each locale written
      * in its own language (e.g. English, Français, Español, etc.).
      */
-    public function getLocales(): array
-    {
+    public function getLocales(): array {
         if (null !== $this->locales) {
             return $this->locales;
         }

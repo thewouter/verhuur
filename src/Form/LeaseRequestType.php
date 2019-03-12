@@ -34,14 +34,11 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class LeaseRequestType extends AbstractType
-{
+class LeaseRequestType extends AbstractType {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-
+    public function buildForm(FormBuilderInterface $builder, array $options): void {
         $builder
             ->add('title', null, [
                 'attr' => ['autofocus' => true],
@@ -92,8 +89,7 @@ class LeaseRequestType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver): void
-    {
+    public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
             'data_class' => LeaseRequest::class,
             'label' => "",

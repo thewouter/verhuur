@@ -23,17 +23,21 @@ class IcalExtension extends AbstractExtension {
     }
 
     public static function ical_escapeFilter(?string $str, string $to = 'txt'): string {
-        if (empty($str)) return '';
+        if (empty($str)) {
+            return '';
+        }
 
         if ($to == 'txt') {
             $str = str_replace(array("<br>\r\n", "<br>\n", "<br>", "<br />\r\n", "<br />\n", "<br />", "<br/>\r\n", "<br/>\n", "<br/>"), "\n", $str);
             $str = strip_tags($str);
             $str = trim($str);
             $str = html_entity_decode($str, ENT_COMPAT, "UTF-8");
-        } else if ($to == 'html') {
-            $str = trim($str);
         } else {
-            throw new \Exception("Invalid ical convert to type \"$to\"");
+            if ($to == 'html') {
+                $str = trim($str);
+            } else {
+                throw new \Exception("Invalid ical convert to type \"$to\"");
+            }
         }
         $str = str_replace(array("\\", "\r\n", "\n", ',', ';'), array("\\\\", '\n', '\n', '\,', '\;'), $str);
         return $str;
@@ -68,7 +72,9 @@ class IcalExtension extends AbstractExtension {
                     while (substr($rest, strlen($split) - $num - 1, 1) == '\\') {
                         ++$num;
                     }
-                    if (($num % 2) == 1) $split = substr($split, 0, strlen($split) - 1); //invalid, so move back one spot
+                    if (($num % 2) == 1) {
+                        $split = substr($split, 0, strlen($split) - 1);
+                    } //invalid, so move back one spot
                 }
                 $line .= $split . "\r\n";
                 $rest = ' ' . substr($rest, strlen($split));

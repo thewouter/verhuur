@@ -31,8 +31,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class SecurityController extends AbstractController
-{
+class SecurityController extends AbstractController {
     private $mailer;
 
     public function __construct(\Swift_Mailer $mailer) {
@@ -42,8 +41,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="security_login")
      */
-    public function login(AuthenticationUtils $helper): Response
-    {
+    public function login(AuthenticationUtils $helper): Response {
         return $this->redirectToRoute('lease_overview');
     }
 
@@ -55,8 +53,7 @@ class SecurityController extends AbstractController
      *
      * @Route("/logout", name="security_logout")
      */
-    public function logout(): void
-    {
+    public function logout(): void {
         throw new \Exception('This should never be reached!');
     }
 
@@ -67,7 +64,7 @@ class SecurityController extends AbstractController
         $form = $this->createForm(ResetPasswordType::class, $user);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($encoder->encodePassword($user, $form->get('password')->getData()));
             $user->setPasswordReset(null);
             $this->getDoctrine()->getManager()->flush();
@@ -89,11 +86,10 @@ class SecurityController extends AbstractController
             ->getForm();
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
-
+        if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getDoctrine()->getRepository('App:User')->findByEmail($form->getData()['email']);
             $resetLink = substr(md5(rand()), 0, 30);
-            if (empty($user)){
+            if (empty($user)) {
                 $this->addFlash('error', 'user.not_found');
                 return $this->redirectToRoute('homepage');
             }
@@ -111,7 +107,7 @@ class SecurityController extends AbstractController
                     ),
                     'text/html'
                 );
-                $this->mailer->send($message);
+            $this->mailer->send($message);
 
             return $this->redirectToRoute('homepage');
         }

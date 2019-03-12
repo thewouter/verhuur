@@ -30,20 +30,17 @@ use Symfony\Component\Form\FormView;
  *
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class TagsInputType extends AbstractType
-{
+class TagsInputType extends AbstractType {
     private $tags;
 
-    public function __construct(TagRepository $tags)
-    {
+    public function __construct(TagRepository $tags) {
         $this->tags = $tags;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options): void {
         $builder
             // The Tag collection must be transformed into a comma separated string.
             // We could create a custom transformer to do Collection <-> string in one step,
@@ -57,16 +54,14 @@ class TagsInputType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
+    public function buildView(FormView $view, FormInterface $form, array $options): void {
         $view->vars['tags'] = $this->tags->findAll();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getParent()
-    {
+    public function getParent() {
         return TextType::class;
     }
 }

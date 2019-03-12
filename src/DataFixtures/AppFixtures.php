@@ -22,24 +22,20 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class AppFixtures extends Fixture
-{
+class AppFixtures extends Fixture {
     private $passwordEncoder;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
-    {
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder) {
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function load(ObjectManager $manager): void
-    {
+    public function load(ObjectManager $manager): void {
         $this->loadUsers($manager);
         $this->loadTags($manager);
         $this->loadPosts($manager);
     }
 
-    private function loadUsers(ObjectManager $manager): void
-    {
+    private function loadUsers(ObjectManager $manager): void {
         foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles]) {
             $user = new User();
             $user->setFullName($fullname);
@@ -54,8 +50,7 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    private function loadTags(ObjectManager $manager): void
-    {
+    private function loadTags(ObjectManager $manager): void {
         foreach ($this->getTagData() as $index => $name) {
             $tag = new Tag();
             $tag->setName($name);
@@ -67,8 +62,7 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    private function loadPosts(ObjectManager $manager): void
-    {
+    private function loadPosts(ObjectManager $manager): void {
         /*foreach ($this->getPostData() as [$title, $slug, $summary, $content, $publishedAt, $author, $tags]) {
             $post = new LeaseRequest();
             $post->setTitle($title);
@@ -95,8 +89,7 @@ class AppFixtures extends Fixture
         $manager->flush();*/
     }
 
-    private function getUserData(): array
-    {
+    private function getUserData(): array {
         return [
             // $userData = [$fullname, $username, $password, $email, $roles];
             ['Jane Doe', 'jane_admin', 'kitten', 'jane_admin@symfony.com', ['ROLE_ADMIN']],
@@ -105,8 +98,7 @@ class AppFixtures extends Fixture
         ];
     }
 
-    private function getTagData(): array
-    {
+    private function getTagData(): array {
         return [
             'lorem',
             'ipsum',
@@ -120,8 +112,7 @@ class AppFixtures extends Fixture
         ];
     }
 
-    private function getPostData()
-    {
+    private function getPostData() {
         $posts = [];
         foreach ($this->getPhrases() as $i => $title) {
             // $postData = [$title, $slug, $summary, $content, $publishedAt, $author, $tags, $comments];
@@ -140,8 +131,7 @@ class AppFixtures extends Fixture
         return $posts;
     }
 
-    private function getPhrases(): array
-    {
+    private function getPhrases(): array {
         return [
             'Lorem ipsum dolor sit amet consectetur adipiscing elit',
             'Pellentesque vitae velit ex',
@@ -176,8 +166,7 @@ class AppFixtures extends Fixture
         ];
     }
 
-    private function getRandomText(int $maxLength = 255): string
-    {
+    private function getRandomText(int $maxLength = 255): string {
         $phrases = $this->getPhrases();
         shuffle($phrases);
 
@@ -188,8 +177,7 @@ class AppFixtures extends Fixture
         return $text;
     }
 
-    private function getPostContent(): string
-    {
+    private function getPostContent(): string {
         return <<<'MARKDOWN'
 Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor
 incididunt ut labore et **dolore magna aliqua**: Duis aute irure dolor in
@@ -228,8 +216,7 @@ tincidunt, faucibus nisl in, aliquet libero.
 MARKDOWN;
     }
 
-    private function getRandomTags(): array
-    {
+    private function getRandomTags(): array {
         $tagNames = $this->getTagData();
         shuffle($tagNames);
         $selectedTags = \array_slice($tagNames, 0, random_int(2, 4));

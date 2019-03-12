@@ -28,20 +28,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class DateTimePickerType extends AbstractType
-{
+class DateTimePickerType extends AbstractType {
     private $formatConverter;
 
-    public function __construct(MomentFormatConverter $converter)
-    {
+    public function __construct(MomentFormatConverter $converter) {
         $this->formatConverter = $converter;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
+    public function buildView(FormView $view, FormInterface $form, array $options): void {
         $view->vars['attr']['data-date-format'] = $this->formatConverter->convert($options['format']);
         $view->vars['attr']['data-date-locale'] = mb_strtolower(str_replace('_', '-', \Locale::getDefault()));
     }
@@ -49,8 +46,7 @@ class DateTimePickerType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver): void
-    {
+    public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
             'widget' => 'single_text',
             // if true, the browser will display the native date picker widget
@@ -62,8 +58,7 @@ class DateTimePickerType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getParent()
-    {
+    public function getParent() {
         return DateTimeType::class;
     }
 }

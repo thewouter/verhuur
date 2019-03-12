@@ -34,8 +34,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class LeaseRequestEditType extends AbstractType
-{
+class LeaseRequestEditType extends AbstractType {
     /**
      * {@inheritdoc}
      */
@@ -98,8 +97,7 @@ class LeaseRequestEditType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver): void
-    {
+    public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
             'data_class' => LeaseRequest::class,
             'signed_uploaded' => false,

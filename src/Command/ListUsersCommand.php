@@ -36,8 +36,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  *
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class ListUsersCommand extends Command
-{
+class ListUsersCommand extends Command {
     // a good practice is to use the 'app:' prefix to group all your custom application commands
     protected static $defaultName = 'app:list-users';
 
@@ -45,8 +44,7 @@ class ListUsersCommand extends Command
     private $emailSender;
     private $users;
 
-    public function __construct(\Swift_Mailer $mailer, $emailSender, UserRepository $users)
-    {
+    public function __construct(\Swift_Mailer $mailer, $emailSender, UserRepository $users) {
         parent::__construct();
 
         $this->mailer = $mailer;
@@ -57,8 +55,7 @@ class ListUsersCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure(): void
-    {
+    protected function configure(): void {
         $this
             ->setDescription('Lists all the existing users')
             ->setHelp(<<<'HELP'
@@ -89,8 +86,7 @@ HELP
      * This method is executed after initialize(). It usually contains the logic
      * to execute to complete this command task.
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $maxResults = $input->getOption('max-results');
         // Use ->findBy() instead of ->findAll() to allow result sorting and limiting
         $allUsers = $this->users->findBy([], ['id' => 'DESC'], $maxResults);
@@ -130,8 +126,7 @@ HELP
     /**
      * Sends the given $contents to the $recipient email address.
      */
-    private function sendReport(string $contents, string $recipient): void
-    {
+    private function sendReport(string $contents, string $recipient): void {
         // See https://symfony.com/doc/current/cookbook/email/email.html
         $message = $this->mailer->createMessage()
             ->setSubject(sprintf('app:list-users report (%s)', date('Y-m-d H:i:s')))

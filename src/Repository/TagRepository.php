@@ -26,10 +26,8 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  *
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class TagRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+class TagRepository extends ServiceEntityRepository {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Tag::class);
     }
 }

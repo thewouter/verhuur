@@ -27,13 +27,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
  *
  * @author Romain Monteil <monteil.romain@gmail.com>
  */
-class ResetPasswordType extends AbstractType
-{
+class ResetPasswordType extends AbstractType {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options): void {
         $builder
             ->add('password', PasswordType::class, [
                 'label' => 'label.password',
@@ -48,8 +46,7 @@ class ResetPasswordType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver): void
-    {
+    public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);

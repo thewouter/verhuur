@@ -30,13 +30,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class CommentType extends AbstractType
-{
+class CommentType extends AbstractType {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options): void {
         // By default, form fields include the 'required' attribute, which enables
         // the client-side form validation. This means that you can't test the
         // server-side validation errors from the browser. To temporarily disable
@@ -59,8 +57,7 @@ class CommentType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver): void
-    {
+    public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
             'data_class' => Comment::class,
             'is_admin' => false,

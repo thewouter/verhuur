@@ -33,15 +33,12 @@ use Doctrine\ORM\EntityRepository;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class LeaseRequestRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+class LeaseRequestRepository extends ServiceEntityRepository {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, LeaseRequest::class);
     }
 
-    public function findLatest(int $page = 1, Tag $tag = null): Pagerfanta
-    {
+    public function findLatest(int $page = 1, Tag $tag = null): Pagerfanta {
         $qb = $this->createQueryBuilder('p')
             ->addSelect('a', 't')
             ->innerJoin('p.author', 'a')
@@ -78,8 +75,7 @@ class LeaseRequestRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
-    private function createPaginator(Query $query, int $page): Pagerfanta
-    {
+    private function createPaginator(Query $query, int $page): Pagerfanta {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query));
         $paginator->setMaxPerPage(LeaseRequest::NUM_ITEMS);
         $paginator->setCurrentPage($page);
@@ -90,8 +86,7 @@ class LeaseRequestRepository extends ServiceEntityRepository
     /**
      * @return LeaseRequest[]
      */
-    public function findBySearchQuery(string $rawQuery, int $limit = LeaseRequest::NUM_ITEMS): array
-    {
+    public function findBySearchQuery(string $rawQuery, int $limit = LeaseRequest::NUM_ITEMS): array {
         $query = $this->sanitizeSearchQuery($rawQuery);
         $searchTerms = $this->extractSearchTerms($query);
 
@@ -126,16 +121,14 @@ class LeaseRequestRepository extends ServiceEntityRepository
     /**
      * Removes all non-alphanumeric characters except whitespaces.
      */
-    private function sanitizeSearchQuery(string $query): string
-    {
+    private function sanitizeSearchQuery(string $query): string {
         return trim(preg_replace('/[[:space:]]+/', ' ', $query));
     }
 
     /**
      * Splits the search query into terms and removes the ones which are irrelevant.
      */
-    private function extractSearchTerms(string $searchQuery): array
-    {
+    private function extractSearchTerms(string $searchQuery): array {
         $terms = array_unique(explode(' ', $searchQuery));
 
         return array_filter($terms, function ($term) {

@@ -25,30 +25,26 @@ use Symfony\Component\Translation\TranslatorInterface;
  *
  * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
  */
-class CommentNotificationSubscriber implements EventSubscriberInterface
-{
+class CommentNotificationSubscriber implements EventSubscriberInterface {
     private $mailer;
     private $translator;
     private $urlGenerator;
     private $sender;
 
-    public function __construct(\Swift_Mailer $mailer, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, $sender)
-    {
+    public function __construct(\Swift_Mailer $mailer, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, $sender) {
         $this->mailer = $mailer;
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
         $this->sender = $sender;
     }
 
-    public static function getSubscribedEvents(): array
-    {
+    public static function getSubscribedEvents(): array {
         return [
             Events::COMMENT_CREATED => 'onCommentCreated',
         ];
     }
 
-    public function onCommentCreated(GenericEvent $event): void
-    {
+    public function onCommentCreated(GenericEvent $event): void {
         /** @var Comment $comment */
         $comment = $event->getSubject();
         $post = $comment->getPost();

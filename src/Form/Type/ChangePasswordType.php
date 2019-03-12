@@ -27,13 +27,11 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  *
  * @author Romain Monteil <monteil.romain@gmail.com>
  */
-class ChangePasswordType extends AbstractType
-{
+class ChangePasswordType extends AbstractType {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options): void {
         $builder
             ->add('currentPassword', PasswordType::class, [
                 'constraints' => [

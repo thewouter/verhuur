@@ -30,12 +30,10 @@ use Symfony\Component\HttpKernel\KernelEvents;
  *
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class CheckRequirementsSubscriber implements EventSubscriberInterface
-{
+class CheckRequirementsSubscriber implements EventSubscriberInterface {
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
-    {
+    public function __construct(EntityManagerInterface $entityManager) {
         $this->entityManager = $entityManager;
     }
 
@@ -43,8 +41,7 @@ class CheckRequirementsSubscriber implements EventSubscriberInterface
     // listen to. You can listen to several events, execute more than one method
     // for each event and set the priority of each event too.
     // See https://symfony.com/doc/current/event_dispatcher.html#creating-an-event-subscriber
-    public static function getSubscribedEvents(): array
-    {
+    public static function getSubscribedEvents(): array {
         return [
             // Errors are one of the events defined by the Console. See the
             // rest here: https://symfony.com/doc/current/components/console/events.html
@@ -59,8 +56,7 @@ class CheckRequirementsSubscriber implements EventSubscriberInterface
      * the database and then, it checks if the 'sqlite3' PHP extension is enabled
      * or not to display a better error message.
      */
-    public function handleConsoleError(ConsoleErrorEvent $event): void
-    {
+    public function handleConsoleError(ConsoleErrorEvent $event): void {
         $commandNames = ['doctrine:fixtures:load', 'doctrine:database:create', 'doctrine:schema:create', 'doctrine:database:drop'];
 
         if ($event->getCommand() && \in_array($event->getCommand()->getName(), $commandNames, true)) {
@@ -75,8 +71,7 @@ class CheckRequirementsSubscriber implements EventSubscriberInterface
      * This method checks if the triggered exception is related to the database
      * and then, it checks if the required 'sqlite3' PHP extension is enabled.
      */
-    public function handleKernelException(GetResponseForExceptionEvent $event): void
-    {
+    public function handleKernelException(GetResponseForExceptionEvent $event): void {
         $exception = $event->getException();
         // Since any exception thrown during a Twig template rendering is wrapped
         // in a Twig_Error_Runtime, we must get the original exception.
@@ -94,8 +89,7 @@ class CheckRequirementsSubscriber implements EventSubscriberInterface
     /**
      * Checks if the application is using SQLite as its database.
      */
-    private function isSQLitePlatform(): bool
-    {
+    private function isSQLitePlatform(): bool {
         $databasePlatform = $this->entityManager->getConnection()->getDatabasePlatform();
 
         return $databasePlatform ? 'sqlite' === $databasePlatform->getName() : false;

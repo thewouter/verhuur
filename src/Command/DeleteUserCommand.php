@@ -41,8 +41,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  *
  * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
  */
-class DeleteUserCommand extends Command
-{
+class DeleteUserCommand extends Command {
     protected static $defaultName = 'app:delete-user';
 
     /** @var SymfonyStyle */
@@ -51,8 +50,7 @@ class DeleteUserCommand extends Command
     private $validator;
     private $users;
 
-    public function __construct(EntityManagerInterface $em, Validator $validator, UserRepository $users)
-    {
+    public function __construct(EntityManagerInterface $em, Validator $validator, UserRepository $users) {
         parent::__construct();
 
         $this->entityManager = $em;
@@ -63,8 +61,7 @@ class DeleteUserCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure(): void
-    {
+    protected function configure(): void {
         $this
             ->setDescription('Deletes users from the database')
             ->addArgument('username', InputArgument::REQUIRED, 'The username of an existing user')
@@ -81,16 +78,14 @@ HELP
             );
     }
 
-    protected function initialize(InputInterface $input, OutputInterface $output): void
-    {
+    protected function initialize(InputInterface $input, OutputInterface $output): void {
         // SymfonyStyle is an optional feature that Symfony provides so you can
         // apply a consistent look to the commands of your application.
         // See https://symfony.com/doc/current/console/style.html
         $this->io = new SymfonyStyle($input, $output);
     }
 
-    protected function interact(InputInterface $input, OutputInterface $output)
-    {
+    protected function interact(InputInterface $input, OutputInterface $output) {
         if (null !== $input->getArgument('username')) {
             return;
         }
@@ -110,8 +105,7 @@ HELP
         $input->setArgument('username', $username);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
-    {
+    protected function execute(InputInterface $input, OutputInterface $output): void {
         $username = $this->validator->validateUsername($input->getArgument('username'));
 
         /** @var User $user */

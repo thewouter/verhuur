@@ -38,9 +38,11 @@ class HtmlExtension extends AbstractExtension {
         $match = false;
         if ($route_match === true) {
             $match = true;
-        } else if ($route_match) {
-            $env_globals = $env->getGlobals();
-            $match = preg_match("/$route_match/", $env_globals['app']->getRequest()->attributes->get('_route'));
+        } else {
+            if ($route_match) {
+                $env_globals = $env->getGlobals();
+                $match = preg_match("/$route_match/", $env_globals['app']->getRequest()->attributes->get('_route'));
+            }
         }
         if (!$icon) {
             $icon = 'angle-right';
@@ -52,8 +54,12 @@ class HtmlExtension extends AbstractExtension {
             $str = '<div';
         }
         $str .= ' class="submenuItem';
-        if ($match) {$str .= ' selected_submenu';}
-        if ($add_class) $str .= ' ' . $add_class;
+        if ($match) {
+            $str .= ' selected_submenu';
+        }
+        if ($add_class) {
+            $str .= ' ' . $add_class;
+        }
         $str .= '">';
         $str .= '<span class="fas fa-' . $icon . '" title="' . $icon_alt . '"></span>';
         $str .= '<span>' . $text . '</span></';

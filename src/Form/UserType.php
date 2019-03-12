@@ -27,13 +27,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
  *
  * @author Romain Monteil <monteil.romain@gmail.com>
  */
-class UserType extends AbstractType
-{
+class UserType extends AbstractType {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options): void {
         $builder
             ->add('username', TextType::class, [
                 'label' => 'label.username',
@@ -63,8 +61,7 @@ class UserType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver): void
-    {
+    public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);

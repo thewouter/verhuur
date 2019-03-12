@@ -29,8 +29,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class Comment
-{
+class Comment {
     /**
      * @var int
      *
@@ -77,63 +76,52 @@ class Comment
      */
     private $author;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->publishedAt = new \DateTime();
     }
 
     /**
      * @Assert\IsTrue(message="comment.is_spam")
      */
-    public function isLegitComment(): bool
-    {
+    public function isLegitComment(): bool {
         $containsInvalidCharacters = false !== mb_strpos($this->content, '@');
 
         return !$containsInvalidCharacters;
     }
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getContent(): ?string
-    {
+    public function getContent(): ?string {
         return $this->content;
     }
 
-    public function setContent(string $content): void
-    {
+    public function setContent(string $content): void {
         $this->content = $content;
     }
 
-    public function getPublishedAt(): \DateTime
-    {
+    public function getPublishedAt(): \DateTime {
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(\DateTime $publishedAt): void
-    {
+    public function setPublishedAt(\DateTime $publishedAt): void {
         $this->publishedAt = $publishedAt;
     }
 
-    public function getAuthor(): ?User
-    {
+    public function getAuthor(): ?User {
         return $this->author;
     }
 
-    public function setAuthor(User $author): void
-    {
+    public function setAuthor(User $author): void {
         $this->author = $author;
     }
 
-    public function getPost(): ?LeaseRequest
-    {
+    public function getPost(): ?LeaseRequest {
         return $this->post;
     }
 
-    public function setPost(LeaseRequest $post): void
-    {
+    public function setPost(LeaseRequest $post): void {
         $this->post = $post;
     }
 }

@@ -34,8 +34,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-class LeaseRequestAdminType extends AbstractType
-{
+class LeaseRequestAdminType extends AbstractType {
     /**
      * {@inheritdoc}
      */
@@ -94,7 +93,7 @@ class LeaseRequestAdminType extends AbstractType
                         'label' => 'contract_signed_remove',
                 ));
         }
-            $builder->add('submit', SubmitType::class, array(
+        $builder->add('submit', SubmitType::class, array(
                  'attr' => array('class' => 'btn btn-primary'),
              ));
     }
@@ -102,8 +101,7 @@ class LeaseRequestAdminType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver): void
-    {
+    public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
             'data_class' => LeaseRequest::class,
             'signed_uploaded' => false,
