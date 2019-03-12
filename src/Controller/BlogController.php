@@ -207,6 +207,7 @@ class BlogController extends AbstractController{
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $comment->setAuthor($this->getUser());
             $leaseRequest->addComment($comment);
+            $leaseRequest->setRead(false);
             $em->persist($comment);
             $em->flush();
             $this->addFlash('success', 'post.commented');

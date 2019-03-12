@@ -77,17 +77,19 @@ class BlogController extends AbstractController
 
 
     /**
-     * Displays a form to edit an existing Post entity.
+     * Displays a form to edit an existing LeaseRequest entity.
      *
      * @Route("/{id<\d+>}/edit",methods={"GET", "POST"}, name="admin_post_edit")
      */
     public function edit(Request $request, LeaseRequest $leaseRequest): Response {
         $form = $this->createForm(LeaseRequestAdminType::class, $leaseRequest, array('signed_uploaded' => !is_null($leaseRequest->getContractSigned())));
 
+        $em = $this->getDoctrine()->getManager();
+        $leaseRequest->setRead(true);
+        $em->flush();
+
         $oldSigned = $leaseRequest->getContractSigned();
         $form->handleRequest($request);
-
-        $em = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ( $oldSigned!== null && $form->get('remove_signed_contract')->isClicked()) {

@@ -60,12 +60,14 @@ class LeaseRequest
     private const SCOUTING_MIN = 50;
     private const OTHER_MIN = 105;
     private const OTHER_MAX = 145;
-    private const DEPOSIT_SCOUITNG = 100;
+    private const DEPOSIT_SCOUTING = 100;
     private const DEPOSIT_OTHER = 250;
 
     private $status;
 
     private $num_attendants;
+
+    private $read;
 
     /**
      * @var int
@@ -369,10 +371,10 @@ class LeaseRequest
     public function getDeposit(): float {
         switch ($this->getAssociationType()) {
             case 'ass_type.regio':
-                return self::DEPOSIT_SCOUITNG;
+                return self::DEPOSIT_SCOUTING;
                 break;
             case 'ass_type.scouting':
-                return self::DEPOSIT_SCOUITNG;
+                return self::DEPOSIT_SCOUTING;
                 break;
             default:
                 return self::DEPOSIT_OTHER;
@@ -400,6 +402,18 @@ class LeaseRequest
     public function setContractSigned(?string $contract_signed): self
     {
         $this->contract_signed = $contract_signed;
+
+        return $this;
+    }
+
+    public function getRead(): ?bool
+    {
+        return $this->read;
+    }
+
+    public function setRead(?bool $read): self
+    {
+        $this->read = $read;
 
         return $this;
     }
