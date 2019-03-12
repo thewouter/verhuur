@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -102,7 +104,7 @@ class BlogController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ( $oldSigned!== null && $form->get('remove_signed_contract')->isClicked()) {
+            if ($oldSigned !== null && $form->get('remove_signed_contract')->isClicked()) {
                 unlink($this->getParameter('contract_directory') . $oldSigned);
                 $leaseRequest->setContractSigned(null);
             } else {
@@ -110,10 +112,10 @@ class BlogController extends AbstractController
                 if ($oldSigned == null) {
                     $file = $form->get('contract_signed')->getData();
                     if ($file){
-                        $fileName = '/signed/contract_' . $this->generateUniqueFileName().'.'.$file->guessExtension();
+                        $fileName = '/signed/contract_' . $this->generateUniqueFileName() . '.' . $file->guessExtension();
                         try {
                             $file->move(
-                                $this->getParameter('contract_directory').'/signed/',
+                                $this->getParameter('contract_directory') . '/signed/',
                                 $fileName
                             );
                         } catch (FileException $e) {
@@ -206,7 +208,7 @@ class BlogController extends AbstractController
      */
      public function contractHtml(Request $request, LeaseRequest $leaseRequest): Response {
          return $this->render('pdf/contract.html.twig', array(
-             'leaseRequest' => $leaseRequest));
+             'leaseRequest' => $leaseRequest, ));
      }
 
      /**
@@ -215,58 +217,72 @@ class BlogController extends AbstractController
       *@Route("/{id}/contract.pdf", methods={"GET"}, name="admin_contract_pdf")
       */
       public function contractPdf(Request $request, LeaseRequest $leaseRequest): Response {
-        // Configure Dompdf according to your needs
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->set('enable_remote', true);
 
-        // Instantiate Dompdf with our options
-        $dompdf = new Dompdf($pdfOptions);
+            // Configure Dompdf according to your needs
+            $pdfOptions = new Options();
+            $pdfOptions->set('defaultFont', 'Arial');
+            $pdfOptions->set('enable_remote', true);
 
-        // Retrieve the HTML generated in our twig file
-        $html = $this->renderView('pdf/contract.html.twig', [
+            // Instantiate Dompdf with our options
+            $dompdf = new Dompdf($pdfOptions);
+
+            // Retrieve the HTML generated in our twig file
+            $html = $this->renderView('pdf/contract.html.twig', [
             'title' => "Contract Radix Enschede Verhuur",
             'leaseRequest' => $leaseRequest,
-        ]);
+            ]);
 
-        // Load HTML to Dompdf
-        $dompdf->loadHtml($html);
+            // Load HTML to Dompdf
+            $dompdf->loadHtml($html);
 
-        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-        $dompdf->setPaper('A4', 'portrait');
+            // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+            $dompdf->setPaper('A4', 'portrait');
 
-        // Render the HTML as PDF
-        $dompdf->render();
+            // Render the HTML as PDF
+            $dompdf->render();
 
-        $output = $dompdf->output();
-        $publicDirectory = $this->getParameter('contract_directory');
-        // e.g /var/www/project/public/mypdf.pdf
-        $pdfFilepath =  $publicDirectory . '/unsigned/contract_' . $this->generateUniqueFileName() . '.pdf';
-        file_put_contents($pdfFilepath, $output);
-        $leaseRequest->setContract('/unsigned/contract_' . $this->generateUniqueFileName() . '.pdf');
-        $this->getDoctrine()->getManager()->flush();
+            $output = $dompdf->output();
+            $publicDirectory = $this->getParameter('contract_directory');
+            $uid = $this->generateUniqueFileName();
+            $pdfFilepath = $publicDirectory . '/unsigned/contract_' . $uid . '.pdf';
+            file_put_contents($pdfFilepath, $output);
+            $leaseRequest->setContract('/unsigned/contract_' . $uid . '.pdf');
+            $this->getDoctrine()->getManager()->flush();
 
-        $message = (new \Swift_Message('Radix Lambarene'))
-            ->setFrom('verhuurder@radixenschede.nl')
-            ->setTo($leaseRequest->getAuthor()->getEmail())
-            ->setBody(
-                $this->renderView(
-                    'email/contract.html.twig',
-                    ['leaseRequest' => $leaseRequest]
-                ),
-                'text/html'
-            )
-            ->attach(\Swift_Attachment::fromPath($pdfFilepath)->setFilename('contract.pdf'))
-            ->attach(\Swift_Attachment::fromPath($publicDirectory.self::RULES_FILE)->setFilename('kampregels.pdf'))
-            ->attach(\Swift_Attachment::fromPath($publicDirectory.self::REQUIREMENTS_FILE)->setFilename('huurvoorwaarden.pdf'));
-        $this->mailer->send($message);
-        // Output the generated PDF to Browser (force download)
-        $dompdf->stream("mypdf.pdf", [
-            "Attachment" => true
-        ]);
-        dump($pdfFilepath);
+            // Output the generated PDF to Browser (force download)
+            $dompdf->stream("mypdf.pdf", [
+            "Attachment" => true,
+            ]);
 
-         return $this->render('pdf/contract.html.twig', array(
-              'leaseRequest' => $leaseRequest));
+            return $this->edit($request, $leaseRequest);
       }
+
+      /**
+       *
+       *
+       *@Route("/{id}/contract/send", methods={"GET"}, name="admin_contract_email")
+       */
+       public function sendContract(Request $request, LeaseRequest $leaseRequest): Response {
+           if(is_null($leaseRequest->getContract())) {
+               $this->addFlash('error', 'contract.no_available');
+               return $this->edit($request, $leaseRequest);
+           }
+           $publicDirectory = $this->getParameter('contract_directory');
+           $message = (new \Swift_Message('Radix Lambarene'))
+               ->setFrom('verhuurder@radixenschede.nl')
+               ->setTo($leaseRequest->getAuthor()->getEmail())
+               ->setBody(
+                   $this->renderView(
+                       'email/contract.html.twig',
+                       ['leaseRequest' => $leaseRequest]
+                   ),
+                   'text/html'
+               )
+               ->attach(\Swift_Attachment::fromPath($publicDirectory . $leaseRequest->getContract())->setFilename('contract.pdf'))
+               ->attach(\Swift_Attachment::fromPath($publicDirectory . self::RULES_FILE)->setFilename('kampregels.pdf'))
+               ->attach(\Swift_Attachment::fromPath($publicDirectory . self::REQUIREMENTS_FILE)->setFilename('huurvoorwaarden.pdf'));
+           $this->mailer->send($message);
+           $this->addFlash('success', 'contract.emailed');
+           return $this->edit($request, $leaseRequest);
+       }
 }

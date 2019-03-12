@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -101,8 +103,8 @@ class LeaseRequestRepository extends ServiceEntityRepository
 
         foreach ($searchTerms as $key => $term) {
             $queryBuilder
-                ->orWhere('p.title LIKE :t_'.$key)
-                ->setParameter('t_'.$key, '%'.$term.'%')
+                ->orWhere('p.title LIKE :t_' . $key)
+                ->setParameter('t_' . $key, '%' . $term . '%')
             ;
         }
 
@@ -113,7 +115,7 @@ class LeaseRequestRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findByAuthor(User $user){
+    public function findByAuthor(User $user) {
         $qb = $this->createQueryBuilder('p')
             ->addSelect('p')
             ->where('p.author <= :user')

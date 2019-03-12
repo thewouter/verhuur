@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -41,7 +43,7 @@ class CommentType extends AbstractType
         // this validation, set the 'required' attribute to 'false':
         // $builder->add('content', null, ['required' => false]);
 
-        $label = ($options['is_admin']? 'label.response' : 'label.question');
+        $label = ($options['is_admin'] ? 'label.response' : 'label.question');
         $builder
             ->add('content', TextareaType::class, array(
                 'label' => $label,
@@ -49,7 +51,7 @@ class CommentType extends AbstractType
             ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'label.submit',
-                'attr'   => array('class' =>'btn btn-primary', 'style' => 'margin-top: 10px;'),
+                'attr' => array('class' => 'btn btn-primary', 'style' => 'margin-top: 10px;'),
             ))
         ;
     }

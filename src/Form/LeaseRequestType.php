@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -24,7 +26,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-
 
 /**
  * Defines the form used to create and manipulate blog posts.
@@ -63,14 +64,14 @@ class LeaseRequestType extends AbstractType
                 'label' => 'label.start_date',
                 'required' => true,
                 'widget' => 'single_text',
-                'years' => array(date('Y'), date('Y')+1),
+                'years' => array(date('Y'), date('Y') + 1),
                 'model_timezone' => 'Europe/Amsterdam',
             ])
             ->add('end_date', DateType::class, [
                 'label' => 'label.end_date',
                 'required' => true,
                 'widget' => 'single_text',
-                'years' => array(date('Y'), date('Y')+1),
+                'years' => array(date('Y'), date('Y') + 1),
                 'model_timezone' => 'Europe/Amsterdam',
             ])
             ->add('num_attendants', IntegerType::class, [
@@ -84,7 +85,7 @@ class LeaseRequestType extends AbstractType
                     'label' => ' ',
                 ))
             ->add('submit', SubmitType::class, array(
-                 'attr'   => array('class' =>'btn btn-primary',),
+                 'attr' => array('class' => 'btn btn-primary'),
             ));
     }
 
@@ -95,7 +96,7 @@ class LeaseRequestType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => LeaseRequest::class,
-            'label' => ""
+            'label' => "",
         ]);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -38,7 +40,7 @@ class ResetPasswordType extends AbstractType
             ])
             ->add('submit', SubmitType::class, array(
                 'label' => 'label.submit',
-                'attr'   => array('class' =>'btn btn-primary',),
+                'attr' => array('class' => 'btn btn-primary'),
             ))
         ;
     }

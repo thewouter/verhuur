@@ -16,7 +16,7 @@ title.source_code: Source code used to render this page
 title.controller_code: Controller code
 title.twig_template_code: Twig template code
 title.login: Secure Sign in
-title.post_list: Post List
+title.post_list: Request list
 title.edit_post: 'Edit post #{id, number}'
 title.add_comment: Add a comment
 title.comment_error: There was an error publishing your comment
@@ -63,7 +63,7 @@ title.post_new: Post creation
 action.edit_contents: Edit contents
 menu.toggle_nav: Toggle navigation
 menu.choose_language: Choose language
-menu.post_list: Post list
+menu.post_list: Request list
 menu.back_to_blog: Back to blog
 menu.homepage: Homepage
 menu.admin: Backend

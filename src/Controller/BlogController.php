@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -39,8 +41,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-
-
 /**
  * Controller used to manage blog contents in the public part of the site.
  *
@@ -70,7 +70,7 @@ class BlogController extends AbstractController{
      * Content-Type header for the response.
      * See https://symfony.com/doc/current/quick_tour/the_controller.html#using-formats
      */
-    public function index(Request $request, int $page, string $_format, LeaseRequestRepository $posts, TagRepository $tags, AuthenticationUtils $helper, EventDispatcherInterface $dispatcher): Response{
+    public function index(Request $request, int $page, string $_format, LeaseRequestRepository $posts, TagRepository $tags, AuthenticationUtils $helper, EventDispatcherInterface $dispatcher): Response {
         if ($this->getUser()){
             return $this->redirectToRoute('lease_overview');
         }
@@ -99,7 +99,7 @@ class BlogController extends AbstractController{
         return $this->render('blog/index.html.twig', array(
             'last_username' => $last_username,
             'error' => $error,
-            'new_user_form' => $form->createView()));
+            'new_user_form' => $form->createView(), ));
     }
 
     /**
@@ -122,7 +122,7 @@ class BlogController extends AbstractController{
         $repository = $this->getDoctrine()->getRepository('App:LeaseRequest');
 
         $leases = $user->getLeases();
-        if( (is_null($leases) || $leases->isEmpty()) && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
+        if((is_null($leases) || $leases->isEmpty()) && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
             return $this->redirectToRoute('lease_add');
         }
 
@@ -138,15 +138,15 @@ class BlogController extends AbstractController{
     public function leaseAdd(Request $request): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $user = $this->getUser();
-        $txt = $this->translator->trans('label.checked_calendar', ['%url%'=>$this->get('router')->generate('calendar_show')]);
+        $txt = $this->translator->trans('label.checked_calendar', ['%url%' => $this->get('router')->generate('calendar_show')]);
         $leaseRequest = new LeaseRequest();
-        $form = $this->createForm(LeaseRequestType::class, $leaseRequest, array('label' => $this->translator->trans('label.checked_calendar', ['%url%'=>$this->get('router')->generate('calendar_show')])));
+        $form = $this->createForm(LeaseRequestType::class, $leaseRequest, array('label' => $this->translator->trans('label.checked_calendar', ['%url%' => $this->get('router')->generate('calendar_show')])));
         if ($request->getMethod() == "POST"){
             $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()){
                 $em = $this->getDoctrine()->getManager();
                 $leaseRequest->setAuthor($user);
-                $leaseRequest->setSlug(Slugger::slugify($user->getFullName().'-'.$leaseRequest->getStartDate()->format("Y-m-d")));
+                $leaseRequest->setSlug(Slugger::slugify($user->getFullName() . '-' . $leaseRequest->getStartDate()->format("Y-m-d")));
                 $user->addLease($leaseRequest);
                 $leaseRequest->setPrice($leaseRequest->guessPrice());
                 $em->persist($leaseRequest);
@@ -160,7 +160,6 @@ class BlogController extends AbstractController{
             'txt' => $txt,
         ));
     }
-
 
     /**
      * @Route("/edit/{slug}", methods={"GET", "POST"}, name="lease_edit")
@@ -176,15 +175,15 @@ class BlogController extends AbstractController{
             $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()){
                $leaseRequest->setAuthor($user);
-               $leaseRequest->setSlug(Slugger::slugify($user->getFullName().'-'.$leaseRequest->getStartDate()->format("Y-m-d")));
+               $leaseRequest->setSlug(Slugger::slugify($user->getFullName() . '-' . $leaseRequest->getStartDate()->format("Y-m-d")));
 
                $file = $form->get('contract_signed')->getData();
                if ($file){
-                   $fileName = '/signed/contract_' . $this->generateUniqueFileName().'.'.$file->guessExtension();
+                   $fileName = '/signed/contract_' . $this->generateUniqueFileName() . '.' . $file->guessExtension();
 
                    try {
                        $file->move(
-                           $this->getParameter('contract_directory').'/signed/',
+                           $this->getParameter('contract_directory') . '/signed/',
                            $fileName
                        );
                    } catch (FileException $e) {
@@ -339,6 +338,6 @@ class BlogController extends AbstractController{
      * @Route("/calendar", methods={"GET"}, name="calendar_show")
      */
     public function leaseCalendar(Request $request): Response {
-        return $this->render('calendar/show.html.twig',array());
+        return $this->render('calendar/show.html.twig', array());
     }
 }

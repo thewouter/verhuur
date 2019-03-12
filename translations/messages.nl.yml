@@ -16,7 +16,7 @@ title.source_code: Broncode van deze pagina
 title.controller_code: Controller code
 title.twig_template_code: Twig template code
 title.login: Veilig inloggen
-title.post_list: Berichtenlijst
+title.post_list: Aanvragenlijst
 title.edit_post: 'Bewerk bericht #{id, number}'
 title.add_comment: Voeg een reactie toe
 title.comment_error: Er is een fout opgetreden bij het opslaan van je reactie
@@ -54,7 +54,7 @@ title.post_new: Bericht aanmaken
 action.edit_contents: Inhoud bewerken
 menu.toggle_nav: Wissel navigatie
 menu.choose_language: Taalkeuze
-menu.post_list: Berichtenlijst
+menu.post_list: Aanvragenlijst
 menu.back_to_blog: Terug naar de blog
 menu.homepage: Beginpagina
 menu.admin: Beheerpaneel

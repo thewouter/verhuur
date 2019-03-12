@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -44,7 +46,7 @@ class LeaseRequest
         "Scouting Regio" => 'ass_type.regio',
         "Scouting buiten regio" => 'ass_type.scouting',
         "Dispuut" => 'ass_type.dispuut',
-        "Studievereniging" => 'ass_type.sv');
+        "Studievereniging" => 'ass_type.sv', );
 
     public const STATUSES = array(
         "status.placed",
@@ -52,7 +54,7 @@ class LeaseRequest
         "status.signed",
         "status.leased",
         "status.rejected",
-        "status.retracted");
+        "status.retracted", );
 
     private const REGIO_PP = 2;
     private const SCOUTING_pp = 3;
@@ -308,16 +310,16 @@ class LeaseRequest
         $days = $this->getEndDate()->diff($this->getStartDate())->format("%a");
         switch ($this->getAssociationType()) {
             case 'ass_type.regio':
-                return max(self::REGIO_PP*$this->getNumAttendants(), self::REGIO_MIN)*$days;
+                return max(self::REGIO_PP * $this->getNumAttendants(), self::REGIO_MIN) * $days;
                 break;
             case 'ass_type.scouting':
-                return max(self::SCOUTING_pp*$this->getNumAttendants(), self::SCOUTING_MIN)*$days;
+                return max(self::SCOUTING_pp * $this->getNumAttendants(), self::SCOUTING_MIN) * $days;
                 break;
             default:
                 if ($this->getNumAttendants() < 16) {
-                    return self::OTHER_MIN*$days;
+                    return self::OTHER_MIN * $days;
                 } else {
-                    return self::OTHER_MAX*$days;
+                    return self::OTHER_MAX * $days;
                 }
                 break;
         }

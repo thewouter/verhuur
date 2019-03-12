@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -24,7 +26,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-
 
 /**
  * Defines the form used to create and manipulate blog posts.
@@ -59,7 +60,7 @@ class LeaseRequestEditType extends AbstractType
                 'label' => 'label.start_date',
                 'required' => true,
                 'widget' => 'single_text',
-                'years' => array(date('Y'), date('Y')+1),
+                'years' => array(date('Y'), date('Y') + 1),
                 'model_timezone' => 'Europe/Amsterdam',
                 'disabled' => true,
             ])
@@ -67,7 +68,7 @@ class LeaseRequestEditType extends AbstractType
                 'label' => 'label.end_date',
                 'required' => true,
                 'widget' => 'single_text',
-                'years' => array(date('Y'), date('Y')+1),
+                'years' => array(date('Y'), date('Y') + 1),
                 'model_timezone' => 'Europe/Amsterdam',
                 'disabled' => true,
             ])
@@ -84,13 +85,13 @@ class LeaseRequestEditType extends AbstractType
         if (!$options['signed_uploaded']) {
             $builder->add('contract_signed', FileType::class, [
                     'label' => 'label.upload_signed',
-                    'attr'   => array('class' =>'well',),
+                    'attr' => array('class' => 'well'),
                     'data_class' => null,
                     'required' => false,
                 ]);
         }
         $builder->add('submit', SubmitType::class, array(
-                'attr'   => array('class' =>'btn btn-primary',),
+                'attr' => array('class' => 'btn btn-primary'),
             ));
     }
 

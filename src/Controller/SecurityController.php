@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -36,6 +38,7 @@ class SecurityController extends AbstractController
     public function __construct(\Swift_Mailer $mailer) {
         $this->mailer = $mailer;
     }
+
     /**
      * @Route("/login", name="security_login")
      */

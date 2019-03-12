@@ -149,6 +149,9 @@
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
     },
+    "phpcheckstyle/phpcheckstyle": {
+        "version": "v0.14.8"
+    },
     "psr/cache": {
         "version": "1.0.x-dev"
     },
