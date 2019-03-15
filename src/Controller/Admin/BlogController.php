@@ -72,7 +72,15 @@ class BlogController extends AbstractController {
      */
     public function index(LeaseRequestRepository $posts): Response {
         $requests = $posts->findLatest();
-        return $this->render('admin/blog/index.html.twig', ['posts' => $requests]);
+        $unreadCount = 0;
+        foreach ($requests as $key => $value) {
+            if(!$value->getRead()){
+                $unreadCount = $unreadCount + 1;
+            }
+        }
+        return $this->render('admin/blog/index.html.twig', [
+            'posts' => $requests,
+            'unread' => $unreadCount,]);
     }
 
     /**
