@@ -190,10 +190,6 @@ class BlogController extends AbstractController {
         if (!$this->isCsrfTokenValid('delete', $request->request->get('token'))) {
             return $this->redirectToRoute('admin_post_index');
         }
-
-        // Delete the tags associated with this blog post. This is done automatically
-        // by Doctrine, except for SQLite (the database used in this application)
-        // because foreign key support is not enabled by default in SQLite
         $post->getTags()->clear();
 
         $em = $this->getDoctrine()->getManager();
@@ -221,8 +217,6 @@ class BlogController extends AbstractController {
      *@Route("/{id}/contract.pdf", methods={"GET"}, name="admin_contract_pdf")
      */
     public function contractPdf(Request $request, LeaseRequest $leaseRequest): Response {
-
-            // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
         $pdfOptions->set('enable_remote', true);
@@ -288,5 +282,16 @@ class BlogController extends AbstractController {
         $this->mailer->send($message);
         $this->addFlash('success', 'contract.emailed');
         return $this->edit($request, $leaseRequest);
+    }
+
+    /**
+     *
+     *
+     *@Route("/statistics", methods={"GET"}, name="admin_statistics")
+     */
+    public function statistics(Request $request, LeaseRequestRepository $posts): Response {
+        $requests = $posts->findAll();
+        return $this->render('admin/statistics.html.twig', array(
+             'requests' => $requests, ));
     }
 }

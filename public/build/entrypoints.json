@@ -3,31 +3,42 @@
     "js/app": {
       "js": [
         "/build/runtime.6cf710cd.js",
-        "/build/0.830d5dde.js",
-        "/build/2.dbd2ede0.js",
-        "/build/js/app.b0ae906f.js"
+        "/build/vendors~js/admin~js/app~js/login~js/search.e159abc2.js",
+        "/build/vendors~js/admin~js/app.1c4cbdff.js",
+        "/build/vendors~js/app.54f8ca0d.js",
+        "/build/js/app.8508aabd.js"
+      ],
+      "css": [
+        "/build/vendors~js/app.42ea2233.css"
+      ]
+    },
+    "image/background_contract": {
+      "js": [
+        "/build/runtime.6cf710cd.js",
+        "/build/image/background_contract.4590e900.js"
       ]
     },
     "js/login": {
       "js": [
         "/build/runtime.6cf710cd.js",
-        "/build/0.830d5dde.js",
-        "/build/js/login.71306f38.js"
+        "/build/vendors~js/admin~js/app~js/login~js/search.e159abc2.js",
+        "/build/js/login.8cfa3031.js"
       ]
     },
     "js/admin": {
       "js": [
         "/build/runtime.6cf710cd.js",
-        "/build/0.830d5dde.js",
-        "/build/1.bdd72f15.js",
-        "/build/js/admin.4ca6ad4a.js"
+        "/build/vendors~js/admin~js/app~js/login~js/search.e159abc2.js",
+        "/build/vendors~js/admin~js/app.1c4cbdff.js",
+        "/build/vendors~js/admin.3f589dec.js",
+        "/build/js/admin.a955c6fb.js"
       ]
     },
     "js/search": {
       "js": [
         "/build/runtime.6cf710cd.js",
-        "/build/0.830d5dde.js",
-        "/build/js/search.6682ea4d.js"
+        "/build/vendors~js/admin~js/app~js/login~js/search.e159abc2.js",
+        "/build/js/search.ad48c3a0.js"
       ]
     },
     "css/app": {
@@ -35,7 +46,7 @@
         "/build/runtime.6cf710cd.js"
       ],
       "css": [
-        "/build/css/app.4aa95248.css"
+        "/build/css/app.5c94ce4c.css"
       ]
     },
     "css/admin": {
@@ -43,7 +54,7 @@
         "/build/runtime.6cf710cd.js"
       ],
       "css": [
-        "/build/css/admin.1b3ff8e3.css"
+        "/build/css/admin.751c967f.css"
       ]
     }
   }

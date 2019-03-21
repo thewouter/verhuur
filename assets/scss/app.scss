@@ -6,17 +6,13 @@ $web-font-path: 'data:text/css;base64,';
 @import "~bootswatch/flatly/variables";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "~bootswatch/flatly/bootswatch";
-@import "~font-awesome/scss/font-awesome.scss";
 @import "~highlight.js/styles/solarized-light.css";
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/brands';
 
 // pick the Lato fonts individually to avoid importing the entire font family
 @import '~lato-font/scss/public-api';
 @include lato-include-font('normal');
 @include lato-include-font('bold');
+
 
 /* Basic styles
    ------------------------------------------------------------------------- */

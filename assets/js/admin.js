@@ -2,6 +2,7 @@ import 'eonasdan-bootstrap-datetimepicker';
 import 'typeahead.js';
 import Bloodhound from "bloodhound-js";
 import 'bootstrap-tagsinput';
+import 'jquery';
 
 $(function() {
     // Datetime picker initialization.

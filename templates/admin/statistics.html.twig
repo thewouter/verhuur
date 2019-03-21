@@ -1,0 +1,14 @@
+{% extends 'admin/layout.html.twig' %}
+
+
+{% block javascript %}
+    {{ parent() }}
+{% endblock %}
+
+{% block main %}
+
+
+{% for request in requests %}
+    {{request.title}}
+{% endfor %}
+{% endblock %}

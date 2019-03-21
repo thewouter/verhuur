@@ -70,6 +70,7 @@
                                                     <i class="fa fa-edit" aria-hidden="true"></i> {{ 'menu.user'|trans }}
                                                 </a>
                                             </li>
+                                            <li class="divider"></li>
                                             <li>
                                                 <a href="{{ path('calendar_show') }}">
                                                     <i class="fa fa-calendar" aria-hidden="true"></i> {{ 'menu.calendar'|trans }}
@@ -79,6 +80,11 @@
                                                 <li>
                                                     <a href="{{ path('ical') }}">
                                                         <i class="fa fa-plus" aria-hidden="true"></i> {{ 'menu.ical'|trans }}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ path('admin_statistics') }}">
+                                                        <i class="fas fa-calculator" aria-hidden="true"></i> {{ 'menu.statistics'|trans }}
                                                     </a>
                                                 </li>
                                             {% endif %}
