@@ -75,6 +75,10 @@ App\Entity\LeaseRequest:
             type: boolean
             nullable: true
             column: read
+        paid:
+            type: float
+            nullable: true
+            column: paid
 
     manyToOne:
         author:

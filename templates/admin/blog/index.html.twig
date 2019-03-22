@@ -2,64 +2,65 @@
 
 {% block body_id 'admin_post_index' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            $("#cookie_accordion").accordion({heightStyle: 'content'});
+            $("#cookie_accordion").show(); // Get rid of Flash Of Unrendered Content
+        });
+    </script>
+{% endblock %}
+
 {% block main %}
     <h1>{{ 'title.post_list'|trans }}</h1>
 
-    <table class="table table-striped table-middle-aligned">
-        <thead>
-            <tr>
-                <th scope="col">{{ 'label.name'|trans }}</th>
-                <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> {{ 'label.updated'|trans }}</th>
-                <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> {{ 'label.date'|trans }}</th>
-                <th scope="col"><i class="far fa-envelope" aria-hidden="true"></i> {{ 'label.unread'|trans }} ({{unread}})</th>
-                <th scope="col" class="text-center"><i class="fa fa-cogs" aria-hidden="true"></i> {{ 'label.actions'|trans }}</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for post in posts %}
-            {% if post.read %}
-            <tr>
-                <td>{{ post.author.fullName }}</td>
-                <td>{{ post.publishedAt|localizeddate('medium', 'short', null, 'Europe/Amsterdam') }}</td>
-                <td>{{ post.startDate|localizeddate('medium', 'none', null, 'UTC') }}</td>
-                <td class="text-center">
-                    <div class="item-actions">
-                        <a href="{{ path('admin_post_unread', {id: post.id}) }}" class="btn btn-sm btn-primary">
-                            <i class="far fa-envelope"></i>
-                        </a>
-                    </div>
-                </td>
-                <td class="text-center">
-                    <div class="item-actions">
-                        <a href="{{ path('admin_post_edit', {id: post.id}) }}" class="btn btn-sm btn-primary">
-                            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'action.edit'|trans }}
-                        </a>
-                    </div>
-                </td>
-            </tr>
-            {% else %}
-            <tr>
-                <td><b>{{ post.author.fullName }}</b></td>
-                <td><b>{{ post.publishedAt|localizeddate('medium', 'short', null, 'Europe/Amsterdam') }}</b></td>
-                <td><b>{{ post.startDate|localizeddate('medium', 'none', null, 'UTC') }}</b></td>
-                <td class="text-center">
-                </td>
-                <td class="text-center">
-                    <div class="item-actions">
-                        <a href="{{ path('admin_post_edit', {id: post.id}) }}" class="btn btn-sm btn-primary">
-                            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'action.edit'|trans }}
-                        </a>
-                    </div>
-                </td>
-            </tr>
-            {% endif %}
-        {% else %}
-            <tr>
-                <td colspan="4" align="center">{{ 'post.no_posts_found'|trans }}</td>
-           </tr>
+    <div id="cookie_accordion" style="display: none;">
+        {% for request in posts %}
+            <h3>{{ request.author.fullName }} [{{ request.association }}]</h3>
+            <div>
+                <table class="table table-striped table-middle-aligned">
+                  <tr>
+                    <th>{{'label.name' | trans }}</th>
+                    <th>{{'label.date' | trans }}</th>
+                    <th>{{'label.phone' | trans }}</th>
+                    <th>{{'label.status' | trans }}</th>
+                    <th>{{'label.last_updated' | trans }}</th>
+                  </tr>
+                  <tr>
+                    <td>{{request.author.fullname}}</td>
+                    <td>{{request.startDate|date('d/m')}} - {{request.endDate|date('d/m')}}</td>
+                    <td>{{request.author.phone}}</td>
+                    <td>{{request.statusText | trans}}</td>
+                    <td>{{request.publishedAt|date('Y-m-d')}}</td>
+                  </tr>
+                  <tr>
+                    <td>{% if request.contractSigned %} {{'status.signed' | trans}} {% endif %}</td>
+                    <td>{% if request.paid >= request.price + request.deposit %} {{'label.paid' | trans }} {% endif %}</td>
+                    <td> {% if request.comments | first %}
+                            {% if request.comments | first.author is same as(request.author) %}
+                                {{'request.unanswerd' | trans}}
+                            {% else %}
+                                {{'request.answered' | trans({'%name%': request.comments | first.author.fullName})}}
+                            {% endif %}
+                        {% endif %}</td>
+                    <td></td>
+                    <td>
+                        <div class="item-actions" style="display: flex;justify-content: space-between; width: 75%">
+                            <a href="{{ path('admin_post_edit', {id: request.id}) }}" class="btn btn-sm btn-primary">
+                                <i class="fa fa-edit" aria-hidden="true"></i> {{ 'action.edit'|trans }}
+                            </a>
+                            {% if request.read %}
+                                <a href="{{ path('admin_post_unread', {id: request.id}) }}" class="btn btn-sm btn-primary">
+                                    <i class="far fa-envelope"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </table>
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
 {% endblock %}
 
 {% block sidebar %}

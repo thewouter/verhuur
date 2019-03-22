@@ -1,14 +1,43 @@
 {% extends 'admin/layout.html.twig' %}
 
 
-{% block javascript %}
+{% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            $("#cookie_accordion").accordion({heightStyle: 'content', collapsible: true});
+            $("#cookie_accordion").show();
+        });
+    </script>
 {% endblock %}
 
 {% block main %}
+    <div id="cookie_accordion" style="display: none;">
+        {% for key, year in years %}
+            <h3>{{ 'statistics.year' | trans({'%year%': key}) }} €{{stats[key] | number_format(2,',')}} ({{ year | length }})</h3>
+            <div>
+                <table class="table table-striped table-middle-aligned">
+                  <tr>
+                    <th>{{'label.association' | trans }}</th>
+                    <th>{{'label.date' | trans }}</th>
+                    <th>{{'label.paid' | trans }}</th>
+                    <th>{{'label.status' | trans }}</th>
+                    <th>{{'action.edit' | trans }}</th>
+                  </tr>
+                    {% for request in year %}
+                        <tr>
+                          <td>{{request.association}}</td>
+                          <td>{{request.startDate | date('Y-m-d')}}</td>
+                          <td>{% if request.paid >= request.price + request.deposit %} {{'label.paid' | trans }} {% else %} <font size="3" color="red"> {{ 'label.not_paid' | trans }} </font> {% endif %}</td>
+                          <td>{{request.statusText | trans}}</td>
+                          <td><a href="{{ path('admin_post_edit', {id: request.id}) }}" class="btn btn-sm btn-primary">
+                              <i class="fa fa-edit" aria-hidden="true"></i> {{ 'action.edit' | trans }}
+                          </a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endfor %}
+    </div>
 
-
-{% for request in requests %}
-    {{request.title}}
-{% endfor %}
 {% endblock %}

@@ -12,7 +12,6 @@
         <link rel="alternate" type="application/rss+xml" title="{{ 'rss.title'|trans }}" href="{{ path('blog_rss') }}">
         {% block stylesheets %}
             {{ encore_entry_link_tags('css/app') }}
-            <link rel="stylesheet" href="{{ preload(asset('build/css/fontawesome-free/css/all.css'), {as: 'style'}) }}">
         {% endblock %}
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />

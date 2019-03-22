@@ -2,7 +2,13 @@ import 'eonasdan-bootstrap-datetimepicker';
 import 'typeahead.js';
 import Bloodhound from "bloodhound-js";
 import 'bootstrap-tagsinput';
-import 'jquery';
+
+const $ = require('jquery');
+require('jquery-ui');
+
+import 'jquery-ui/ui/widgets/accordion.js';
+
+global.$ = global.jQuery = $;
 
 $(function() {
     // Datetime picker initialization.

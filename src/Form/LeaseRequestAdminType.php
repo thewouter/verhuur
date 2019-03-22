@@ -52,6 +52,10 @@ class LeaseRequestAdminType extends AbstractType {
                 'choices' => LeaseRequest::ASSOCIATION_TYPES,
                 'required' => true,
             ])
+            ->add('association', null, [
+                'label' => 'label.association',
+                'required' => true,
+            ])
             ->add('start_date', DateType::class, [
                 'label' => 'label.start_date',
                 'required' => true,
@@ -72,6 +76,10 @@ class LeaseRequestAdminType extends AbstractType {
             ])
             ->add('price', MoneyType::class, [
                 'label' => 'label.price',
+                'required' => false,
+            ])
+            ->add('paid', MoneyType::class, [
+                'label' => 'label.paid',
                 'required' => false,
             ])
             ->add('status', ChoiceType::class, [

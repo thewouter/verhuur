@@ -4,7 +4,8 @@
 
 {% block javascripts %}
 {{ encore_entry_script_tags('js/app') }}
-    <script language="JavaScript" type="text/javascript" src="/build/js/jquery.js"></script>
+{{ encore_entry_script_tags('js/admin') }}
+    <!-- <script language="JavaScript" type="text/javascript" src="/build/js/jquery.js"></script> -->
     <script type="text/javascript">
     $(document).ready(function() {
         $("#default_1").click(function(){
@@ -87,22 +88,44 @@ Ik heb je onlangs een contract toegestuurd en volgens mijn administratie heb ik 
 
 {% block main %}
     <div class="row">
-     <div class="column">{{form(form)}}
-         {% if is_granted('ROLE_ADMIN') %}
-         <div style="display:flex; justify-content: space-around;">
-             <form action="{{path('admin_contract_pdf', {'id' : leaseRequest.id })}}"  style="text-align: center;">
-                 <input class="btn btn-primary" type="submit" value="{{ 'contract.show' | trans }}" />
-             </form>
-             {% if leaseRequest.contract %}
-             <form action="{{path('admin_contract_email', {'id' : leaseRequest.id })}}"  style="text-align: center;">
-                 <input class="btn btn-primary" type="submit" value="{{ 'contract.send' | trans }}" />
-             </form>
-             {% endif %}
-         </div>
-         {% endif %}
-    </div>
-     <div class="column">
-        {{ include('blog/comments.html.twig') }}
-     </div>
+        <div class="column">
+            {{ form_errors(form) }}
+            {{ form_start(form) }}
+            {{ form_row(form.title)}}
+            {{ form_row(form.summary)}}
+            {{ form_row(form.association_type)}}
+            {{ form_row(form.association)}}
+            {{ form_row(form.start_date)}}
+            {{ form_row(form.end_date)}}
+            {{ form_row(form.num_attendants)}}
+            {{ form_row(form.price)}}
+            {{ form_row(form.paid)}}
+            {{ form_row(form.status)}}
+            {% if form.contract_signed is defined%}
+                {{ form_row(form.contract_signed)}}
+            {% endif %}
+            {% if form.remove_signed_contract is defined %}
+                {{ form_row(form.remove_signed_contract)}}
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+            <div style="display:flex; justify-content: space-around;" class="form-group">
+                <form action="{{path('admin_contract_pdf', {'id' : leaseRequest.id })}}"  style="text-align: center;">
+                    <input class="btn btn-primary" type="submit" value="{{ 'contract.show' | trans }}" />
+                </form>
+                {% if leaseRequest.contract %}
+                <form action="{{path('admin_contract_email', {'id' : leaseRequest.id })}}"  style="text-align: center;">
+                    <input class="btn btn-primary" type="submit" value="{{ 'contract.send' | trans }}" />
+                </form>
+                {% endif %}
+            </div>
+            {% endif %}
+            {{ form_row(form.submit)}}
+            {{ form_end(form)}}
+
+
+            </div>
+        <div class="column">
+            {{ include('blog/comments.html.twig') }}
+        </div>
     </div>
 {% endblock %}

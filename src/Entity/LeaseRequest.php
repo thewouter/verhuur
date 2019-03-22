@@ -70,6 +70,8 @@ class LeaseRequest {
 
     private $read;
 
+    private $paid;
+
     /**
      * @var int
      *
@@ -376,6 +378,18 @@ class LeaseRequest {
 
     public function setRead(?bool $read): self {
         $this->read = $read;
+
+        return $this;
+    }
+
+    public function getPaid(): ?float
+    {
+        return $this->paid;
+    }
+
+    public function setPaid(?float $paid): self
+    {
+        $this->paid = $paid;
 
         return $this;
     }

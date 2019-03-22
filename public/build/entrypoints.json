@@ -2,11 +2,10 @@
   "entrypoints": {
     "js/app": {
       "js": [
-        "/build/runtime.6cf710cd.js",
         "/build/vendors~js/admin~js/app~js/login~js/search.e159abc2.js",
         "/build/vendors~js/admin~js/app.1c4cbdff.js",
         "/build/vendors~js/app.54f8ca0d.js",
-        "/build/js/app.8508aabd.js"
+        "/build/js/app.db68984b.js"
       ],
       "css": [
         "/build/vendors~js/app.42ea2233.css"
@@ -14,47 +13,37 @@
     },
     "image/background_contract": {
       "js": [
-        "/build/runtime.6cf710cd.js",
-        "/build/image/background_contract.4590e900.js"
+        "/build/image/background_contract.b4e4abb9.js"
       ]
     },
     "js/login": {
       "js": [
-        "/build/runtime.6cf710cd.js",
         "/build/vendors~js/admin~js/app~js/login~js/search.e159abc2.js",
-        "/build/js/login.8cfa3031.js"
+        "/build/js/login.d470d2f3.js"
       ]
     },
     "js/admin": {
       "js": [
-        "/build/runtime.6cf710cd.js",
         "/build/vendors~js/admin~js/app~js/login~js/search.e159abc2.js",
         "/build/vendors~js/admin~js/app.1c4cbdff.js",
-        "/build/vendors~js/admin.3f589dec.js",
-        "/build/js/admin.a955c6fb.js"
+        "/build/vendors~js/admin.d66d49dd.js",
+        "/build/js/admin.524eb75a.js"
       ]
     },
     "js/search": {
       "js": [
-        "/build/runtime.6cf710cd.js",
         "/build/vendors~js/admin~js/app~js/login~js/search.e159abc2.js",
-        "/build/js/search.ad48c3a0.js"
+        "/build/js/search.58784332.js"
       ]
     },
     "css/app": {
-      "js": [
-        "/build/runtime.6cf710cd.js"
-      ],
       "css": [
         "/build/css/app.5c94ce4c.css"
       ]
     },
     "css/admin": {
-      "js": [
-        "/build/runtime.6cf710cd.js"
-      ],
       "css": [
-        "/build/css/admin.751c967f.css"
+        "/build/css/admin.4aa2f976.css"
       ]
     }
   }

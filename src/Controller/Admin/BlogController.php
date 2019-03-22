@@ -290,8 +290,25 @@ class BlogController extends AbstractController {
      *@Route("/statistics", methods={"GET"}, name="admin_statistics")
      */
     public function statistics(Request $request, LeaseRequestRepository $posts): Response {
-        $requests = $posts->findAll();
+        $allRequests = $posts->findAll();
+        $perYear = [];
+        foreach ($allRequests as $request) {
+            if (!in_array($request->getStartDate()->format('Y'), array_keys($perYear))){
+                $perYear[$request->getStartDate()->format('Y')] = array($request);
+            } else {
+                array_push($perYear[$request->getStartDate()->format('Y')], $request);
+            }
+        }
+        $stats = [];
+        foreach ($perYear as $year => $requests) {
+            $stats[$year] = 0;
+            foreach ($requests as $request) {
+                $stats[$year] += $request->getPrice();
+            }
+        }
         return $this->render('admin/statistics.html.twig', array(
-             'requests' => $requests, ));
+             'years' => $perYear,
+             'stats' => $stats,
+         ));
     }
 }

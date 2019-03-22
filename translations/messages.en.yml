@@ -61,16 +61,6 @@ label.tags: Tags
 label.actions: Actions
 title.post_new: Post creation
 action.edit_contents: Edit contents
-menu.toggle_nav: Toggle navigation
-menu.choose_language: Choose language
-menu.post_list: Request list
-menu.back_to_blog: Back to blog
-menu.homepage: Homepage
-menu.admin: Backend
-menu.user: Account
-menu.logout: Logout
-menu.rss: Blog Posts RSS
-menu.search: Search
 post.to_publish_a_comment: to publish a comment
 post.num_comments: '{count, plural, one {# comment} other {# comments}}'
 post.commented_on: commented on
@@ -102,6 +92,18 @@ info.change_password: After changing your password, you will be logged out of th
 rss.title: Symfony Demo blog
 rss.description: Most recent posts published on the Symfony Demo blog
 
+menu.toggle_nav: Toggle navigation
+menu.choose_language: Choose language
+menu.post_list: Request list
+menu.back_to_blog: Back to blog
+menu.homepage: Homepage
+menu.admin: Backend
+menu.user: Account
+menu.logout: Logout
+menu.rss: Blog Posts RSS
+menu.search: Search
+menu.statistics: Statistics
+
 label.association_type: Type of association
 label.start_date: Date of arrival
 label.end_date: Date of departure
@@ -120,6 +122,9 @@ label.upload_signed: Upload the signed contract
 label.signed: You have signed the contract!
 label.association: Association
 label.checked_calendar: I have checked the <a href="%url%">lease calendar</a>
+label.last_updated: Last updated
+label.paid: Already paid
+label.not_paid: Not paid yet
 
 status.placed: Request placed
 status.contract: Contract send
@@ -135,18 +140,23 @@ lease.manage: View request
 lease.edit: Edit
 lease.new: New lease application
 
+request.updated: Your request has been updated!
+request.answered: Answered by %name%
+
 radix_lease_application: The radix lease application
 
 post.commented: Opmerking geplaatst.
 no_account: Don't have an account? Make one here!
-request.updated: Your request has been updated!
 overview: Overview lease requests
 login.password_reset: Reset my password
 
 contract_signed_remove: Delete signed contract
 contract.show: Download contract
+contract.send: Send contract
 
 calendar.lease: The lease calendar
 
 menu.calendar: Lease calendar
 menu.ical: Export calendar
+
+statistics.year: Overview %year%

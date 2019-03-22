@@ -7,7 +7,8 @@ Encore
     .autoProvidejQuery()
     .autoProvideVariables({
         "window.Bloodhound": require.resolve('bloodhound-js'),
-        "jQuery.tagsinput": "bootstrap-tagsinput"
+        "jQuery.tagsinput": "bootstrap-tagsinput",
+        'window.jQuery': 'jquery'
     })
     .enableSassLoader()
     .enableVersioning()
@@ -19,7 +20,7 @@ Encore
     .addStyleEntry('css/app', ['./assets/scss/app.scss'])
     .addStyleEntry('css/admin', ['./assets/scss/admin.scss'])
     .splitEntryChunks()
-    .enableSingleRuntimeChunk()
+    .disableSingleRuntimeChunk()
 ;
 
 module.exports = Encore.getWebpackConfig();
