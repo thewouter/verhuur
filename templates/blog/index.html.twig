@@ -18,6 +18,12 @@
 {% endblock %}
 
 {% block main %}
+
+    <div class="column well" style="margin:5px">
+        <p>
+            {{ 'help.homepage' | trans | raw}}
+        </p>
+    </div>
     <div class="row">
          <div class='login column'>
             {% if not app.user %} {{ include('security/login.html.twig') }} {% endif %}

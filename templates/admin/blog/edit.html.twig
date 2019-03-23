@@ -91,6 +91,7 @@ Ik heb je onlangs een contract toegestuurd en volgens mijn administratie heb ik 
         <div class="column">
             {{ form_errors(form) }}
             {{ form_start(form) }}
+            {{ form_row(form._token) }}
             {{ form_row(form.title)}}
             {{ form_row(form.summary)}}
             {{ form_row(form.association_type)}}
@@ -107,8 +108,10 @@ Ik heb je onlangs een contract toegestuurd en volgens mijn administratie heb ik 
             {% if form.remove_signed_contract is defined %}
                 {{ form_row(form.remove_signed_contract)}}
             {% endif %}
+            {{ form_row(form.submit)}}
+            {{ form_end(form)}}
             {% if is_granted('ROLE_ADMIN') %}
-            <div style="display:flex; justify-content: space-around;" class="form-group">
+            <div style="display: flex; justify-content: space-around;" class="form-group">
                 <form action="{{path('admin_contract_pdf', {'id' : leaseRequest.id })}}"  style="text-align: center;">
                     <input class="btn btn-primary" type="submit" value="{{ 'contract.show' | trans }}" />
                 </form>
@@ -119,8 +122,6 @@ Ik heb je onlangs een contract toegestuurd en volgens mijn administratie heb ik 
                 {% endif %}
             </div>
             {% endif %}
-            {{ form_row(form.submit)}}
-            {{ form_end(form)}}
 
 
             </div>

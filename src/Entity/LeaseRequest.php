@@ -52,6 +52,7 @@ class LeaseRequest {
         "status.contract",
         "status.signed",
         "status.leased",
+        "status.deposit_retour",
         "status.rejected",
         "status.retracted", );
 
@@ -312,7 +313,7 @@ class LeaseRequest {
         return self::STATUSES[$this->getStatus()];
     }
 
-    public function setStatus(?string $status): self {
+    public function setStatus(?int $status): self {
         $this->status = $status;
 
         return $this;
@@ -382,13 +383,11 @@ class LeaseRequest {
         return $this;
     }
 
-    public function getPaid(): ?float
-    {
+    public function getPaid(): ?float {
         return $this->paid;
     }
 
-    public function setPaid(?float $paid): self
-    {
+    public function setPaid(?float $paid): self {
         $this->paid = $paid;
 
         return $this;

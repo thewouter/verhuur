@@ -102,7 +102,9 @@ class LeaseRequestAdminType extends AbstractType {
                 ));
         }
         $builder->add('submit', SubmitType::class, array(
-                 'attr' => array('class' => 'btn btn-primary'),
+                 'attr' => array(
+                     'class' => 'btn btn-primary', ),
+                 'label' => 'action.edit',
              ));
     }
 

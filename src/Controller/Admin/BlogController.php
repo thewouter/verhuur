@@ -74,13 +74,13 @@ class BlogController extends AbstractController {
         $requests = $posts->findLatest();
         $unreadCount = 0;
         foreach ($requests as $key => $value) {
-            if(!$value->getRead()){
+            if (!$value->getRead()) {
                 $unreadCount = $unreadCount + 1;
             }
         }
         return $this->render('admin/blog/index.html.twig', [
             'posts' => $requests,
-            'unread' => $unreadCount,]);
+            'unread' => $unreadCount, ]);
     }
 
     /**
@@ -293,7 +293,7 @@ class BlogController extends AbstractController {
         $allRequests = $posts->findAll();
         $perYear = [];
         foreach ($allRequests as $request) {
-            if (!in_array($request->getStartDate()->format('Y'), array_keys($perYear))){
+            if (!in_array($request->getStartDate()->format('Y'), array_keys($perYear))) {
                 $perYear[$request->getStartDate()->format('Y')] = array($request);
             } else {
                 array_push($perYear[$request->getStartDate()->format('Y')], $request);

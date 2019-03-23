@@ -89,10 +89,10 @@ class BlogController extends AbstractController {
                 $em->flush();
 
                 $this->addFlash('success', 'account.succesfull');
-                /*$token = new UsernamePasswordToken($user->getUsername(), $user->getPassword(), "main", $user->getRoles());
-                $event = new InteractiveLoginEvent($request, $token);
-                $dispatcher->dispatch("security.interactive_login", $event);
-                return $this->redirectToRoute('lease_overview');*/
+                $token = new UsernamePasswordToken($user, null, "main", $user->getRoles());
+                $this->container->get('security.token_storage')->setToken($token);
+                $this->container->get('session')->set('_security_main', serialize($token));
+                return $this->redirectToRoute('lease_overview');
             }
         }
 

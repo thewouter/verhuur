@@ -37,6 +37,7 @@
                   <tr>
                     <td>{% if request.contractSigned %} {{'status.signed' | trans}} {% endif %}</td>
                     <td>{% if request.paid >= request.price + request.deposit %} {{'label.paid' | trans }} {% endif %}</td>
+                    <td></td>
                     <td> {% if request.comments | first %}
                             {% if request.comments | first.author is same as(request.author) %}
                                 {{'request.unanswerd' | trans}}
@@ -44,7 +45,6 @@
                                 {{'request.answered' | trans({'%name%': request.comments | first.author.fullName})}}
                             {% endif %}
                         {% endif %}</td>
-                    <td></td>
                     <td>
                         <div class="item-actions" style="display: flex;justify-content: space-between; width: 75%">
                             <a href="{{ path('admin_post_edit', {id: request.id}) }}" class="btn btn-sm btn-primary">
