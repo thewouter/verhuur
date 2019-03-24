@@ -125,6 +125,8 @@ label.checked_calendar: I have checked the <a href="%url%">lease calendar</a>
 label.last_updated: Last updated
 label.paid: Already paid
 label.not_paid: Not paid yet
+label.start_time: Key handover time
+label.end_time: key return time
 
 status.placed: Request placed
 status.contract: Contract send
@@ -165,3 +167,29 @@ menu.ical: Export calendar
 help.homepage: Welcome to the lease application of Radix Enschede. Here you can request the lease of our building, manage you request and ask questions. <br>To request a lease make an account and fill out the form. If you want to update a request or ask a question, you can login with your credentials. <br><br> We haven't invested a lot of resources in security so don't choose your master password ;)
 
 statistics.year: Overview %year%
+
+help.header: Help with using the lease-calendar.
+help.personal_warning:
+help.info: >
+  The lease-calendar is published in a standard format.
+  Because of this, it is easy to import it using different programs.
+  You can add the calendar in your student email, or import it into your Google Calendar.
+  Even programs like Outlook and Thunderbird (for example with the Lighning Add-on) can handle the link.
+help.search: Use the terms &ldquo;iCalendar&rdquo; or &ldquo;iCal&rdquo; when searching for more information; this is the name of the type of file the abacus-calendar uses.
+help.link: 'Use the following link for the radix-calendar: <strong>%url%</strong>'
+help.personal: '(Log in to get your personal calendar.)'
+help.used_calendars: "Many used calendars"
+help.google.steps: "To import the calendar in Google Calendar, you follow the following steps:"
+help.google: Google Calendar
+help.google.url: 'Copy the calendar link: <a href="%url%">%url%</a>'
+help.google.go: Go to your Google Calendar
+help.google.arrow: Click the arrow next to &ldquo;Other calendars&rdquo; and click &ldquo;Add by URL&rdquo;.
+help.google.paste: Paste the link, and click &ldquo;Add calendar&rdquo;.
+help.google.success: Now all radix leases are visible in your calendar. You can automatically also view this calendar on your phone.
+help.outlook: Outlook.com calendar
+help.outlook.account: 'To import the abacus-calendar in the calendar of your Microsoft Account you follow the following steps:'
+help.outlook.url: 'Copy the calendar link: <a href="%url%">%url%</a>'
+help.outlook.log_in: Log in to <a href="https://www.outlook.com/">Outlook.com</a> and click &ldquo;Calendar&rdquo; in the top left corner.
+help.outlook.import: Click &ldquo;Import&rdquo; in the same bar, and click &ldquo;Subscribe&rdquo; next.
+help.outlook.paste: Paste the link as &lsquo;URL of the calendar&rsquo;. Fill in a name for the calendar and click &ldquo;Subscribe&rdquo;.
+help.outlook.success: Now all radix leases are visible in your calendar. You can automatically also view this calendar on your Windows Phone.

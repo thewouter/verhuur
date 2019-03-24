@@ -329,10 +329,31 @@ class BlogController extends AbstractController {
         return $response;
     }
 
+
+    /**
+     * @Route("/ical_admin.ics", methods={"GET"}, name="ical_admin")
+     */
+    public function icalAdmin(Request $request, LeaseRequestRepository $repository): Response {
+        $leaseRequests = $repository->findUpcomingAndLastYear();
+        $response = $this->render('calendar/ical_admin.ics.twig', array('leaseRequests' => $leaseRequests));
+        $response->setContent(trim($response->getContent()));
+        $response->headers->set('Content-Type', "text/calendar");
+        $response->setPublic();
+        $response->setMaxAge(7200);
+        return $response;
+    }
+
     /**
      * @Route("/calendar", methods={"GET"}, name="calendar_show")
      */
     public function leaseCalendar(Request $request): Response {
         return $this->render('calendar/show.html.twig', array());
+    }
+
+    /**
+     * @Route("/ical/help", methods={"GET"}, name="ical_help")
+     */
+    public function icalHelp(Request $request): Response {
+        return $this->render('calendar/help.html.twig', array());
     }
 }

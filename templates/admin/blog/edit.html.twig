@@ -98,6 +98,12 @@ Ik heb je onlangs een contract toegestuurd en volgens mijn administratie heb ik 
             {{ form_row(form.association)}}
             {{ form_row(form.start_date)}}
             {{ form_row(form.end_date)}}
+            <div style="display: flex; flex-wrap: wrap">
+                {{ form_row(form.key_deliver)}}
+                <div style="width: 20px">
+                </div>
+                {{ form_row(form.key_return)}}
+            </div>
             {{ form_row(form.num_attendants)}}
             {{ form_row(form.price)}}
             {{ form_row(form.paid)}}

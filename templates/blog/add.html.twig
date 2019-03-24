@@ -11,6 +11,12 @@
     {{ form_row(form.association)}}
     {{ form_row(form.start_date)}}
     {{ form_row(form.end_date)}}
+    <div style="display: flex; flex-wrap: wrap">
+        {{ form_row(form.key_deliver)}}
+        <div style="width: 20px">
+        </div>
+        {{ form_row(form.key_return)}}
+    </div>
     {{ form_row(form.num_attendants)}}
     {{ form_row(form.checked_calendar)}}<label for="{{ form.checked_calendar.vars.id }}">{{ txt|raw }}</label>
     {{ form_row(form.submit)}}

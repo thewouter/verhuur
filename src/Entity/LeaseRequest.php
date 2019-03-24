@@ -150,11 +150,15 @@ class LeaseRequest {
 
     private $contract_signed;
 
+    private $key_deliver;
+
+    private $key_return;
+
     public function __construct() {
         $this->publishedAt = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
-        $this->setStatus(self::STATUSES[0]);
+        $this->setStatus(0);
         $this->status = 0;
     }
 
@@ -389,6 +393,30 @@ class LeaseRequest {
 
     public function setPaid(?float $paid): self {
         $this->paid = $paid;
+
+        return $this;
+    }
+
+    public function getKeyDeliver(): ?\DateTimeInterface
+    {
+        return $this->key_deliver;
+    }
+
+    public function setKeyDeliver(?\DateTimeInterface $key_deliver): self
+    {
+        $this->key_deliver = $key_deliver;
+
+        return $this;
+    }
+
+    public function getKeyReturn(): ?\DateTimeInterface
+    {
+        return $this->key_return;
+    }
+
+    public function setKeyReturn(?\DateTimeInterface $key_return): self
+    {
+        $this->key_return = $key_return;
 
         return $this;
     }

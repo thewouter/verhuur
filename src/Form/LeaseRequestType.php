@@ -26,6 +26,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
 /**
  * Defines the form used to create and manipulate blog posts.
@@ -70,6 +71,18 @@ class LeaseRequestType extends AbstractType {
                 'widget' => 'single_text',
                 'years' => array(date('Y'), date('Y') + 1),
                 'model_timezone' => 'Europe/Amsterdam',
+            ])
+            ->add('key_deliver', TimeType::class, [
+                'label' => 'label.start_time',
+                'widget' => 'choice',
+                'hours' => range(9,22),
+                'minutes' => range(0,60,15),
+            ])
+            ->add('key_return', TimeType::class, [
+                'label' => 'label.end_time',
+                'widget' => 'choice',
+                'hours' => range(9,22),
+                'minutes' => range(0,60,15),
             ])
             ->add('num_attendants', IntegerType::class, [
                 'label' => 'label.num_attendants',

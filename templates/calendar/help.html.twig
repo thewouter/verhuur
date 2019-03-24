@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .calendarHelpImage {
+            margin: 5px 0;
+            box-shadow: 3px 3px 6px 0 rgba(100, 100, 100, .5);
+            display: block;
+            border: 1px solid #000;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+<h1>{% trans %}help.header{% endtrans %}</h1>
+<div class="container">
+<p>{% trans %}help.info{% endtrans %}</p>
+<p>{% trans %}help.search{% endtrans %}</p>
+<p>{% trans with {'%url%': url('ical_admin')} %}help.link{% endtrans %}</p>
+</div>
+<h1>{% trans %}help.used_calendars{% endtrans %}</h1>
+<div class="container">
+<h2>{% trans %}help.google{% endtrans %}</h2>
+<p>{% trans %}help.google.steps{% endtrans %}</p>
+<ol>
+ <li>{% trans with {'%url%': url('ical_admin')} %}help.google.url{% endtrans %}</li>
+ <li>{% trans %}help.google.go{% endtrans %}</li>
+ <li>{% trans %}help.google.arrow{% endtrans %}
+ <img src="{{ asset('build/images/google_calendar_ical.png') }}" class="calendarHelpImage"></li>
+ <li>{% trans %}help.google.paste{% endtrans %}
+ <li>{% trans %}help.google.success{% endtrans %}</li>
+</ol>
+<h2>{% trans %}help.outlook{% endtrans %}</h2>
+<p>{% trans %}help.outlook.account{% endtrans %}</p>
+<ol>
+ <li>{% trans with {'%url%': url('ical_admin') } %}help.outlook.url{% endtrans %}</li>
+ <li>{% trans %}help.outlook.log_in{% endtrans %}
+ <li>{% trans %}help.outlook.import{% endtrans %}
+ <img src="{{ asset('build/images/outlook.com_ical.png') }}" class="calendarHelpImage"></li>
+ <li>{% trans %}help.outlook.paste{% endtrans %}
+ <li>{% trans %}help.outlook.success{% endtrans %}</li>
+</ol>
+</div>
+{% endblock %}

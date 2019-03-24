@@ -79,6 +79,14 @@ App\Entity\LeaseRequest:
             type: float
             nullable: true
             column: paid
+        key_deliver:
+            type: datetime
+            nullable: true
+            column: key_deliver
+        key_return:
+            type: datetime
+            nullable: true
+            column: key_return
 
     manyToOne:
         author:

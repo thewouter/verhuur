@@ -136,3 +136,28 @@ calendar.lease: De verhuurkalender van Lambarene
 
 menu.calendar: Verhuurkalender
 menu.ical: Verhuuragenda exporteren
+
+help.header: Hulp bij het gebruik van de radix-agenda.
+help.info: >
+  De radix-agenda wordt in een standaard formaat gepubliceerd.
+  Hierdoor is het eenvoudig om de agenda in verschillende programma's en web-agenda's toe te voegen.
+  Zo kan je de agenda in je studentmail toevoegen maar ook in je Google Calendar krijgen.
+  Ook programma's als Outlook en Thunderbird (met bijvoorbeeld de Lightning Add-on) kunnen met de link overweg.
+help.search: Zoek voor meer informatie op &ldquo;iCalendar&rdquo; of &ldquo;iCal&rdquo;; dit is het type bestand dat voor de radix-agenda wordt gebruikt.
+help.link: 'Gebruik voor de radix-agenda de volgende link: <strong>%url%</strong>'
+help.personal: '(Log in om je persoonlijke agenda te importeren.)'
+help.used_calendars: "Veel gebruikte agenda's"
+help.google.steps: 'Om de radix-agenda toe te voegen aan Google Calendar volg je de volgende stappen:'
+help.google: Google Calendar
+help.google.url: 'Kopieer de agenda link: <a href="%url%">%url%</a>'
+help.google.go: Ga naar je Google agenda.
+help.google.arrow: Klik op het pijltje naast &ldquo;Andere agenda's&rdquo; en klik op &ldquo;Toevoegen via URL&rdquo;.
+help.google.paste: Plak hier de link en klik op &ldquo;Agenda toevoegen&rdquo;.
+help.google.success: Nu zijn alle verhuurafspraken zichtbaar in je agenda en kan je ook automatisch de radix-agenda zien op je mobiele telefoon.
+help.outlook: Outlook.com agenda
+help.outlook.account: 'Om de radix-agenda toe te voegen aan je de calendar van je Microsoft Account volg je de volgende stappen:'
+help.outlook.url: 'Kopieer de agenda link: <a href="%url%">%url%</a>'
+help.outlook.log_in: Log in op <a href="https://www.outlook.com/">Outlook.com</a> en klik linksbovenin op &ldquo;Agenda&rdquo;.
+help.outlook.import: Klik nu weer in dezelfde bovenste balk op &ldquo;Importeren&rdquo; en klik vervolgens op &ldquo;Abonneren&rdquo;.
+help.outlook.paste: Plak als &lsquo;URL van de agenda&rsquo; de link. Vul een naam voor de agenda in en klik op &ldquo;Abonneren&rdquo;.
+help.outlook.success: Nu zijn alle verhuurafspraken zichtbaar in je agenda en kan je ook automatisch de radix-agenda zien op je Windows Phone.

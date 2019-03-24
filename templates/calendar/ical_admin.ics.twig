@@ -1,0 +1,51 @@
+{% filter ical_wrap %}BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Radix Enschede Verhuurkalender//NONSGML v1.0//NL
+METHOD:PUBLISH
+{% for leaseRequest in leaseRequests %}
+BEGIN:VEVENT
+UID:{{ leaseRequest.id }}@radixenschede.nl\n
+ORGANIZER:mailto:verhuurder@radixenschede.nl\n
+DTSTAMP:{{ 'now' | date('Ymd', 'UTC') }}T{{ 'now' | date('His', 'UTC') }}Z\n
+DTSTART:{{ leaseRequest.startDate | date('Ymd', 'UTC') }}T{{ leaseRequest.startDate | date('His', 'UTC') }}Z\n
+DTEND:{{ leaseRequest.endDate | date('Ymd', 'UTC') }}T{{ leaseRequest.endDate | date('His', 'UTC') }}Z\n
+SUMMARY:{{ (leaseRequest.author.fullName ~ " " ~ leaseRequest.association ~ " " ~ (leaseRequest.statusText | trans)) | ical_escape }}\n
+LOCATION:Lambarene\n
+DESCRIPTION:{{ leaseRequest.summary }}\n
+X-ALT-DESC;FMTTYPE=text/html:{% filter ical_escape('html') -%}
+{{ leaseRequest.summary | raw }}
+{%- endfilter %}\n
+URL:{{ 'radixenschede.nl' | ical_escape }}\n
+END:VEVENT
+{% if leaseRequest.keyDeliver is defined%}
+BEGIN:VEVENT
+UID:{{ leaseRequest.id }}_deliver@radixenschede.nl\n
+ORGANIZER:mailto:verhuurder@radixenschede.nl\n
+DTSTAMP:{{ 'now' | date('Ymd', 'UTC') }}T{{ 'now' | date('His', 'UTC') }}Z\n
+DTSTART:{{ leaseRequest.startDate | date('Ymd', 'UTC') }}T{{ leaseRequest.keyDeliver | date('His', 'UTC') }}Z\n
+DTEND:{{ leaseRequest.startDate | date('Ymd', 'UTC') }}T{{ leaseRequest.keyDeliver | date_modify("+15 minutes") | date('His', 'UTC') }}Z\n
+SUMMARY:{{ (leaseRequest.author.fullName ~ " " ~ leaseRequest.association ~ " " ~ (leaseRequest.statusText | trans)) | ical_escape }}\n
+LOCATION:Lambarene\n
+DESCRIPTION:{{ 'calendar.key_deliver' | trans }}\n
+X-ALT-DESC;FMTTYPE=text/html:{% filter ical_escape('html') -%}
+{{ 'calendar.key_deliver' | trans }}
+{%- endfilter %}\n
+URL:{{ 'radixenschede.nl' | ical_escape }}\n
+END:VEVENT{% endif %}
+{% if leaseRequest.keyReturn is defined%}
+BEGIN:VEVENT
+UID:{{ leaseRequest.id }}_return@radixenschede.nl\n
+ORGANIZER:mailto:verhuurder@radixenschede.nl\n
+DTSTAMP:{{ 'now' | date('Ymd', 'UTC') }}T{{ 'now' | date('His', 'UTC') }}Z\n
+DTSTART:{{ leaseRequest.endDate | date('Ymd', 'UTC') }}T{{ leaseRequest.keyReturn | date('His', 'UTC') }}Z\n
+DTEND:{{ leaseRequest.endDate | date('Ymd', 'UTC') }}T{{ leaseRequest.keyReturn | date_modify("+15 minutes") | date('His', 'UTC') }}Z\n
+SUMMARY:{{ (leaseRequest.author.fullName ~ " " ~ leaseRequest.association ~ " " ~ (leaseRequest.statusText | trans)) | ical_escape }}\n
+LOCATION:Lambarene\n
+DESCRIPTION:{{ 'calendar.key_return' | trans }}\n
+X-ALT-DESC;FMTTYPE=text/html:{% filter ical_escape('html') -%}
+{{ 'calendar.key_return' | trans }}
+{%- endfilter %}\n
+URL:{{ 'radixenschede.nl' | ical_escape }}\n
+END:VEVENT{% endif %}
+{% endfor %}
+END:VCALENDAR{% endfilter %}

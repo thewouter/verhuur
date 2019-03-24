@@ -14,6 +14,8 @@ Encore
     .enableVersioning()
     .addEntry('js/app', './assets/js/app.js')
     .addEntry('image/background_contract', './assets/image/background_contract.jpg')
+    .addEntry('image/google_calendar_ical.png', './assets/image/google_calendar_ical.png')
+    .addEntry('image/outlook.com_ical.png', './assets/image/outlook.com_ical.png')
     .addEntry('js/login', './assets/js/login.js')
     .addEntry('js/admin', './assets/js/admin.js')
     .addEntry('js/search', './assets/js/search.js')
