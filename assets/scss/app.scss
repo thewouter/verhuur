@@ -307,7 +307,7 @@ body#comment_form_error h1.text-danger {
   margin-bottom: 1em
 }
 
-@media (min-width: 768px) and (max-width: 1200px) {
+@media (max-width: 1200px) {
   .container {
     width: 98%;
   }
@@ -331,4 +331,32 @@ body#blog_search article.post {
 body#blog_search .post-metadata {
   font-size: 16px;
   margin-bottom: 8px;
+}
+
+@media  (min-width: 800px) {
+    .row {
+        display: flex;
+    }
+
+    .column {
+        flex: 50%;
+    }
+}
+
+.column {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media (max-width:800px) {
+    .row {
+        display: flex;
+        flex-direction: column;
+    }
+    .edit-data {
+        order: 2;
+    }
+    .edit-comments{
+        order: 1;
+    }
 }

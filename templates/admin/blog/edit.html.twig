@@ -88,7 +88,7 @@ Ik heb je onlangs een contract toegestuurd en volgens mijn administratie heb ik 
 
 {% block main %}
     <div class="row">
-        <div class="column">
+        <div class="column edit-data">
             {{ form_errors(form) }}
             {{ form_start(form) }}
             {{ form_row(form._token) }}
@@ -111,21 +111,19 @@ Ik heb je onlangs een contract toegestuurd en volgens mijn administratie heb ik 
             {{ form_row(form.submit)}}
             {{ form_end(form)}}
             {% if is_granted('ROLE_ADMIN') %}
-            <div style="display: flex; justify-content: space-around;" class="form-group">
-                <form action="{{path('admin_contract_pdf', {'id' : leaseRequest.id })}}"  style="text-align: center;">
-                    <input class="btn btn-primary" type="submit" value="{{ 'contract.show' | trans }}" />
-                </form>
-                {% if leaseRequest.contract %}
-                <form action="{{path('admin_contract_email', {'id' : leaseRequest.id })}}"  style="text-align: center;">
-                    <input class="btn btn-primary" type="submit" value="{{ 'contract.send' | trans }}" />
-                </form>
-                {% endif %}
-            </div>
+                <div style="display: flex; justify-content: space-around;" class="form-group">
+                    <form action="{{path('admin_contract_pdf', {'id' : leaseRequest.id })}}"  style="text-align: center;">
+                        <input class="btn btn-primary" type="submit" value="{{ 'contract.show' | trans }}" />
+                    </form>
+                    {% if leaseRequest.contract %}
+                    <form action="{{path('admin_contract_email', {'id' : leaseRequest.id })}}"  style="text-align: center;">
+                        <input class="btn btn-primary" type="submit" value="{{ 'contract.send' | trans }}" />
+                    </form>
+                    {% endif %}
+                </div>
             {% endif %}
-
-
             </div>
-        <div class="column">
+        <div class="column edit-comments">
             {{ include('blog/comments.html.twig') }}
         </div>
     </div>
