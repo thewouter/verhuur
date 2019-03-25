@@ -104,6 +104,9 @@ label.upload_signed: Upload het getekende contract
 label.signed: Je hebt het contract reeds getekend!
 label.association: Vereniging
 label.checked_calendar: Ik heb de <a href="%url%">verhuur kalender</a> gechecked
+label.noon: Lunch (12:30)
+label.afternoon: Namiddag (17:30)
+label.evening: Avond (22:00)
 
 status.placed: Aanvraag ingediend
 status.contract: Contract verstuurd

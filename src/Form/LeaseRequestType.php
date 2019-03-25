@@ -40,6 +40,20 @@ class LeaseRequestType extends AbstractType {
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void {
+        $keyTimes = array(
+            'label.noon' => '12:30',
+            'label.afternoon' => '17:30',
+            'label.evening' => '22:00',
+        );
+
+        $transformer = new CallbackTransformer(
+                function ($timeAsDateTime) {
+                    return $timeAsDateTime->format('H:i');
+                },
+                function ($timeAsText) {
+                    return \DateTime::createFromFormat('H:i', $timeAsText);
+                }
+            );
         $builder
             ->add('title', null, [
                 'attr' => ['autofocus' => true],
@@ -76,7 +90,7 @@ class LeaseRequestType extends AbstractType {
                 'label' => 'label.start_time',
                 'widget' => 'choice',
                 'hours' => range(9,22),
-                'minutes' => range(0,60,15),
+                'minutes' => range(0,45,15),
             ])
             ->add('key_return', TimeType::class, [
                 'label' => 'label.end_time',
@@ -97,6 +111,10 @@ class LeaseRequestType extends AbstractType {
             ->add('submit', SubmitType::class, array(
                  'attr' => array('class' => 'btn btn-primary'),
             ));
+       $builder->get('key_deliver')
+           ->addModelTransformer($transformer);
+       $builder->get('key_return')
+          ->addModelTransformer($transformer);
     }
 
     /**
