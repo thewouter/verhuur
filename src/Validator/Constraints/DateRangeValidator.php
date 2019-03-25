@@ -21,9 +21,7 @@ class DateRangeValidator extends ConstraintValidator {
         $occupied = $this->em->getRepository('App:LeaseRequest')->findInDateRange($entity->getStartDate(), $entity->getEndDate());
         if (!empty($occupied)) {
             if ($occupied[0]->getId() != $entity->getId()) {
-                $this->context->buildViolation($constraint->messageOccupied)
-                     ->setParameter('{{ string }}', serialize($value))
-                     ->addViolation();
+                $entity->setOccupied();
             }
         }
         if ($entity->getEndDate()->getTimestamp() - $entity->getStartDate()->getTimestamp() < 0) {

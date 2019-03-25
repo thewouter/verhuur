@@ -54,7 +54,8 @@ class LeaseRequest {
         "status.leased",
         "status.deposit_retour",
         "status.rejected",
-        "status.retracted", );
+        "status.retracted",
+        "status.occupied",);
 
     private const REGIO_PP = 2;
     private const SCOUTING_pp = 3;
@@ -418,6 +419,11 @@ class LeaseRequest {
     {
         $this->key_return = $key_return;
 
+        return $this;
+    }
+
+    public function setOccupied(): self {
+        $this->setStatus(7);
         return $this;
     }
 }
