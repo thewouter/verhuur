@@ -45,7 +45,8 @@ class LeaseRequest {
         "Scouting Regio" => 'ass_type.regio',
         "Scouting buiten regio" => 'ass_type.scouting',
         "Dispuut" => 'ass_type.dispuut',
-        "Studievereniging" => 'ass_type.sv', );
+        "Studievereniging" => 'ass_type.sv',
+        "Overig" => 'ass_type.other');
 
     public const STATUSES = array(
         "status.placed",
@@ -56,6 +57,13 @@ class LeaseRequest {
         "status.rejected",
         "status.retracted",
         "status.occupied",);
+
+    public const KEYTIMES = array(
+        'label.noon' => '12:30',
+        'label.afternoon' => '17:30',
+        'label.evening' => '22:00',
+        'label.not_known' => null,
+    );
 
     private const REGIO_PP = 2;
     private const SCOUTING_pp = 3;
@@ -161,6 +169,7 @@ class LeaseRequest {
         $this->tags = new ArrayCollection();
         $this->setStatus(0);
         $this->status = 0;
+        $this->setAssociationType('ass_type.other');
     }
 
     public function getId(): ?int {

@@ -27,6 +27,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use Symfony\Component\Form\CallbackTransformer;
 
 /**
  * Defines the form used to create and manipulate blog posts.
@@ -40,17 +41,18 @@ class LeaseRequestType extends AbstractType {
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void {
-        $keyTimes = array(
-            'label.noon' => '12:30',
-            'label.afternoon' => '17:30',
-            'label.evening' => '22:00',
-        );
 
         $transformer = new CallbackTransformer(
                 function ($timeAsDateTime) {
+                    if (is_null($timeAsDateTime)){
+                        return null;
+                    }
                     return $timeAsDateTime->format('H:i');
                 },
                 function ($timeAsText) {
+                    if (is_null($timeAsText)){
+                        return null;
+                    }
                     return \DateTime::createFromFormat('H:i', $timeAsText);
                 }
             );
@@ -86,17 +88,13 @@ class LeaseRequestType extends AbstractType {
                 'years' => array(date('Y'), date('Y') + 1),
                 'model_timezone' => 'Europe/Amsterdam',
             ])
-            ->add('key_deliver', TimeType::class, [
+            ->add('key_deliver', ChoiceType::class, [
                 'label' => 'label.start_time',
-                'widget' => 'choice',
-                'hours' => range(9,22),
-                'minutes' => range(0,45,15),
+                'choices' => LeaseRequest::KEYTIMES,
             ])
-            ->add('key_return', TimeType::class, [
+            ->add('key_return', ChoiceType::class, [
                 'label' => 'label.end_time',
-                'widget' => 'choice',
-                'hours' => range(9,22),
-                'minutes' => range(0,60,15),
+                'choices' => LeaseRequest::KEYTIMES,
             ])
             ->add('num_attendants', IntegerType::class, [
                 'label' => 'label.num_attendants',

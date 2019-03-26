@@ -161,12 +161,14 @@ class BlogController extends AbstractController {
     }
 
     /**
-     * @Route("/edit/{slug}", methods={"GET", "POST"}, name="lease_edit")
+     * @Route("/edit/{id<\d+>}", methods={"GET", "POST"}, name="lease_edit")
      */
     public function editLease(Request $request, LeaseRequest $leaseRequest): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $user = $this->getUser();
-        $form = $this->createForm(LeaseRequestEditType::class, $leaseRequest, array('signed_uploaded' => !is_null($leaseRequest->getContractSigned())));
+        $form = $this->createForm(LeaseRequestEditType::class, $leaseRequest, array(
+            'signed_uploaded' => !is_null($leaseRequest->getContractSigned()),
+            'editKeyTimes' => (is_null($leaseRequest->getKeyDeliver()) || is_null($leaseRequest->getKeyReturn()))));
         $em = $this->getDoctrine()->getManager();
 
         if ($request->getMethod() == "POST") {
@@ -196,7 +198,7 @@ class BlogController extends AbstractController {
                 }
 
                 $em->flush();
-                return $this->redirectToRoute('lease_edit', ['slug' => $leaseRequest->getSlug()]);
+                return $this->redirectToRoute('lease_edit', ['id' => $leaseRequest->getId()]);
             }
         }
         $comment = new Comment();
@@ -210,7 +212,7 @@ class BlogController extends AbstractController {
             $em->flush();
             $this->addFlash('success', 'post.commented');
 
-            return $this->redirectToRoute('lease_edit', ['slug' => $leaseRequest->getSlug()]);
+            return $this->redirectToRoute('lease_edit', ['id' => $leaseRequest->getId()]);
         }
         return $this->render('blog/edit.html.twig', array(
            'form' => $form->createView(),

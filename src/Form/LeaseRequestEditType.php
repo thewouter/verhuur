@@ -27,6 +27,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\CallbackTransformer;
 
 /**
  * Defines the form used to create and manipulate blog posts.
@@ -40,6 +42,29 @@ class LeaseRequestEditType extends AbstractType {
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void {
+        $timeOptions = [
+            'label' => 'label.start_time',
+            'choices' => LeaseRequest::KEYTIMES,
+        ];
+        if(!$options['editKeyTimes']) {
+            $timeOptions['disabled'] = true;
+        }
+
+        $transformer = new CallbackTransformer(
+                function ($timeAsDateTime) {
+                    if (is_null($timeAsDateTime)){
+                        return null;
+                    }
+                    return $timeAsDateTime->format('H:i');
+                },
+                function ($timeAsText) {
+                    if (is_null($timeAsText)){
+                        return null;
+                    }
+                    return \DateTime::createFromFormat('H:i', $timeAsText);
+                }
+            );
+
         $builder
             ->add('title', null, [
                 'attr' => ['autofocus' => true],
@@ -71,21 +96,22 @@ class LeaseRequestEditType extends AbstractType {
                 'years' => array(date('Y'), date('Y') + 1),
                 'model_timezone' => 'Europe/Amsterdam',
                 'disabled' => true,
-            ])
-            ->add('key_deliver', TimeType::class, [
-                'label' => 'label.start_time',
-                'widget' => 'choice',
-                'hours' => range(9,22),
-                'minutes' => range(0,60,15),
-                'disabled' => true,
-            ])
-            ->add('key_return', TimeType::class, [
-                'label' => 'label.end_time',
-                'widget' => 'choice',
-                'hours' => range(9,22),
-                'minutes' => range(0,60,15),
-                'disabled' => true,
-            ])
+            ]);
+        if($options['editKeyTimes']){
+            $builder
+                ->add('key_deliver', ChoiceType::class, $timeOptions)
+                ->add('key_return', ChoiceType::class, $timeOptions);
+        } else {
+            $builder->add('key_deliver', TextType::class, [
+                    'label' => 'label.start_time',
+                    'disabled' => true,
+                ])
+                ->add('key_return', TextType::class, [
+                    'label' => 'label.end_time',
+                    'disabled' => true,
+                ]);
+        }
+        $builder
             ->add('num_attendants', IntegerType::class, [
                 'label' => 'label.num_attendants',
                 'required' => true,
@@ -107,6 +133,10 @@ class LeaseRequestEditType extends AbstractType {
         $builder->add('submit', SubmitType::class, array(
                 'attr' => array('class' => 'btn btn-primary'),
             ));
+       $builder->get('key_deliver')
+           ->addModelTransformer($transformer);
+       $builder->get('key_return')
+          ->addModelTransformer($transformer);
     }
 
     /**
@@ -116,6 +146,7 @@ class LeaseRequestEditType extends AbstractType {
         $resolver->setDefaults([
             'data_class' => LeaseRequest::class,
             'signed_uploaded' => false,
+            'editKeyTimes' => false,
         ]);
     }
 }

@@ -12,7 +12,7 @@
             <td> {{lease.statusText | trans}} </td>
             <td>{{ lease.startDate|date("d-m-Y") }}</td>
             <td>
-                <form action="{{path('lease_edit', {slug: lease.slug})}}">
+                <form action="{{path('lease_edit', {id: lease.id})}}">
                     <input class="btn btn-primary" type="submit" value="{{ 'lease.edit' | trans }}" />
                 </form>
             </td>

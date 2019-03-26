@@ -130,6 +130,7 @@ label.end_time: key return time
 label.noon: Noon (12:30)
 label.afternoon: Afternoon (17:30)
 label.evening: Evening (22:00)
+label.not_known: Unknown
 
 status.placed: Request placed
 status.contract: Contract send
