@@ -47,15 +47,17 @@ class UserType extends AbstractType {
             ])
             ->add('email', EmailType::class, [
                 'label' => 'label.email',
-            ])
-            ->add('password', PasswordType::class, [
-                'label' => 'label.password',
-            ])
-            ->add('submit', SubmitType::class, array(
+            ]);
+        if($options['password']){
+            $builder
+                ->add('password', PasswordType::class, [
+                    'label' => 'label.password',
+                ]);
+        }
+        $builder->add('submit', SubmitType::class, array(
                 'label' => 'label.submit',
                 'attr' => array('class' => 'btn btn-primary'),
-            ))
-        ;
+            ));
     }
 
     /**
@@ -64,6 +66,7 @@ class UserType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'password' => true,
         ]);
     }
 }
