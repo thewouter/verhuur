@@ -26,7 +26,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * See https://symfony.com/doc/current/cookbook/form/create_custom_field_type.html
  *
- * @author Yonel Ceruto <yonelceruto@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class DateTimePickerType extends AbstractType {
     private $formatConverter;

@@ -19,7 +19,7 @@ use Symfony\Component\Console\Exception\InvalidArgumentException;
  * This class is used to provide an example of integrating simple classes as
  * services into a Symfony application.
  *
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class Validator {
     public function validateUsername(?string $username): string {

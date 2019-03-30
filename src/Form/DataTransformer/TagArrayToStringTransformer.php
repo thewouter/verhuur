@@ -23,7 +23,7 @@ use Symfony\Component\Form\DataTransformerInterface;
  *
  * See https://symfony.com/doc/current/form/data_transformers.html
  *
- * @author Yonel Ceruto <yonelceruto@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  * @author Jonathan Boyer <contact@grafikart.fr>
  */
 class TagArrayToStringTransformer implements DataTransformerInterface {

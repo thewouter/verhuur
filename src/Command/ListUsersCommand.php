@@ -34,7 +34,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  * For more advanced uses, commands can be defined as services too. See
  * https://symfony.com/doc/current/console/commands_as_services.html
  *
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class ListUsersCommand extends Command {
     // a good practice is to use the 'app:' prefix to group all your custom application commands

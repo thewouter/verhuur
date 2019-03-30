@@ -24,7 +24,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  *
  * See https://symfony.com/doc/current/security/voters.html
  *
- * @author Yonel Ceruto <yonelceruto@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class PostVoter extends Voter {
     // Defining these constants is overkill for this simple application, but for real

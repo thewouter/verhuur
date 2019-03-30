@@ -43,8 +43,8 @@ use Symfony\Component\Stopwatch\Stopwatch;
  * For more advanced uses, commands can be defined as services too. See
  * https://symfony.com/doc/current/console/commands_as_services.html
  *
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
- * @author Yonel Ceruto <yonelceruto@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class AddUserCommand extends Command {
     // to make your command lazily loaded, configure the $defaultName static property,

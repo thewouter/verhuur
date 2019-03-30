@@ -22,6 +22,7 @@ use App\Form\UserType;
 use App\Form\LeaseRequestType;
 use App\Form\LeaseRequestEditType;
 use App\Repository\LeaseRequestRepository;
+use App\Repository\UserRepository;
 use App\Repository\TagRepository;
 use App\Utils\Slugger;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
@@ -46,18 +47,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *
  * @Route("")
  *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class BlogController extends AbstractController {
     private $passwordEncoder;
     private $mailer;
     private $translator;
+    private $google_service;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer, TranslatorInterface $translator) {
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer, TranslatorInterface $translator, \Google_Client $client) {
         $this->passwordEncoder = $passwordEncoder;
         $this->mailer = $mailer;
         $this->translator = $translator;
+        $this->google_service =  new \Google_Service_Gmail($client);
     }
 
     /**
@@ -357,5 +359,56 @@ class BlogController extends AbstractController {
      */
     public function icalHelp(Request $request): Response {
         return $this->render('calendar/help.html.twig', array());
+    }
+
+    /**
+     * @Route("/mail/update", methods={"POST"}, name="email_update_hook")
+     */
+    public function updateMail(Request $request, UserRepository $userRepository): Response {
+        $gmail = $this->google_service;
+        $data = json_decode($request->getContent(), true);
+        $payload = json_decode(base64_decode($data['message']['data']), true);
+        $messages = $gmail->users_messages->listUsersMessages('me', ['maxResults' => 1] );
+        if(sizeof($messages) > 0){
+            $id = $messages[0]->getId();
+            $message = $gmail->users_messages->get('me', $id);
+            $user = $userRepository->findByEmail($payload['emailAddress']);
+            if($user){
+                $parts = $message->getPayload();
+                if (count($parts->getParts()) > 0){
+                    $parts = $parts->getParts();
+                } else {
+                    $parts = [$parts];
+                }
+                $containsHTML = false;
+                $containsTXT = false;
+                foreach ($parts as $key => $part) {
+                    if($part->getMimeType() == 'text/plain'){
+                        $containsTXT = $key+1;
+                    }
+                    if($part->getMimeType() == 'text/html'){
+                        $containsHTML = $key+1;
+                    }
+                }
+                $leaseRequest = $user[0]->getLeases()[0];
+                $comment = new Comment();
+                if($containsTXT) {
+                    $cont = base64_decode($parts[$containsTXT-1]->getBody()->getData());
+                } elseif ($containsHTML) {
+                    $cont = base64_decode($parts[$containsHTML-1]->getBody()->getData());
+                } else {
+                    $cont ='email without TXT or HTML';
+                }
+                if($leaseRequest->getComments()[0]->getContent() != $cont) {
+                    $comment->setContent(($cont));
+                    $comment->setAuthor($user[0]);
+                    $leaseRequest->addComment($comment);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($comment);
+                    $em->flush();
+                }
+            }
+        }
+        return new Response(serialize($data));
     }
 }

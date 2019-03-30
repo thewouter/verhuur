@@ -24,8 +24,8 @@ use Twig\TwigFunction;
  * page. If you are starting with Symfony, don't look at this code and consider
  * studying instead the code of the src/App/Twig/AppExtension.php extension.
  *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class SourceCodeExtension extends AbstractExtension {
     private $controller;

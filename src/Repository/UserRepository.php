@@ -24,8 +24,8 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  *
  * See https://symfony.com/doc/current/doctrine/repository.html
  *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class UserRepository extends ServiceEntityRepository {
     public function __construct(ManagerRegistry $registry) {

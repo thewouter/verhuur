@@ -33,9 +33,7 @@ use Symfony\Component\Form\CallbackTransformer;
 /**
  * Defines the form used to create and manipulate blog posts.
  *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
- * @author Yonel Ceruto <yonelceruto@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class LeaseRequestEditType extends AbstractType {
     /**

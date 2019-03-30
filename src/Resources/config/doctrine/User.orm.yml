@@ -66,5 +66,6 @@ App\Entity\User:
         leases:
             targetEntity: LeaseRequest
             mappedBy: author
+            orderBy: {'publishedAt': 'DESC'}
 
     lifecycleCallbacks: {  }

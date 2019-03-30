@@ -1,0 +1,11 @@
+services:
+    Google_Client:
+        class: Google_Client
+        calls:
+            - [setClientId, ['%env(GOOGLE_CLIENT_ID)%']]
+            - [setClientSecret, ['%env(GOOGLE_CLIENT_SECRET)%']]
+            - [setAuthConfig, ['../credentials.json']]
+            - [setAccessType, ['offline']]
+            - [setApprovalPrompt, ['force']]
+            - [setScopes, ['https://www.googleapis.com/auth/gmail.readonly']]
+            - [fetchAccessTokenWithRefreshToken, ['%env(GOOGLE_REFRESH_TOKEN)%']]

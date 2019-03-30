@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace App\Utils;
 
 /**
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class Slugger {
     public static function slugify(string $string): string {

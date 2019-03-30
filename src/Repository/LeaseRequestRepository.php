@@ -29,9 +29,9 @@ use Doctrine\ORM\EntityRepository;
  *
  * See https://symfony.com/doc/current/doctrine/repository.html
  *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
- * @author Yonel Ceruto <yonelceruto@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class LeaseRequestRepository extends ServiceEntityRepository {
     public function __construct(ManagerRegistry $registry) {

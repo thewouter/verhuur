@@ -23,7 +23,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * See https://symfony.com/doc/current/book/doctrine.html#creating-an-entity-class
  *
- * @author Yonel Ceruto <yonelceruto@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class Tag implements \JsonSerializable {
     /**

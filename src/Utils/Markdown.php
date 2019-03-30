@@ -20,8 +20,8 @@ use HtmlSanitizer\SanitizerInterface;
  * and the application. It's generally recommended to create these light interfaces
  * to decouple your application from the implementation details of the third-party library.
  *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class Markdown {
     private $parser;

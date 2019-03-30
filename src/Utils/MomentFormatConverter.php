@@ -16,7 +16,7 @@ namespace App\Utils;
 /**
  * This class is used to convert PHP date format to moment.js format.
  *
- * @author Yonel Ceruto <yonelceruto@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class MomentFormatConverter {
     /**

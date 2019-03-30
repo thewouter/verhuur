@@ -28,8 +28,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  * Controller used to manage the application security.
  * See https://symfony.com/doc/current/cookbook/security/form_login_setup.html.
  *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class SecurityController extends AbstractController {
     private $mailer;
@@ -88,7 +88,7 @@ class SecurityController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getDoctrine()->getRepository('App:User')->findByEmail($form->getData()['email']);
-            $resetLink = substr(md5(rand()), 0, 30);
+            $resetLink = substr(md5((string)rand()), 0, 30);
             if (empty($user)) {
                 $this->addFlash('error', 'user.not_found');
                 return $this->redirectToRoute('homepage');

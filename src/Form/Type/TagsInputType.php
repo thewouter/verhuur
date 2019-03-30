@@ -28,7 +28,7 @@ use Symfony\Component\Form\FormView;
  *
  * See https://symfony.com/doc/current/cookbook/form/create_custom_field_type.html
  *
- * @author Yonel Ceruto <yonelceruto@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class TagsInputType extends AbstractType {
     private $tags;

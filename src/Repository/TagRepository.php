@@ -24,7 +24,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  *
  * See https://symfony.com/doc/current/doctrine/repository.html
  *
- * @author Yonel Ceruto <yonelceruto@gmail.com>
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class TagRepository extends ServiceEntityRepository {
     public function __construct(ManagerRegistry $registry) {
