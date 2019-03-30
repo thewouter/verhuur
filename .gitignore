@@ -32,5 +32,9 @@ yarn-error.log
 
 *.sqlite
 *.env
-
-public/contracts/*
+/.env
+.env
+*credentials.json
+*token.json
+public/contracts/pdf/unsigned*
+public/contracts/pdf/signed*
