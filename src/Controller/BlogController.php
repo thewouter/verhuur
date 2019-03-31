@@ -371,8 +371,15 @@ class BlogController extends AbstractController {
         $messages = $gmail->users_messages->listUsersMessages('me', ['maxResults' => 1] );
         if(sizeof($messages) > 0){
             $id = $messages[0]->getId();
-            $message = $gmail->users_messages->get('me', $id);
-            $user = $userRepository->findByEmail($payload['emailAddress']);
+            $message = $gmail->users_messages->get('me', $id, array('format' => 'full'));
+            $fromAddress = false;
+            foreach ($message->getPayload()->getHeaders() as $header) {
+                if($header->getName() == 'From'){
+                    $fromAddress = explode('<', $header->getValue())[1];
+                    $fromAddress = explode('>', $fromAddress)[0];
+                }
+            }
+            $user = $userRepository->findByEmail($fromAddress);
             if($user){
                 $parts = $message->getPayload();
                 if (count($parts->getParts()) > 0){
