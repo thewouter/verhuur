@@ -375,8 +375,10 @@ class BlogController extends AbstractController {
             $fromAddress = false;
             foreach ($message->getPayload()->getHeaders() as $header) {
                 if($header->getName() == 'From'){
-                    $fromAddress = explode('<', $header->getValue())[1];
-                    $fromAddress = explode('>', $fromAddress)[0];
+                    if (strpos($header->getValue(), '<') !== false) {
+                        $fromAddress = explode('<', $header->getValue())[1];
+                        $fromAddress = explode('>', $fromAddress)[0];
+                    }
                 }
             }
             $user = $userRepository->findByEmail($fromAddress);
