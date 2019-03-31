@@ -411,4 +411,16 @@ class BlogController extends AbstractController {
         }
         return new Response(serialize($data));
     }
+
+    /**
+     * @Route("/mail/watch", methods={"GET"}, name="email_update_watch")
+     */
+    public function updateMailWatch(Request $request, UserRepository $userRepository): Response {
+        $watchreq = new \Google_Service_Gmail_WatchRequest();
+        $watchreq->setLabelIds(array('INBOX'));
+        $watchreq->setTopicName('projects/verhuursite-1553976897434/topics/gmailpush');
+        $res = $this->google_service->users->watch('me', $watchreq);
+        dump($res);
+        return $this->redirectToRoute('homepage');
+    }
 }
