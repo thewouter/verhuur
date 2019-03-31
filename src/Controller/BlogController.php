@@ -410,6 +410,7 @@ class BlogController extends AbstractController {
                     $comment->setContent(($cont));
                     $comment->setAuthor($user[0]);
                     $leaseRequest->addComment($comment);
+                    $leaseRequest->setRead(false);
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($comment);
                     $em->flush();
