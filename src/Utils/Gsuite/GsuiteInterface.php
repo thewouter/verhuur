@@ -9,5 +9,4 @@ namespace App\Utils\Gsuite;
  * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 interface GsuiteInterface {
-
 }

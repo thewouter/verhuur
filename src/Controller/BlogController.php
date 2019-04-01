@@ -59,7 +59,7 @@ class BlogController extends AbstractController {
         $this->passwordEncoder = $passwordEncoder;
         $this->mailer = $mailer;
         $this->translator = $translator;
-        $this->google_service =  new \Google_Service_Gmail($client);
+        $this->google_service = new \Google_Service_Gmail($client);
     }
 
     /**
@@ -170,7 +170,7 @@ class BlogController extends AbstractController {
         $user = $this->getUser();
         $form = $this->createForm(LeaseRequestEditType::class, $leaseRequest, array(
             'signed_uploaded' => !is_null($leaseRequest->getContractSigned()),
-            'editKeyTimes' => (is_null($leaseRequest->getKeyDeliver()) || is_null($leaseRequest->getKeyReturn()))));
+            'editKeyTimes' => (is_null($leaseRequest->getKeyDeliver()) || is_null($leaseRequest->getKeyReturn())), ));
         $em = $this->getDoctrine()->getManager();
 
         if ($request->getMethod() == "POST") {
@@ -333,7 +333,6 @@ class BlogController extends AbstractController {
         return $response;
     }
 
-
     /**
      * @Route("/ical_admin.ics", methods={"GET"}, name="ical_admin")
      */
@@ -368,13 +367,13 @@ class BlogController extends AbstractController {
         $gmail = $this->google_service;
         $data = json_decode($request->getContent(), true);
         $payload = json_decode(base64_decode($data['message']['data']), true);
-        $messages = $gmail->users_messages->listUsersMessages('me', ['maxResults' => 1] );
-        if(sizeof($messages) > 0){
+        $messages = $gmail->users_messages->listUsersMessages('me', ['maxResults' => 1]);
+        if (count($messages) > 0) {
             $id = $messages[0]->getId();
             $message = $gmail->users_messages->get('me', $id, array('format' => 'full'));
             $fromAddress = false;
             foreach ($message->getPayload()->getHeaders() as $header) {
-                if($header->getName() == 'From'){
+                if ($header->getName() == 'From') {
                     if (strpos($header->getValue(), '<') !== false) {
                         $fromAddress = explode('<', $header->getValue())[1];
                         $fromAddress = explode('>', $fromAddress)[0];
@@ -382,9 +381,9 @@ class BlogController extends AbstractController {
                 }
             }
             $user = $userRepository->findByEmail($fromAddress);
-            if($user){
+            if ($user) {
                 $parts = $message->getPayload();
-                if (count($parts->getParts()) > 0){
+                if (count($parts->getParts()) > 0) {
                     $parts = $parts->getParts();
                 } else {
                     $parts = [$parts];
@@ -392,23 +391,23 @@ class BlogController extends AbstractController {
                 $containsHTML = false;
                 $containsTXT = false;
                 foreach ($parts as $key => $part) {
-                    if($part->getMimeType() == 'text/plain'){
-                        $containsTXT = $key+1;
+                    if ($part->getMimeType() == 'text/plain') {
+                        $containsTXT = $key + 1;
                     }
-                    if($part->getMimeType() == 'text/html'){
-                        $containsHTML = $key+1;
+                    if ($part->getMimeType() == 'text/html') {
+                        $containsHTML = $key + 1;
                     }
                 }
                 $leaseRequest = $user[0]->getLeases()[0];
                 $comment = new Comment();
-                if($containsTXT) {
-                    $cont = base64_decode($parts[$containsTXT-1]->getBody()->getData());
+                if ($containsTXT) {
+                    $cont = base64_decode($parts[$containsTXT - 1]->getBody()->getData());
                 } elseif ($containsHTML) {
-                    $cont = base64_decode($parts[$containsHTML-1]->getBody()->getData());
+                    $cont = base64_decode($parts[$containsHTML - 1]->getBody()->getData());
                 } else {
-                    $cont ='email without TXT or HTML';
+                    $cont = 'email without TXT or HTML';
                 }
-                if($leaseRequest->getComments()[0]->getContent() != $cont) {
+                if ($leaseRequest->getComments()[0]->getContent() != $cont) {
                     $comment->setContent(($cont));
                     $comment->setAuthor($user[0]);
                     $leaseRequest->addComment($comment);

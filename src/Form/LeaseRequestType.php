@@ -41,16 +41,15 @@ class LeaseRequestType extends AbstractType {
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void {
-
         $transformer = new CallbackTransformer(
                 function ($timeAsDateTime) {
-                    if (is_null($timeAsDateTime)){
+                    if (is_null($timeAsDateTime)) {
                         return null;
                     }
                     return $timeAsDateTime->format('H:i');
                 },
                 function ($timeAsText) {
-                    if (is_null($timeAsText)){
+                    if (is_null($timeAsText)) {
                         return null;
                     }
                     return \DateTime::createFromFormat('H:i', $timeAsText);
@@ -109,9 +108,9 @@ class LeaseRequestType extends AbstractType {
             ->add('submit', SubmitType::class, array(
                  'attr' => array('class' => 'btn btn-primary'),
             ));
-       $builder->get('key_deliver')
+        $builder->get('key_deliver')
            ->addModelTransformer($transformer);
-       $builder->get('key_return')
+        $builder->get('key_return')
           ->addModelTransformer($transformer);
     }
 

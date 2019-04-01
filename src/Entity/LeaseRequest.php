@@ -46,7 +46,7 @@ class LeaseRequest {
         "Scouting buiten regio" => 'ass_type.scouting',
         "Dispuut" => 'ass_type.dispuut',
         "Studievereniging" => 'ass_type.sv',
-        "Overig" => 'ass_type.other');
+        "Overig" => 'ass_type.other', );
 
     public const STATUSES = array(
         "status.placed",
@@ -56,7 +56,7 @@ class LeaseRequest {
         "status.deposit_retour",
         "status.rejected",
         "status.retracted",
-        "status.occupied",);
+        "status.occupied", );
 
     public const KEYTIMES = array(
         'label.noon' => '12:30',
@@ -407,25 +407,21 @@ class LeaseRequest {
         return $this;
     }
 
-    public function getKeyDeliver(): ?\DateTimeInterface
-    {
+    public function getKeyDeliver(): ?\DateTimeInterface {
         return $this->key_deliver;
     }
 
-    public function setKeyDeliver(?\DateTimeInterface $key_deliver): self
-    {
+    public function setKeyDeliver(?\DateTimeInterface $key_deliver): self {
         $this->key_deliver = $key_deliver;
 
         return $this;
     }
 
-    public function getKeyReturn(): ?\DateTimeInterface
-    {
+    public function getKeyReturn(): ?\DateTimeInterface {
         return $this->key_return;
     }
 
-    public function setKeyReturn(?\DateTimeInterface $key_return): self
-    {
+    public function setKeyReturn(?\DateTimeInterface $key_return): self {
         $this->key_return = $key_return;
 
         return $this;

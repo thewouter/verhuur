@@ -44,19 +44,19 @@ class LeaseRequestEditType extends AbstractType {
             'label' => 'label.start_time',
             'choices' => LeaseRequest::KEYTIMES,
         ];
-        if(!$options['editKeyTimes']) {
+        if (!$options['editKeyTimes']) {
             $timeOptions['disabled'] = true;
         }
 
         $transformer = new CallbackTransformer(
                 function ($timeAsDateTime) {
-                    if (is_null($timeAsDateTime)){
+                    if (is_null($timeAsDateTime)) {
                         return null;
                     }
                     return $timeAsDateTime->format('H:i');
                 },
                 function ($timeAsText) {
-                    if (is_null($timeAsText)){
+                    if (is_null($timeAsText)) {
                         return null;
                     }
                     return \DateTime::createFromFormat('H:i', $timeAsText);
@@ -95,7 +95,7 @@ class LeaseRequestEditType extends AbstractType {
                 'model_timezone' => 'Europe/Amsterdam',
                 'disabled' => true,
             ]);
-        if($options['editKeyTimes']){
+        if ($options['editKeyTimes']) {
             $builder
                 ->add('key_deliver', ChoiceType::class, $timeOptions)
                 ->add('key_return', ChoiceType::class, $timeOptions);
@@ -131,9 +131,9 @@ class LeaseRequestEditType extends AbstractType {
         $builder->add('submit', SubmitType::class, array(
                 'attr' => array('class' => 'btn btn-primary'),
             ));
-       $builder->get('key_deliver')
+        $builder->get('key_deliver')
            ->addModelTransformer($transformer);
-       $builder->get('key_return')
+        $builder->get('key_return')
           ->addModelTransformer($transformer);
     }
 

@@ -48,7 +48,7 @@ class UserType extends AbstractType {
             ->add('email', EmailType::class, [
                 'label' => 'label.email',
             ]);
-        if($options['password']){
+        if ($options['password']) {
             $builder
                 ->add('password', PasswordType::class, [
                     'label' => 'label.password',

@@ -41,7 +41,6 @@ class UserController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'user.updated_successfully');
