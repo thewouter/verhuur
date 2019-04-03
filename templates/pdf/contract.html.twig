@@ -27,7 +27,7 @@ div.cls_010{font-family:Arial,serif;font-size:12.1px;color:rgb(0,0,0);font-weigh
 <body>
 <div style="position:absolute;left:50%;margin-left:-297px;top:0px;width:595px;height:841px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="build/images/background_contract.jpg" width=595 height=841></div>
+<img src="{{ app.request.getSchemeAndHttpHost() ~ asset('build/images/background_contract.jpg') }}" width=595 height=841></div>
 <div style="position:absolute;left:31.08px;top:121.38px" class="cls_007"><span class="cls_007">HUUROVEREENKOMST LAMBARENE</span></div>
 <div style="position:absolute;left:456.58px;top:131.46px" class="cls_003"><span class="cls_003">nr.</span></div>
 <div style="position:absolute;left:489.22px;top:121.38px" class="cls_008"><span class="cls_008">R{{leaseRequest.id}}</span></div>
