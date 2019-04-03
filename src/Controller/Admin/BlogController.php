@@ -15,8 +15,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\LeaseRequest;
 use App\Entity\Comment;
+use App\Entity\Prices;
 use App\Form\PostType;
 use App\Repository\LeaseRequestRepository;
+use App\Repository\PriceRepository;
 use App\Utils\Slugger;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,6 +30,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use App\Form\LeaseRequestType;
 use App\Form\LeaseRequestAdminType;
 use App\Form\CommentType;
+use App\Form\PricesType;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -70,10 +73,11 @@ class BlogController extends AbstractController {
      * @Route("/", methods={"GET"}, name="admin_index")
      * @Route("/", methods={"GET"}, name="admin_post_index")
      */
-    public function index(LeaseRequestRepository $posts): Response {
+    public function index(LeaseRequestRepository $posts, PriceRepository $repository): Response {
         $requests = $posts->findLatest();
         $unreadCount = 0;
         foreach ($requests as $key => $value) {
+            $value->setPriceRepository($repository);
             if (!$value->getRead()) {
                 $unreadCount = $unreadCount + 1;
             }
@@ -212,8 +216,6 @@ class BlogController extends AbstractController {
     }
 
     /**
-     *
-     *
      *@Route("/{id}/contract.pdf", methods={"GET"}, name="admin_contract_pdf")
      */
     public function contractPdf(Request $request, LeaseRequest $leaseRequest): Response {
@@ -232,8 +234,6 @@ class BlogController extends AbstractController {
 
         // Load HTML to Dompdf
         $dompdf->loadHtml($html);
-
-        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
         $dompdf->setPaper('A4', 'portrait');
 
         // Render the HTML as PDF
@@ -309,6 +309,26 @@ class BlogController extends AbstractController {
         return $this->render('admin/statistics.html.twig', array(
              'years' => $perYear,
              'stats' => $stats,
+         ));
+    }
+
+    /**
+     *@Route("/prices/edit", methods={"GET", "POST"}, name="prices_edit")
+     */
+    public function prices(Request $request, PriceRepository $prices): Response {
+        $allPrices = $prices->findAll();
+        $prices = new Prices();
+        foreach ($allPrices as $value) {
+            $prices->addPrice($value);
+        }
+        $form = $this->createForm(PricesType::class, $prices);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+        }
+        return $this->render('admin/prices.html.twig', array(
+             'form' => $form->createView(),
          ));
     }
 }

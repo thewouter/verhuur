@@ -15,6 +15,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use App\Repository\PriceRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -65,14 +66,17 @@ class LeaseRequest {
         'label.not_known' => null,
     );
 
-    private const REGIO_PP = 2;
-    private const SCOUTING_pp = 3;
-    private const REGIO_MIN = 30;
-    private const SCOUTING_MIN = 50;
-    private const OTHER_MIN = 105;
-    private const OTHER_MAX = 145;
-    private const DEPOSIT_SCOUTING = 100;
-    private const DEPOSIT_OTHER = 250;
+    private const REGIO_PP = 'regio_pp';
+    private const SCOUTING_pp = 'scouting_pp';
+    private const REGIO_MIN = 'regio_min';
+    private const SCOUTING_MIN = 'scouting_min';
+    private const OTHER_MIN = 'other_min';
+    private const OTHER_MAX = 'other_max';
+    private const DEPOSIT_SCOUTING = 'deposit_scouting';
+    private const DEPOSIT_OTHER = 'deposit_other';
+    private const OTHER_DAY = 'other_day';
+    private const SCOUTING_DAY = 'scouting_day';
+    private const REGIO_DAY = 'regio_day';
 
     private $status;
 
@@ -163,13 +167,19 @@ class LeaseRequest {
 
     private $key_return;
 
-    public function __construct() {
+    private $priceRepository;
+
+    public function __construct(PriceRepository $repository) {
         $this->publishedAt = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->setStatus(0);
         $this->status = 0;
         $this->setAssociationType('ass_type.other');
+    }
+
+    public function setPriceRepository(PriceRepository $repository){
+        $this->priceRepository = $repository;
     }
 
     public function getId(): ?int {
@@ -298,18 +308,42 @@ class LeaseRequest {
 
     public function guessPrice(): float {
         $days = $this->getEndDate()->diff($this->getStartDate())->format("%a");
+        $regio_pp = $this->priceRepository->findById(self::REGIO_PP)[0]->getPrice();
+        $regio_min = $this->priceRepository->findById(self::REGIO_MIN)[0]->getPrice();
+        $regio_day = $this->priceRepository->findById(self::REGIO_DAY)[0]->getPrice();
+        $scouting_pp = $this->priceRepository->findById(self::SCOUTING_pp)[0]->getPrice();
+        $scouting_min = $this->priceRepository->findById(self::SCOUTING_MIN)[0]->getPrice();
+        $scouting_day = $this->priceRepository->findById(self::SCOUTING_DAY)[0]->getPrice();
+        $other_min = $this->priceRepository->findById(self::OTHER_MIN)[0]->getPrice();
+        $other_max = $this->priceRepository->findById(self::OTHER_MAX)[0]->getPrice();
+        $other_day = $this->priceRepository->findById(self::OTHER_DAY)[0]->getPrice();
+
+
+
         switch ($this->getAssociationType()) {
             case 'ass_type.regio':
-                return max(self::REGIO_PP * $this->getNumAttendants(), self::REGIO_MIN) * $days;
+                if($days == 0){
+                    return $regio_day;
+                } else {
+                    return max($regio_pp * $this->getNumAttendants(), $regio_min) * $days;
+                }
                 break;
             case 'ass_type.scouting':
-                return max(self::SCOUTING_pp * $this->getNumAttendants(), self::SCOUTING_MIN) * $days;
+                if ($days == 0){
+                    return $scouting_day;
+                } else {
+                    return max($scouting_pp * $this->getNumAttendants(), $scouting_min) * $days;
+                }
                 break;
             default:
-                if ($this->getNumAttendants() < 16) {
-                    return self::OTHER_MIN * $days;
+                if($days == 0){
+                    return $other_day;
                 } else {
-                    return self::OTHER_MAX * $days;
+                    if ($this->getNumAttendants() < 16) {
+                        return $other_min * $days;
+                    } else {
+                        return $other_max * $days;
+                    }
                 }
                 break;
         }
@@ -356,13 +390,13 @@ class LeaseRequest {
     public function getDeposit(): float {
         switch ($this->getAssociationType()) {
             case 'ass_type.regio':
-                return self::DEPOSIT_SCOUTING;
+                return $this->priceRepository->findById(self::DEPOSIT_SCOUTING)[0]->getPrice();
                 break;
             case 'ass_type.scouting':
-                return self::DEPOSIT_SCOUTING;
+                return $this->priceRepository->findById(self::DEPOSIT_SCOUTING)[0]->getPrice();
                 break;
             default:
-                return self::DEPOSIT_OTHER;
+                return $this->priceRepository->findById(self::DEPOSIT_OTHER)[0]->getPrice();
                 break;
         }
     }

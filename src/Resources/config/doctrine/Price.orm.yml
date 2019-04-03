@@ -1,0 +1,12 @@
+App\Entity\Price:
+    type: entity
+    table: price
+    id:
+        id:
+            type: string
+            nullable: false
+            id: true
+    fields:
+        price:
+            type: float
+            nullable: false

@@ -1,0 +1,44 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        label {
+            display: none;
+        }
+
+    </style>
+{% endblock %}
+
+{% block main %}
+        {{form_start(form)}}
+
+        {% for price in form.prices %}
+            <div class="row">
+                <div class="column" style="flex:10%">
+                    {{('label.' ~ price.vars.data.id) | trans}}
+                </div>
+                <div class="column" style="flex:40%">
+                    {{ form_widget(price)}}
+                </div>
+            </div>
+        {% endfor %}
+        {{form_end(form)}}
+
+{% endblock %}
+
+{#
+    <div class="row">
+        <div class="column">
+         form.vars.data.id | tran
+            </div>
+        <div class="column">
+         form_start(form)
+             form_row(form.price)
+            </div>
+        <div class="column">
+            form_row(form.submit)
+        </div>
+         form_end(form)
+    </div>
+ endfor #}

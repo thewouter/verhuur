@@ -24,6 +24,7 @@ use App\Form\LeaseRequestEditType;
 use App\Repository\LeaseRequestRepository;
 use App\Repository\UserRepository;
 use App\Repository\TagRepository;
+use App\Repository\PriceRepository;
 use App\Utils\Slugger;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -136,11 +137,12 @@ class BlogController extends AbstractController {
      * @Route("/addlease", methods={"GET", "POST"}, name="lease_add")
      *
      */
-    public function leaseAdd(Request $request): Response {
+    public function leaseAdd(Request $request, PriceRepository $repository): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $user = $this->getUser();
         $txt = $this->translator->trans('label.checked_calendar', ['%url%' => $this->get('router')->generate('calendar_show')]);
         $leaseRequest = new LeaseRequest();
+        $leaseRequest->setPriceRepository($repository);
         $form = $this->createForm(LeaseRequestType::class, $leaseRequest, array('label' => $this->translator->trans('label.checked_calendar', ['%url%' => $this->get('router')->generate('calendar_show')])));
         if ($request->getMethod() == "POST") {
             $form->handleRequest($request);
