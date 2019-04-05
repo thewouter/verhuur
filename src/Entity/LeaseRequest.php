@@ -169,7 +169,7 @@ class LeaseRequest {
 
     private $priceRepository;
 
-    public function __construct(PriceRepository $repository) {
+    public function __construct() {
         $this->publishedAt = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
