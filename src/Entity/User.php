@@ -151,6 +151,12 @@ class User implements UserInterface, \Serializable {
         $this->roles = $roles;
     }
 
+    public function addRole(string $role): void {
+        if (!in_array($role, $this->roles)){
+            $this->roles[] = $role;   
+        }
+    }
+
     /**
      * Returns the salt that was originally used to encode the password.
      *

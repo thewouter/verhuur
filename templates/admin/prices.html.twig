@@ -10,6 +10,10 @@
 {% endblock %}
 
 {% block main %}
+
+        <div class="well">
+            <h1> {{ 'prices.title' | trans }} </h1>
+            <p> {{ 'prices.edit' | trans }} </p>
         {{form_start(form)}}
 
         {% for price in form.prices %}
@@ -23,5 +27,13 @@
             </div>
         {% endfor %}
         {{form_end(form)}}
+    </div>
+
+    <div class="well">
+        <h1> {{'admin.title' | trans }} </h1>
+        <p> {{'admin.edit' | trans }} </p>
+
+        {{ form(adminForm) }}
+     </div>
 
 {% endblock %}

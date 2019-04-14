@@ -19,14 +19,16 @@ use App\Entity\Prices;
 use App\Form\PostType;
 use App\Repository\LeaseRequestRepository;
 use App\Repository\PriceRepository;
+use App\Repository\UserRepository;
 use App\Utils\Slugger;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Form\LeaseRequestType;
 use App\Form\LeaseRequestAdminType;
 use App\Form\CommentType;
@@ -315,7 +317,7 @@ class BlogController extends AbstractController {
     /**
      *@Route("/prices/edit", methods={"GET", "POST"}, name="prices_edit")
      */
-    public function prices(Request $request, PriceRepository $prices): Response {
+    public function prices(Request $request, PriceRepository $prices, UserRepository $userRepository): Response {
         $allPrices = $prices->findAll();
         $prices = new Prices();
         foreach ($allPrices as $value) {
@@ -326,9 +328,33 @@ class BlogController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
             $em->flush();
+            return $this->redirectToRoute('prices_edit');
         }
+
+        $adminForm = $this->createFormBuilder()
+            ->add('username', TextType::class)
+            ->add('submit', SubmitType::class, array('attr'=> array('class' => 'btn btn-primary')))
+            ->getForm();
+        $adminForm->handleRequest($request);
+
+        if ($adminForm->isSubmitted() && $adminForm->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $data = $adminForm->getData();
+            $user = $userRepository->findOneBy(array('username' => $data['username']));
+            if(is_null($user)) {
+                $this->addFlash('error', 'admin.user_not_found');
+            } else {
+                $user->addRole('ROLE_ADMIN');
+                $em->flush();
+                $this->addFlash('success', 'admin.admin_added');
+            }
+            return $this->redirectToRoute('prices_edit');
+        }
+
+
         return $this->render('admin/prices.html.twig', array(
              'form' => $form->createView(),
+             'adminForm' => $adminForm->createView(),
          ));
     }
 }

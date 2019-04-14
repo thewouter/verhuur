@@ -108,6 +108,26 @@ label.noon: Lunch (12:30)
 label.afternoon: Namiddag (17:30)
 label.evening: Avond (22:00)
 label.not_known: Onbekend
+label.regio_pp: Regio per persoon
+label.scouting_pp: Scouting per persoon
+label.regio_min: Regio minimale prijs
+label.scouting_min: Scouting minimale prijs
+label.other_min: Overige verenigingen minimale prijs
+label.other_max: Overf verenigingen maximale prijs
+label.deposit_scouting: Deposit scouting
+label.deposit_other: Deposit other verenigingen
+label.other_day: Overige verenigingen enkele dag
+label.scouting_day: Scouting enkele dag
+label.regio_day: Regio enkele dag
+label.edit: Wijzigen
+
+admin.title: Admin toevoegen
+admin.edit: Voeg een nieuwe admin toe aan het systeem door zijn of haar gebruikersnaam hieronder in te vullen. Let op! dit kan niet ongedaan gemaakt worden.
+admin.user_not_found: Gebruiker niet gevonden
+admin.admin_added: Nieuwe admin toegevoegd
+
+prices.title: Wijzigen prijzen
+prices.edit: Wijzig de prijzen in het formulier hieronder. Let op! Dit heeft geen gevolgen voor eerder ingekomen aanvragen. 
 
 status.placed: Aanvraag ingediend
 status.contract: Contract verstuurd

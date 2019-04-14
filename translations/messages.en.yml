@@ -131,6 +131,26 @@ label.noon: Noon (12:30)
 label.afternoon: Afternoon (17:30)
 label.evening: Evening (22:00)
 label.not_known: Unknown
+label.regio_pp: Regio per person
+label.scouting_pp: Scouting per person
+label.regio_min: Regio minimal price
+label.scouting_min: Scouting minimal price
+label.other_min: Other associations minimal price
+label.other_max: Other associations maximal price
+label.deposit_scouting: Deposit scouting
+label.deposit_other: Deposit other associations
+label.other_day: Other associations day only
+label.scouting_day: Scouting day only
+label.regio_day: Regio day only
+label.edit: Edit
+
+admin.title: Add admin
+admin.edit: Add a new admin to the application by entering the username associated with the new admin. Warning, this cannot be undone!
+admin.user_not_found: User not found
+admin.admin_added: New admin added
+
+prices.title: Edit prices
+prices.edit: 'Edit the prices using the form underneath. Warning: this has no effect on already submitted requests, only on new requests'
 
 status.placed: Request placed
 status.contract: Contract send
