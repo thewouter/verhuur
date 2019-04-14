@@ -11,19 +11,24 @@
             <td> {{lease.title}} </td>
             <td> {{lease.statusText | trans}} </td>
             <td>{{ lease.startDate|date("d-m-Y") }}</td>
-            <td>
-                <form action="{{path('lease_edit', {id: lease.id})}}">
+            <td style="display: flex; ">
+                <form action="{{path('lease_edit', {id: lease.id})}}" style="margin-right: 20px;">
                     <input class="btn btn-primary" type="submit" value="{{ 'lease.edit' | trans }}" />
                 </form>
+                {% if (lease.statusText == 'status.placed' or lease.statusText == 'status.contract' ) and date(lease.startDate) > date() %}
+                    <form action="{{path('lease_remove', {id: lease.id})}}">
+                        <button class="btn btn-danger" type="submit" onclick="return confirm('{{ 'label.sure_remove' | trans }}')" value="{{ 'lease.remove' | trans }}" ><i class="far fa-trash-alt"></i> </button>
+                    </form>
+                {% endif %}
             </td>
         </tr>
      {% endfor %}
 </table>
 </div>
 <div class="well" style="align:center">
-<form action="{{path('lease_add')}}"  style="text-align: center;">
-    <input class="btn btn-primary" type="submit" value="{{ 'lease.new' | trans }}" />
-</form>
+    <form action="{{path('lease_add')}}"  style="text-align: center;">
+        <input class="btn btn-primary" type="submit" value="{{ 'lease.new' | trans }}" />
+    </form>
 </div>
 
 {% endblock %}

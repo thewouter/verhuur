@@ -42,6 +42,7 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use \Datetime;
 
 /**
  * Controller used to manage blog contents in the public part of the site.
@@ -163,6 +164,25 @@ class BlogController extends AbstractController {
             'txt' => $txt,
         ));
     }
+
+    /**
+     * @Route("/remove/{id<\d+>}", methods={"GET", "POST"}, name="lease_remove")
+     */
+    public function removeLease(Request $request, LeaseRequest $leaseRequest): Response {
+        $status = $leaseRequest->getStatusText();
+        dump($leaseRequest);
+        dump($leaseRequest->getStartDate());
+        $now = new DateTime();
+        if (($status === 'status.placed' || $status === 'status.contract') && $leaseRequest->getStartDate() > $now){
+            $leaseRequest->setStatus(6);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'post.removed_succesfully');
+        } else {
+            $this->addFlash('error', 'post.removed_not_allowed');
+        }
+        return $this->redirectToRoute('lease_overview');
+    }
+
 
     /**
      * @Route("/edit/{id<\d+>}", methods={"GET", "POST"}, name="lease_edit")

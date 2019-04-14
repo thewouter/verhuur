@@ -143,6 +143,7 @@ label.other_day: Other associations day only
 label.scouting_day: Scouting day only
 label.regio_day: Regio day only
 label.edit: Edit
+label.sure_remove: Are you sure that you want to remove this request?
 
 admin.title: Add admin
 admin.edit: Add a new admin to the application by entering the username associated with the new admin. Warning, this cannot be undone!
@@ -159,6 +160,7 @@ status.leased: Lease has taken place
 status.deposit_retour: Deposit retour
 status.rejected: Lease rejected
 status.retracted: Lease retracted
+status.occupied: Building occupied
 
 lease.title: Lease case
 lease.status: Status

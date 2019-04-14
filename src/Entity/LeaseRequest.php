@@ -318,8 +318,6 @@ class LeaseRequest {
         $other_max = $this->priceRepository->findById(self::OTHER_MAX)[0]->getPrice();
         $other_day = $this->priceRepository->findById(self::OTHER_DAY)[0]->getPrice();
 
-
-
         switch ($this->getAssociationType()) {
             case 'ass_type.regio':
                 if($days == 0){

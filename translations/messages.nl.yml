@@ -120,6 +120,7 @@ label.other_day: Overige verenigingen enkele dag
 label.scouting_day: Scouting enkele dag
 label.regio_day: Regio enkele dag
 label.edit: Wijzigen
+label.sure_remove: Weet je zeker dat je deze aanvraag wil verwijderen?
 
 admin.title: Admin toevoegen
 admin.edit: Voeg een nieuwe admin toe aan het systeem door zijn of haar gebruikersnaam hieronder in te vullen. Let op! dit kan niet ongedaan gemaakt worden.
@@ -127,7 +128,7 @@ admin.user_not_found: Gebruiker niet gevonden
 admin.admin_added: Nieuwe admin toegevoegd
 
 prices.title: Wijzigen prijzen
-prices.edit: Wijzig de prijzen in het formulier hieronder. Let op! Dit heeft geen gevolgen voor eerder ingekomen aanvragen. 
+prices.edit: Wijzig de prijzen in het formulier hieronder. Let op! Dit heeft geen gevolgen voor eerder ingekomen aanvragen.
 
 status.placed: Aanvraag ingediend
 status.contract: Contract verstuurd
@@ -135,6 +136,7 @@ status.signed: Contract ondertekend
 status.leased: Verhuur heeft plaatsgevonden
 status.rejected: Verhuur afgewezen
 status.retracted: Verhuur ingetrokken
+status.occupied: Gebouw reeds verhuurd
 
 lease.title: Verhuurzaak
 lease.status: Status
