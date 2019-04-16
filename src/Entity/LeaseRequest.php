@@ -41,7 +41,7 @@ class LeaseRequest {
      *
      * See https://symfony.com/doc/current/best_practices/configuration.html#constants-vs-configuration-options
      */
-    public const NUM_ITEMS = 10;
+    public const NUM_ITEMS = 15;
     public const ASSOCIATION_TYPES = array(
         "Scouting Regio" => 'ass_type.regio',
         "Scouting buiten regio" => 'ass_type.scouting',

@@ -5,21 +5,61 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
+    var hide_disabled_requests = true;
         $(function() {
             $("#cookie_accordion").accordion({heightStyle: 'content'});
             $("#cookie_accordion").show(); // Get rid of Flash Of Unrendered Content
+
+            $(".status_disable").hide();
+            $("#filter").click(function(){
+                if (hide_disabled_requests){
+                    $(".status_disable").show();
+                } else {
+                    $(".status_disable").hide();
+                }
+                $('#cookie_accordion').accordion("destroy").accordion({heightStyle: 'content'});
+                hide_disabled_requests = !hide_disabled_requests;
+            });
         });
     </script>
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent()}}
+    <style>
+        .pagination > li > a {
+            background-color: #CCC;
+            color: #000;
+        }
+        .pagination > li > a:hover {
+            background-color: #AAA;
+        }
+        .pagination > .disabled > span {
+            background-color: #CCC;
+            color: #000;
+        }
+        .pagination > .disabled > span:hover {
+            background-color: #AAA;
+        }
+        .pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
+            background-color: #AAA;
+            color: #000;
+        }
+    </style>
+{% endblock %}
+
 {% block main %}
-    <h1>{{ 'title.post_list'|trans }}</h1>
+    <div style="display:flex; justify-content: space-between;" > <h1>{{ 'title.post_list'|trans }}</h1> <input type="button" id="filter" class="btn btn-primary" value="{{'label.switch_hidden' | trans}}" style="margin: 5px"></div>
 
     <div id="cookie_accordion" style="display: none;">
         {% for request in posts %}
-            <h3>{{ request.author.fullName }} [{{ request.association }}]</h3>
-            <div>
-                <table class="table table-striped table-middle-aligned">
+            {% if request.read %}
+                <h3 class="{% if request.statusText == 'status.retracted' or request.statusText == 'status.rejected'%}status_disable{% endif %}">{{ request.author.fullName }} [{{ request.association }}]</h3>
+            {% else %}
+                <h3 class="{% if request.statusText == 'status.retracted' or request.statusText == 'status.rejected'%}status_disable{% endif %}"><i class="far fa-envelope"></i> <b>{{ request.author.fullName }} [{{ request.association }}]</b></h3>
+            {% endif %}
+            <div class="{% if request.statusText == 'status.retracted' or request.statusText == 'status.rejected'%}status_disable{% endif %}">
+                <table class="table table-striped table-middle-aligned {% if request.statusText == 'status.retracted' or request.statusText == 'status.rejected'%}status_disable{% endif %}">
                   <tr>
                     <th>{{'label.name' | trans }}</th>
                     <th>{{'label.date' | trans }}</th>
@@ -61,6 +101,11 @@
             </div>
         {% endfor %}
     </div>
+    {% if posts.haveToPaginate %}
+        <div class="navigation text-center">
+            {{ pagerfanta(posts, 'twitter_bootstrap3_translated', {routeName: 'admin_blog_index_paginated', routeParams: app.request.query.all}) }}
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block sidebar %}

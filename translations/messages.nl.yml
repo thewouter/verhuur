@@ -134,8 +134,9 @@ status.placed: Aanvraag ingediend
 status.contract: Contract verstuurd
 status.signed: Contract ondertekend
 status.leased: Verhuur heeft plaatsgevonden
-status.rejected: Verhuur afgewezen
-status.retracted: Verhuur ingetrokken
+status.deposit_retour: Borg retour
+status.rejected: Aabvraag afgewezen
+status.retracted: Aanvraag ingetrokken
 status.occupied: Gebouw reeds verhuurd
 
 lease.title: Verhuurzaak

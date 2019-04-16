@@ -25,12 +25,10 @@ use Doctrine\ORM\EntityRepository;
 
 /**
  * This custom Doctrine repository contains some methods which are useful when
- * querying for blog post information.
+ * querying for lease request information.
  *
  * See https://symfony.com/doc/current/doctrine/repository.html
  *
- * @author Wouter van Harten <wouter@woutervanharten.nl>
- * @author Wouter van Harten <wouter@woutervanharten.nl>
  * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class LeaseRequestRepository extends ServiceEntityRepository {
@@ -38,7 +36,7 @@ class LeaseRequestRepository extends ServiceEntityRepository {
         parent::__construct($registry, LeaseRequest::class);
     }
 
-    public function findLatest(int $page = 1, Tag $tag = null): Pagerfanta {
+    public function findLatest(int $page = 1): Pagerfanta {
         $qb = $this->createQueryBuilder('p')
             ->addSelect('a', 't')
             ->innerJoin('p.author', 'a')
@@ -46,11 +44,6 @@ class LeaseRequestRepository extends ServiceEntityRepository {
             ->where('p.publishedAt <= :now')
             ->orderBy('p.publishedAt', 'DESC')
             ->setParameter('now', new \DateTime());
-
-        if (null !== $tag) {
-            $qb->andWhere(':tag MEMBER OF p.tags')
-                ->setParameter('tag', $tag);
-        }
 
         return $this->createPaginator($qb->getQuery(), $page);
     }

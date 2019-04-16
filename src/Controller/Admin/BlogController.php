@@ -72,11 +72,12 @@ class BlogController extends AbstractController {
      *     could move this annotation to any other controller while maintaining
      *     the route name and therefore, without breaking any existing link.
      *
-     * @Route("/", methods={"GET"}, name="admin_index")
-     * @Route("/", methods={"GET"}, name="admin_post_index")
+     * @Route("/", defaults={"page": "1"}, methods={"GET"}, name="admin_index")
+     * @Route("/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods={"GET"}, name="admin_blog_index_paginated")
+     * @Route("/", defaults={"page": "1"}, methods={"GET"}, name="admin_post_index")
      */
-    public function index(LeaseRequestRepository $posts, PriceRepository $repository): Response {
-        $requests = $posts->findLatest();
+    public function index(LeaseRequestRepository $posts, PriceRepository $repository, int $page): Response {
+        $requests = $posts->findLatest($page);
         $unreadCount = 0;
         foreach ($requests as $key => $value) {
             $value->setPriceRepository($repository);
@@ -291,14 +292,18 @@ class BlogController extends AbstractController {
      *
      *@Route("/statistics", methods={"GET"}, name="admin_statistics")
      */
-    public function statistics(Request $request, LeaseRequestRepository $posts): Response {
+    public function statistics(Request $request, LeaseRequestRepository $posts, PriceRepository $priceRepository): Response {
         $allRequests = $posts->findAll();
         $perYear = [];
         foreach ($allRequests as $request) {
-            if (!in_array($request->getStartDate()->format('Y'), array_keys($perYear))) {
-                $perYear[$request->getStartDate()->format('Y')] = array($request);
-            } else {
-                array_push($perYear[$request->getStartDate()->format('Y')], $request);
+            $status = $request->getStatus();
+            if ($status != 'status.rejected' && $status != 'status.retracted'){
+                $request->setPriceRepository($priceRepository);
+                if (!in_array($request->getStartDate()->format('Y'), array_keys($perYear))) {
+                    $perYear[$request->getStartDate()->format('Y')] = array($request);
+                } else {
+                    array_push($perYear[$request->getStartDate()->format('Y')], $request);
+                }
             }
         }
         $stats = [];
@@ -308,6 +313,7 @@ class BlogController extends AbstractController {
                 $stats[$year] += $request->getPrice();
             }
         }
+        krsort($perYear);
         return $this->render('admin/statistics.html.twig', array(
              'years' => $perYear,
              'stats' => $stats,
