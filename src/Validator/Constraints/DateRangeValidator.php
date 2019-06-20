@@ -26,7 +26,7 @@ class DateRangeValidator extends ConstraintValidator {
         }
         if ($entity->getEndDate()->getTimestamp() - $entity->getStartDate()->getTimestamp() < 0) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ string }}', serialize($value))
+                ->setParameter('{{ string }}', serialize($value->getStartDate()))
                 ->addViolation();
         }
     }

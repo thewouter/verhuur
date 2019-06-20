@@ -88,7 +88,12 @@
                                                 </li>
                                                 <li>
                                                     <a href="{{ path('prices_edit') }}">
-                                                        <i class="fas fa-euro" aria-hidden="true"></i> {{ 'menu.prices'|trans }}
+                                                        <i class="fa fa-eur" aria-hidden="true"></i> {{ 'menu.prices'|trans }}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ path('admin_payments_overview', {'year': ("now"|date("Y")) }) }}">
+                                                        <i class="fa fa-eur" aria-hidden="true"></i> {{ 'menu.payments'|trans }}
                                                     </a>
                                                 </li>
                                             {% endif %}

@@ -45,7 +45,7 @@ class User implements UserInterface, \Serializable {
 
     public function __construct() {
         $this->leases = new ArrayCollection();
-        $this->confirmed = 0;
+        $this->confirmed = false;
     }
 
     /**
@@ -155,7 +155,7 @@ class User implements UserInterface, \Serializable {
     }
 
     public function addRole(string $role): void {
-        if (!in_array($role, $this->roles)){
+        if (!in_array($role, $this->roles)) {
             $this->roles[] = $role;
         }
     }
@@ -261,13 +261,11 @@ class User implements UserInterface, \Serializable {
         return $this;
     }
 
-    public function getConfirmed()
-    {
+    public function getConfirmed() {
         return $this->confirmed;
     }
 
-    public function setConfirmed($confirmed): self
-    {
+    public function setConfirmed($confirmed): self {
         $this->confirmed = $confirmed;
 
         return $this;

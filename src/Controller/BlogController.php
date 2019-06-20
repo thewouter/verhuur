@@ -94,7 +94,6 @@ class BlogController extends AbstractController {
                 $em->persist($user);
                 $em->flush();
 
-
                 $message = (new \Swift_Message('Radix Lambarene'))
                     ->setFrom('verhuurder@radixenschede.nl')
                     ->setTo($user->getEmail())
@@ -185,7 +184,7 @@ class BlogController extends AbstractController {
         dump($leaseRequest);
         dump($leaseRequest->getStartDate());
         $now = new DateTime();
-        if (($status === 'status.placed' || $status === 'status.contract') && $leaseRequest->getStartDate() > $now){
+        if (($status === 'status.placed' || $status === 'status.contract') && $leaseRequest->getStartDate() > $now) {
             $leaseRequest->setStatus(6);
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'post.removed_succesfully');
@@ -195,14 +194,13 @@ class BlogController extends AbstractController {
         return $this->redirectToRoute('lease_overview');
     }
 
-
     /**
      * @Route("/edit/{id<\d+>}", methods={"GET", "POST"}, name="lease_edit")
      */
     public function editLease(Request $request, LeaseRequest $leaseRequest): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $user = $this->getUser();
-        if(!$user->hasLease($leaseRequest)) {
+        if (!$user->hasLease($leaseRequest)) {
             $this->denyAccessUnlessGranted('ROLE_ADMIN');
         }
         $form = $this->createForm(LeaseRequestEditType::class, $leaseRequest, array(

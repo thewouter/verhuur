@@ -10,15 +10,12 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190403125908 extends AbstractMigration
-{
-    public function getDescription() : string
-    {
+final class Version20190403125908 extends AbstractMigration {
+    public function getDescription(): string {
         return '';
     }
 
-    public function up(Schema $schema) : void
-    {
+    public function up(Schema $schema): void {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
 
@@ -51,8 +48,7 @@ final class Version20190403125908 extends AbstractMigration
         $this->addSql('INSERT INTO price (id, price) VALUES (\'regio_pp\', 2),(\'scouting_pp\', 3),(\'regio_min\', 35),(\'scouting_min\',55 ),(\'other_min\', 110),(\'other_max\', 150),(\'deposit_scouting\', 100),(\'deposit_other\', 250),(\'other_day\', 85), (\'scouting_day\', 40),(\'regio_day\', 30)');
     }
 
-    public function down(Schema $schema) : void
-    {
+    public function down(Schema $schema): void {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
 

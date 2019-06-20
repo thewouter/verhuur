@@ -7,12 +7,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class Prices {
-
     private $prices;
 
     public function __construct() {
         $this->prices = new ArrayCollection();
     }
+
     /**
      * @return ArrayCollection|Price[]
      */

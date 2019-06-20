@@ -86,6 +86,8 @@ class LeaseRequest {
 
     private $paid;
 
+    private $deposit_retour;
+
     /**
      * @var int
      *
@@ -176,9 +178,10 @@ class LeaseRequest {
         $this->setStatus(0);
         $this->status = 0;
         $this->setAssociationType('ass_type.other');
+        $this->deposit_retour = false;
     }
 
-    public function setPriceRepository(PriceRepository $repository){
+    public function setPriceRepository(PriceRepository $repository) {
         $this->priceRepository = $repository;
     }
 
@@ -320,21 +323,21 @@ class LeaseRequest {
 
         switch ($this->getAssociationType()) {
             case 'ass_type.regio':
-                if($days == 0){
+                if ($days == 0) {
                     return $regio_day;
                 } else {
                     return max($regio_pp * $this->getNumAttendants(), $regio_min) * $days;
                 }
                 break;
             case 'ass_type.scouting':
-                if ($days == 0){
+                if ($days == 0) {
                     return $scouting_day;
                 } else {
                     return max($scouting_pp * $this->getNumAttendants(), $scouting_min) * $days;
                 }
                 break;
             default:
-                if($days == 0){
+                if ($days == 0) {
                     return $other_day;
                 } else {
                     if ($this->getNumAttendants() < 16) {
@@ -461,6 +464,16 @@ class LeaseRequest {
 
     public function setOccupied(): self {
         $this->setStatus(7);
+        return $this;
+    }
+
+    public function getDepositRetour(): ?int {
+        return $this->deposit_retour;
+    }
+
+    public function setDepositRetour(int $deposit_retour): self {
+        $this->deposit_retour = $deposit_retour;
+
         return $this;
     }
 }

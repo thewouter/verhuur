@@ -16,7 +16,9 @@ namespace App\Controller\Admin;
 use App\Entity\LeaseRequest;
 use App\Entity\Comment;
 use App\Entity\Prices;
+use App\Entity\Task;
 use App\Form\PostType;
+use App\Form\LeasePaidType;
 use App\Repository\LeaseRequestRepository;
 use App\Repository\PriceRepository;
 use App\Repository\UserRepository;
@@ -33,6 +35,7 @@ use App\Form\LeaseRequestType;
 use App\Form\LeaseRequestAdminType;
 use App\Form\CommentType;
 use App\Form\PricesType;
+use App\Form\TaskType;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -163,7 +166,7 @@ class BlogController extends AbstractController {
                     $this->renderView(
                         'email/new_message.html.twig',
                         ['content' => $comment->getContent(),
-                         'leaseRequest' => $leaseRequest ]
+                         'leaseRequest' => $leaseRequest, ]
                     ),
                     'text/html'
                 );
@@ -289,8 +292,6 @@ class BlogController extends AbstractController {
     }
 
     /**
-     *
-     *
      *@Route("/statistics", methods={"GET"}, name="admin_statistics")
      */
     public function statistics(Request $request, LeaseRequestRepository $posts, PriceRepository $priceRepository): Response {
@@ -298,7 +299,7 @@ class BlogController extends AbstractController {
         $perYear = [];
         foreach ($allRequests as $request) {
             $status = $request->getStatus();
-            if ($status != 'status.rejected' && $status != 'status.retracted'){
+            if ($status != 'status.rejected' && $status != 'status.retracted') {
                 $request->setPriceRepository($priceRepository);
                 if (!in_array($request->getStartDate()->format('Y'), array_keys($perYear))) {
                     $perYear[$request->getStartDate()->format('Y')] = array($request);
@@ -322,6 +323,48 @@ class BlogController extends AbstractController {
     }
 
     /**
+     *@Route("/payments/{year}", methods={"GET", "POST"}, name="admin_payments_overview")
+     */
+    public function payments(Request $webRequest, LeaseRequestRepository $posts, PriceRepository $priceRepository, int $year): Response {
+        $allRequests = $posts->findAll();
+        $years = [];
+
+        foreach ($allRequests as $key => $request) {
+            $status = $request->getStatusText();
+            if ($status != 'status.rejected' && $status != 'status.retracted') {
+                $request->setPriceRepository($priceRepository);
+                if (!in_array($request->getStartDate()->format('Y'), $years)) {
+                    array_push($years, $request->getStartDate()->format('Y'));
+                }
+                if ($request->getStartDate()->format('Y') != $year) {
+                    unset($allRequests[$key]);
+                }
+            } else {
+                unset($allRequests[$key]);
+            }
+        }
+        sort($years);
+
+        $task = new Task();
+        foreach ($allRequests as $request) {
+            $task->getRequests()->add($request);
+        }
+
+        $form = $this->createForm(TaskType::class, $task);
+        $form->handleRequest($webRequest);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+        }
+
+        return $this->render('admin/payments.html.twig', array(
+             'task' => $task,
+             'form' => $form->createView(),
+             'years' => $years,
+         ));
+    }
+
+    /**
      *@Route("/prices/edit", methods={"GET", "POST"}, name="prices_edit")
      */
     public function prices(Request $request, PriceRepository $prices, UserRepository $userRepository): Response {
@@ -332,7 +375,7 @@ class BlogController extends AbstractController {
         }
         $form = $this->createForm(PricesType::class, $prices);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             return $this->redirectToRoute('prices_edit');
@@ -340,15 +383,15 @@ class BlogController extends AbstractController {
 
         $adminForm = $this->createFormBuilder()
             ->add('username', TextType::class)
-            ->add('submit', SubmitType::class, array('attr'=> array('class' => 'btn btn-primary')))
+            ->add('submit', SubmitType::class, array('attr' => array('class' => 'btn btn-primary')))
             ->getForm();
         $adminForm->handleRequest($request);
 
-        if ($adminForm->isSubmitted() && $adminForm->isValid()){
+        if ($adminForm->isSubmitted() && $adminForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $data = $adminForm->getData();
             $user = $userRepository->findOneBy(array('username' => $data['username']));
-            if(is_null($user)) {
+            if (is_null($user)) {
                 $this->addFlash('error', 'admin.user_not_found');
             } else {
                 $user->addRole('ROLE_ADMIN');
@@ -357,7 +400,6 @@ class BlogController extends AbstractController {
             }
             return $this->redirectToRoute('prices_edit');
         }
-
 
         return $this->render('admin/prices.html.twig', array(
              'form' => $form->createView(),

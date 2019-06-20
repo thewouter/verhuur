@@ -87,6 +87,9 @@ App\Entity\LeaseRequest:
             type: datetime
             nullable: true
             column: key_return
+        deposit_retour:
+            type: integer
+            column: deposit_retour
 
     manyToOne:
         author:
