@@ -5,8 +5,6 @@ namespace App\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DateRangeValidator extends ConstraintValidator {

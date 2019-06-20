@@ -14,14 +14,12 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\LeaseRequest;
-use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use App\Entity\User;
 use Pagerfanta\Pagerfanta;
-use Doctrine\ORM\EntityRepository;
 
 /**
  * This custom Doctrine repository contains some methods which are useful when
