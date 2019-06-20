@@ -41,8 +41,11 @@ class User implements UserInterface, \Serializable {
 
     private $password_reset;
 
+    private $confirmed;
+
     public function __construct() {
         $this->leases = new ArrayCollection();
+        $this->confirmed = 0;
     }
 
     /**
@@ -153,7 +156,7 @@ class User implements UserInterface, \Serializable {
 
     public function addRole(string $role): void {
         if (!in_array($role, $this->roles)){
-            $this->roles[] = $role;   
+            $this->roles[] = $role;
         }
     }
 
@@ -224,6 +227,10 @@ class User implements UserInterface, \Serializable {
         return $this;
     }
 
+    public function hasLease(LeaseRequest $lease): bool {
+        return in_array($lease, $this->leases->toArray());
+    }
+
     public function getAddress(): ?string {
         return $this->address;
     }
@@ -250,6 +257,18 @@ class User implements UserInterface, \Serializable {
 
     public function setPasswordReset(?string $password_reset): self {
         $this->password_reset = $password_reset;
+
+        return $this;
+    }
+
+    public function getConfirmed()
+    {
+        return $this->confirmed;
+    }
+
+    public function setConfirmed($confirmed): self
+    {
+        $this->confirmed = $confirmed;
 
         return $this;
     }

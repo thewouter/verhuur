@@ -162,7 +162,8 @@ class BlogController extends AbstractController {
                 ->setBody(
                     $this->renderView(
                         'email/new_message.html.twig',
-                        ['content' => $comment->getContent()]
+                        ['content' => $comment->getContent(),
+                         'leaseRequest' => $leaseRequest ]
                     ),
                     'text/html'
                 );

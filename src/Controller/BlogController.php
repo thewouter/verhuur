@@ -42,6 +42,7 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use \Datetime;
 
 /**
@@ -88,14 +89,25 @@ class BlogController extends AbstractController {
             if ($form->isSubmitted() && $form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
-                $user->setRoles($user->getRoles());
+                $resetLink = substr(md5((string)rand()), 0, 30);
+                $user->setPasswordReset($resetLink);
                 $em->persist($user);
                 $em->flush();
 
-                $this->addFlash('success', 'account.succesfull');
-                $token = new UsernamePasswordToken($user, null, "main", $user->getRoles());
-                $this->container->get('security.token_storage')->setToken($token);
-                $this->container->get('session')->set('_security_main', serialize($token));
+
+                $message = (new \Swift_Message('Radix Lambarene'))
+                    ->setFrom('verhuurder@radixenschede.nl')
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'email/new_account.html.twig',
+                            ['user' => $user]
+                        ),
+                        'text/html'
+                    );
+                $this->mailer->send($message);
+
+                $this->addFlash('success', 'account.succesfull.confirm');
                 return $this->redirectToRoute('lease_overview');
             }
         }
@@ -190,6 +202,9 @@ class BlogController extends AbstractController {
     public function editLease(Request $request, LeaseRequest $leaseRequest): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $user = $this->getUser();
+        if(!$user->hasLease($leaseRequest)) {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        }
         $form = $this->createForm(LeaseRequestEditType::class, $leaseRequest, array(
             'signed_uploaded' => !is_null($leaseRequest->getContractSigned()),
             'editKeyTimes' => (is_null($leaseRequest->getKeyDeliver()) || is_null($leaseRequest->getKeyReturn())), ));
@@ -444,7 +459,7 @@ class BlogController extends AbstractController {
     }
 
     /**
-     * @Route("/mail/watch", methods={"GET"}, name="email_update_watch")
+     * @Route("/mail/watch", methods={"GET", "POST"}, name="email_update_watch")
      */
     public function updateMailWatch(Request $request, UserRepository $userRepository): Response {
         $watchreq = new \Google_Service_Gmail_WatchRequest();

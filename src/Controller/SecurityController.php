@@ -23,6 +23,7 @@ use App\Form\ResetPasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
  * Controller used to manage the application security.
@@ -114,5 +115,21 @@ class SecurityController extends AbstractController {
         return $this->render('security/password_reset.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @route("/confirm/{password_reset}", name="confirm_account")
+     *
+     */
+    public function confirmAccount(Request $request, User $user): Response {
+        $user->setRoles($user->getRoles()); // give user access to website
+        $user->setPasswordReset(null);
+        $user->setConfirmed(1);
+        $this->getDoctrine()->getManager()->flush();
+
+        $token = new UsernamePasswordToken($user, null, "main", $user->getRoles());
+        $this->container->get('security.token_storage')->setToken($token);
+        $this->container->get('session')->set('_security_main', serialize($token));
+        return $this->redirectToRoute("homepage");
     }
 }

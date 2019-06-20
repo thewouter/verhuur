@@ -2,9 +2,6 @@ App\Entity\User:
     type: entity
     table: user
     uniqueConstraints:
-        UNIQ_8FB094A1E7927C74:
-            columns:
-                - email
         UNIQ_8FB094A1F85E0677:
             columns:
                 - username
@@ -61,6 +58,10 @@ App\Entity\User:
             type: text
             lenght: 255
             nullable: true
+        confirmed:
+            type: integer
+            nullable: false
+            default: false
 
     oneToMany:
         leases:
