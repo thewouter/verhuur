@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'user_edit' %}
+
+{% block main %}
+    <h1>{{ 'title.edit_user'|trans }}</h1>
+    <div class="well">
+        {% trans %}google.additional_info{% endtrans %}
+        <br>
+        <br>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+    {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block header_navigation_links %}{% endblock %}
+
+{% block header_link %}{{path('google_additional_info')}}{% endblock %}
+
+{% block user_dropdown %}{% endblock %}

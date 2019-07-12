@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+{{parent()}}
+<style media="screen">
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 4px;
+    }
+
+    /* Create four equal columns that sits next to each other */
+    .column {
+      flex: 33%;
+      max-width: 33%;
+      padding: 0 4px;
+    }
+
+    .column img {
+      margin-top: 8px;
+      vertical-align: middle;
+      width: 100%;
+    }
+
+    /* Responsive layout - makes a two column-layout instead of four columns */
+    @media screen and (max-width: 800px) {
+      .column {
+        flex: 40%;
+        max-width: 40%;
+      }
+    }
+
+    /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+      .column {
+        flex: 100%;
+        max-width: 100%;
+      }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="column">
+    <img src="{{asset('build/lambarene/campfire.jpg')}}">
+    <img src="{{asset('build/lambarene/entrance.jpg')}}">
+    <img src="{{asset('build/lambarene/kitchen.jpg')}}">
+    <img src="{{asset('build/lambarene/left_room.jpg')}}">
+    <img src="{{asset('build/lambarene/building_outside.jpg')}}">
+  </div>
+    <div class="column">
+      <img src="{{asset('build/lambarene/right_room.jpg')}}">
+      <img src="{{asset('build/lambarene/shower.jpg')}}">
+      <img src="{{asset('build/lambarene/toilet_kitchen.jpg')}}">
+      <img src="{{asset('build/lambarene/building_outside.jpg')}}">
+    </div>
+      <div class="column">
+        <img src="{{asset('build/lambarene/toilets.jpg')}}">
+        <img src="{{asset('build/lambarene/fridge.jpg')}}">
+        <img src="{{asset('build/lambarene/building_outside_2.jpg')}}">
+        <img src="{{asset('build/lambarene/radix_hok_oud.jpg')}}">
+      </div>
+</div>
+{% endblock %}

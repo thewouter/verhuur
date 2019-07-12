@@ -219,3 +219,28 @@ help.outlook.log_in: Log in to <a href="https://www.outlook.com/">Outlook.com</a
 help.outlook.import: Click &ldquo;Import&rdquo; in the same bar, and click &ldquo;Subscribe&rdquo; next.
 help.outlook.paste: Paste the link as &lsquo;URL of the calendar&rsquo;. Fill in a name for the calendar and click &ldquo;Subscribe&rdquo;.
 help.outlook.success: Now all radix leases are visible in your calendar. You can automatically also view this calendar on your Windows Phone.
+
+faq.title: 'Frequently asked questions:'
+faq.request_how.question: How can I request a lease?
+faq.request_how.answer: 'You can request the lease of our bulding Lambarene using this webpage in the following steps:
+    <ol>
+        <li>Check if your date is available in the <a href="%url%">lease calendar</a>.</li>
+        <li>Login using your Gmail account and supply us with your address and your phone number so we can contact you.</li>
+        <li>Fill the form on the next page. You will be notified if you have a reply</li>
+    </ol>'
+faq.price.question: What does leasing Lambarene cost?
+faq.price.answer: 'Our prices can be found on the <a href="%url%">price list</a>.'
+prices: An indication of the prices. Gas, water and electra are included. <br> Under the category 'Regio' fall scouting associations from Scoutng Regio Essnlaand. <br> Under the category 'Scouting' reside All other associations linked to the World Scout Movement. <br> All other associations like student associations and fraternities are other associations.
+faq.available.question: Is the bulding available at this specific date I want to lease?
+faq.available.answer: You can check our  <a href="%url%">lease calendar</a> if the building is available at the date you want to lease it.
+faq.photos.question: Are there any photo's of the building?
+faq.photos.answer: Yes there are! You can check them out in the <a href="%url%">photo album</a>.
+faq.items.question: What items are present in the building?
+faq.items.answer: 'In no particular order, we try to have:
+    <ol>
+        <li>Some plates and cups</li>
+        <li>A water cooker</li>
+        <li>A coffee machine</li>
+        <li>A fridge</li>
+        <li>A stove</li>
+    </ol>'

@@ -31,34 +31,41 @@ class UserType extends AbstractType {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void {
-        $builder
-            ->add('username', TextType::class, [
-                'label' => 'label.username',
-            ])
-            ->add('fullName', TextType::class, [
-                'label' => 'label.fullname',
-            ])
-            ->add('phone', TextType::class, [
-                'label' => 'label.phone',
-            ])
-            ->add('address', TextType::class, [
-                'label' => 'label.address',
-            ])
-            ->add('email', EmailType::class, [
-                'label' => 'label.email',
-            ]);
-        if ($options['password']) {
-            $builder
-                ->add('password', PasswordType::class, [
-                    'label' => 'label.password',
-                ]);
-        }
-        $builder->add('submit', SubmitType::class, array(
-                'label' => 'label.submit',
-                'attr' => array('class' => 'btn btn-primary'),
-            ));
-    }
+     public function buildForm(FormBuilderInterface $builder, array $options): void {
+         if (!$options['google_additional_info']){
+             $builder
+                 ->add('username', TextType::class, [
+                     'label' => 'label.username',
+                 ])
+                 ->add('fullName', TextType::class, [
+                     'label' => 'label.fullname',
+                 ]);
+             }
+         $builder
+             ->add('phone', TextType::class, [
+                 'label' => 'label.phone',
+             ])
+             ->add('address', TextType::class, [
+                 'label' => 'label.address',
+             ]);
+         if (!$options['google_additional_info']){
+             $builder
+                 ->add('email', EmailType::class, [
+                     'label' => 'label.email',
+                 ]);
+         }
+
+         if ($options['password'] && !$options['google_additional_info']) {
+             $builder
+                 ->add('password', PasswordType::class, [
+                     'label' => 'label.password',
+                 ]);
+         }
+         $builder->add('submit', SubmitType::class, array(
+                 'label' => 'label.submit',
+                 'attr' => array('class' => 'btn btn-primary'),
+             ));
+     }
 
     /**
      * {@inheritdoc}
@@ -67,6 +74,7 @@ class UserType extends AbstractType {
         $resolver->setDefaults([
             'data_class' => User::class,
             'password' => true,
+            'google_additional_info' => false,
         ]);
     }
 }

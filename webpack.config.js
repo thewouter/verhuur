@@ -23,6 +23,9 @@ Encore
     .addStyleEntry('css/admin', ['./assets/scss/admin.scss'])
     .splitEntryChunks()
     .disableSingleRuntimeChunk()
+    .copyFiles({
+        from: './assets/image'
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();

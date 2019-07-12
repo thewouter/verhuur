@@ -24,10 +24,9 @@
                 <div class="navbar navbar-default navbar-static-top" role="navigation">
                     <div class="container">
                         <div class="navbar-header col-md-3 col-lg-2">
-                            <a class="navbar-brand" href="{{ path('homepage') }}" style="width: 400px">
+                            <a class="navbar-brand" href="{% block header_link %}{{ path('homepage') }}{% endblock %}" style="width: 400px">
                                 {{'radix_lease_application' | trans }}
                             </a>
-
                             <button type="button" class="navbar-toggle"
                                     data-toggle="collapse"
                                     data-target=".navbar-collapse">
@@ -37,6 +36,7 @@
                                 <span class="icon-bar"></span>
                             </button>
                         </div>
+
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav navbar-right">
 
@@ -57,54 +57,56 @@
                                 {% endblock %}
 
                                 {% if app.user %}
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="user">
-                                            <i class="fa fa-user" aria-hidden="true"></i>
-                                            <span class="caret"></span>
-                                            <span class="sr-only">{{ app.user.fullname }}</span>
-                                        </a>
-                                        <ul class="dropdown-menu user" role="menu" aria-labelledby="user">
-                                            <li>
-                                                <a href="{{ path('user_edit') }}">
-                                                    <i class="fa fa-edit" aria-hidden="true"></i> {{ 'menu.user'|trans }}
-                                                </a>
-                                            </li>
-                                            <li class="divider"></li>
-                                            <li>
-                                                <a href="{{ path('calendar_show') }}">
-                                                    <i class="fa fa-calendar" aria-hidden="true"></i> {{ 'menu.calendar'|trans }}
-                                                </a>
-                                            </li>
-                                            {% if is_granted('ROLE_ADMIN') %}
+                                    {% block user_dropdown %}
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="user">
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                                <span class="caret"></span>
+                                                <span class="sr-only">{{ app.user.fullname }}</span>
+                                            </a>
+                                            <ul class="dropdown-menu user" role="menu" aria-labelledby="user">
                                                 <li>
-                                                    <a href="{{ path('ical_help') }}">
-                                                        <i class="fa fa-plus" aria-hidden="true"></i> {{ 'menu.ical'|trans }}
+                                                    <a href="{{ path('user_edit') }}">
+                                                        <i class="fa fa-edit" aria-hidden="true"></i> {{ 'menu.user'|trans }}
                                                     </a>
                                                 </li>
+                                                <li class="divider"></li>
                                                 <li>
-                                                    <a href="{{ path('admin_statistics') }}">
-                                                        <i class="fas fa-calculator" aria-hidden="true"></i> {{ 'menu.statistics'|trans }}
+                                                    <a href="{{ path('calendar_show') }}">
+                                                        <i class="fa fa-calendar" aria-hidden="true"></i> {{ 'menu.calendar'|trans }}
                                                     </a>
                                                 </li>
+                                                {% if is_granted('ROLE_ADMIN') %}
+                                                    <li>
+                                                        <a href="{{ path('ical_help') }}">
+                                                            <i class="fa fa-plus" aria-hidden="true"></i> {{ 'menu.ical'|trans }}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ path('admin_statistics') }}">
+                                                            <i class="fas fa-calculator" aria-hidden="true"></i> {{ 'menu.statistics'|trans }}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ path('prices_edit') }}">
+                                                            <i class="fas fa-euro-sign" aria-hidden="true"></i> {{ 'menu.prices'|trans }}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ path('admin_payments_overview', {'year': ("now"|date("Y")) }) }}">
+                                                            <i class="fas fa-euro-sign" aria-hidden="true"></i> {{ 'menu.payments'|trans }}
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                                <li class="divider"></li>
                                                 <li>
-                                                    <a href="{{ path('prices_edit') }}">
-                                                        <i class="fas fa-euro-sign" aria-hidden="true"></i> {{ 'menu.prices'|trans }}
+                                                    <a href="{{ path('security_logout') }}">
+                                                        <i class="fa fa-sign-out-alt" aria-hidden="true"></i> {{ 'menu.logout'|trans }}
                                                     </a>
                                                 </li>
-                                                <li>
-                                                    <a href="{{ path('admin_payments_overview', {'year': ("now"|date("Y")) }) }}">
-                                                        <i class="fas fa-euro-sign" aria-hidden="true"></i> {{ 'menu.payments'|trans }}
-                                                    </a>
-                                                </li>
-                                            {% endif %}
-                                            <li class="divider"></li>
-                                            <li>
-                                                <a href="{{ path('security_logout') }}">
-                                                    <i class="fa fa-sign-out-alt" aria-hidden="true"></i> {{ 'menu.logout'|trans }}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                            </ul>
+                                        </li>
+                                    {% endblock %}
                                 {% endif %}
 
                                 <li class="dropdown">

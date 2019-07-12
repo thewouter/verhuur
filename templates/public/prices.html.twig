@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+{{parent()}}
+<style media="screen">
+    table {
+        width: 100%;
+    }
+
+    td {
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="well">
+    <p>{{ 'prices' | trans | raw }}</p>
+    <table>
+        {% for price in prices.prices %}
+            <tr>
+              <td>{{('label.' ~ price.id) | trans}}</td>
+              <td>{{price.price | localizedcurrency('EUR') }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

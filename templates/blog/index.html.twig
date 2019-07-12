@@ -4,6 +4,22 @@
 
 {% block stylesheets %}
 {{ parent()}}
+
+<style media="screen">
+    .google_login {
+        background: white;
+        width: -moz-available;
+    }
+
+    ol>li {
+        font-size: 11pt;
+    }
+
+    .faq_item {
+        margin-left: 10px;
+    }
+</style>
+
 {% endblock %}
 
 {% block main %}
@@ -13,13 +29,55 @@
             {{ 'help.homepage' | trans | raw}}
         </p>
     </div>
+    <br>
     <div class="row">
          <div class='login column'>
-            {% if not app.user %} {{ include('security/login.html.twig') }} {% endif %}
+         <div class="well">
+             <div class="btn white darken-4 col google_login">
+                  <a href="{{path('connect_google')}}" style="text-transform:none">
+                      <div class="left">
+                          <img width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+                      </div>
+                      Login with Google
+                  </a>
+             </div>
+         </div>
+            <!-- {% if not app.user %} {{ include('security/login.html.twig') }} {% endif %} -->
          </div>
          <div class='new_user column'>
-             <p class="well"> {{'no_account' | trans}} </p>
-             {{ form(new_user_form, {}) }}
+             <p class="well"> {{'faq.title' | trans}} </p>
+             <div class="well">
+                 <div class="faq_item">
+                     <h4>1. {% trans %}faq.request_how.question{% endtrans %}</h4>
+                     <div class="faq_item">
+                         {% trans with {'%url%': path('calendar_show') } %}faq.request_how.answer{% endtrans %}
+                     </div>
+                 </div>
+                 <div class="faq_item">
+                     <h4>2. {% trans %}faq.price.question{% endtrans %}</h4>
+                     <div class="faq_item">
+                         {% trans with {'%url%' : path('prices_show') }%}faq.price.answer{% endtrans %}
+                     </div>
+                 </div>
+                 <div class="faq_item">
+                     <h4>3. {% trans %}faq.available.question{% endtrans %}</h4>
+                     <div class="faq_item">
+                         {% trans %}faq.available.answer{% endtrans %}
+                     </div>
+                 </div>
+                 <div class="faq_item">
+                     <h4>4. {% trans %}faq.photos.question{% endtrans %}</h4>
+                     <div class="faq_item">
+                         {% trans with {'%url%' : path('photos_show') } %}faq.photos.answer{% endtrans %}
+                     </div>
+                 </div>
+                 <div class="faq_item">
+                     <h4>5. {% trans %}faq.items.question{% endtrans %}</h4>
+                     <div class="faq_item">
+                         {% trans with {'%url%' : path('photos_show') } %}faq.items.answer{% endtrans %}
+                     </div>
+                 </div>
+             </div>
          </div>
      </div>
 {% endblock %}
