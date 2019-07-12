@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Security;
+declare(strict_types=1);
 
+namespace App\Security;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
@@ -9,8 +10,7 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class UserProvider implements UserProviderInterface
-{
+class UserProvider implements UserProviderInterface {
     private $entityManager;
 
     /**
@@ -23,8 +23,7 @@ class UserProvider implements UserProviderInterface
      * @internal param Session $session
      * @internal param UserOptionService $userOptionsService
      */
-    public function __construct(EntityManagerInterface $entityManager)
-    {
+    public function __construct(EntityManagerInterface $entityManager) {
         $this->entityManager = $entityManager;
     }
 
@@ -40,8 +39,7 @@ class UserProvider implements UserProviderInterface
      *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function loadUserByUsername($username)
-    {
+    public function loadUserByUsername($username) {
         return $this->entityManager->createQueryBuilder('u')
             ->where('u.email = :email')
             ->setParameter('email', $username)
@@ -61,8 +59,7 @@ class UserProvider implements UserProviderInterface
      * @return UserInterface
      *
      */
-    public function refreshUser(UserInterface $user)
-    {
+    public function refreshUser(UserInterface $user) {
         if (!$user instanceof User) {
             throw new UnsupportedUserException(
                 sprintf('Instances of "%s" are not supported.', get_class($user))
@@ -78,8 +75,7 @@ class UserProvider implements UserProviderInterface
      *
      * @return bool
      */
-    public function supportsClass($class)
-    {
+    public function supportsClass($class) {
         return $class === 'App\Entity\User';
     }
 }

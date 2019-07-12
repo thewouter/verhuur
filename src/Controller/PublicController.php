@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -7,12 +9,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\PriceRepository;
-use App\Repository\UserRepository;
 use App\Entity\Prices;
-use App\Entity\Price;
 
-class PublicController extends AbstractController
-{
+class PublicController extends AbstractController {
     /**
      *@Route("/prices/show", methods={"GET"}, name="prices_show")
      */
@@ -34,6 +33,4 @@ class PublicController extends AbstractController
     public function photos(Request $request, PriceRepository $prices): Response {
         return $this->render('public/photos.html.twig');
     }
-
-
 }
