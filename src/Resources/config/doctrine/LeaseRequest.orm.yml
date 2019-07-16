@@ -108,13 +108,4 @@ App\Entity\LeaseRequest:
             cascade: [ persist ]
             orderBy: {'publishedAt': 'DESC'}
 
-    manyToMany:
-        tags:
-            targetEntity: App\Entity\Tag
-            joinTable:
-                name: post_tag
-                joinColumns:
-                    user:
-                        referencedColumnName: id
-
     lifecycleCallbacks: {  }

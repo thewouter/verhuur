@@ -48,7 +48,6 @@ label.role: Rol
 label.content: Inhoud
 label.summary: Samenvatting
 label.published_at: Geplaatst op
-label.tags: Tags
 label.actions: Acties
 title.post_new: Bericht aanmaken
 action.edit_contents: Inhoud bewerken

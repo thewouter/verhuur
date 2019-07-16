@@ -57,7 +57,6 @@ label.role: Role
 label.content: Content
 label.summary: Summary
 label.published_at: Published at
-label.tags: Tags
 label.actions: Actions
 title.post_new: Post creation
 action.edit_contents: Edit contents

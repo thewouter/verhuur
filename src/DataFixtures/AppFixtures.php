@@ -15,7 +15,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Comment;
 use App\Entity\LeaseRequest;
-use App\Entity\Tag;
 use App\Entity\User;
 use App\Utils\Slugger;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -31,7 +30,6 @@ class AppFixtures extends Fixture {
 
     public function load(ObjectManager $manager): void {
         $this->loadUsers($manager);
-        $this->loadTags($manager);
         $this->loadPosts($manager);
     }
 
@@ -50,45 +48,6 @@ class AppFixtures extends Fixture {
         $manager->flush();
     }
 
-    private function loadTags(ObjectManager $manager): void {
-        foreach ($this->getTagData() as $index => $name) {
-            $tag = new Tag();
-            $tag->setName($name);
-
-            $manager->persist($tag);
-            $this->addReference('tag-' . $name, $tag);
-        }
-
-        $manager->flush();
-    }
-
-    private function loadPosts(ObjectManager $manager): void {
-        /*foreach ($this->getPostData() as [$title, $slug, $summary, $content, $publishedAt, $author, $tags]) {
-            $post = new LeaseRequest();
-            $post->setTitle($title);
-            $post->setSlug($slug);
-            $post->setSummary($summary);
-            $post->setPublishedAt($publishedAt);
-            $post->setAuthor($author);
-            $post->addTag(...$tags);
-            $post->setAssociationType(LeaseRequest::ASSOCIATION_TYPES["Scouting Regio"]);
-            $post->setNumAttendants(49);
-
-            foreach (range(1, 5) as $i) {
-                $comment = new Comment();
-                $comment->setAuthor($this->getReference('john_user'));
-                $comment->setContent($this->getRandomText(random_int(255, 512)));
-                $comment->setPublishedAt(new \DateTime('now + '.$i.'seconds'));
-
-                $post->addComment($comment);
-            }
-
-            $manager->persist($post);
-        }
-
-        $manager->flush();*/
-    }
-
     private function getUserData(): array {
         return [
             // $userData = [$fullname, $username, $password, $email, $roles];
@@ -98,24 +57,9 @@ class AppFixtures extends Fixture {
         ];
     }
 
-    private function getTagData(): array {
-        return [
-            'lorem',
-            'ipsum',
-            'consectetur',
-            'adipiscing',
-            'incididunt',
-            'labore',
-            'voluptate',
-            'dolore',
-            'pariatur',
-        ];
-    }
-
     private function getPostData() {
         $posts = [];
-        foreach ($this->getPhrases() as $i => $title) {
-            // $postData = [$title, $slug, $summary, $content, $publishedAt, $author, $tags, $comments];
+        foreach ($this->getPhrases() as $i => $title) {;
             $posts[] = [
                 $title,
                 Slugger::slugify($title),
@@ -124,7 +68,6 @@ class AppFixtures extends Fixture {
                 new \DateTime('now - ' . $i . 'days'),
                 // Ensure that the first post is written by Jane Doe to simplify tests
                 $this->getReference(['jane_admin', 'tom_admin'][0 === $i ? 0 : random_int(0, 1)]),
-                $this->getRandomTags(),
             ];
         }
 
@@ -214,13 +157,5 @@ congue nisl dictum. Donec mollis nisl tortor, at congue erat consequat a. Nam
 tempus elit porta, blandit elit vel, viverra lorem. Sed sit amet tellus
 tincidunt, faucibus nisl in, aliquet libero.
 MARKDOWN;
-    }
-
-    private function getRandomTags(): array {
-        $tagNames = $this->getTagData();
-        shuffle($tagNames);
-        $selectedTags = \array_slice($tagNames, 0, random_int(2, 4));
-
-        return array_map(function ($tagName) { return $this->getReference('tag-' . $tagName); }, $selectedTags);
     }
 }

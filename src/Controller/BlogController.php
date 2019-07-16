@@ -23,7 +23,6 @@ use App\Form\LeaseRequestType;
 use App\Form\LeaseRequestEditType;
 use App\Repository\LeaseRequestRepository;
 use App\Repository\UserRepository;
-use App\Repository\TagRepository;
 use App\Repository\PriceRepository;
 use App\Utils\Slugger;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
@@ -70,7 +69,7 @@ class BlogController extends AbstractController {
      * Content-Type header for the response.
      * See https://symfony.com/doc/current/quick_tour/the_controller.html#using-formats
      */
-    public function index(Request $request, int $page, string $_format, LeaseRequestRepository $posts, TagRepository $tags, AuthenticationUtils $helper, EventDispatcherInterface $dispatcher): Response {
+    public function index(Request $request, int $page, string $_format, LeaseRequestRepository $posts,  AuthenticationUtils $helper, EventDispatcherInterface $dispatcher): Response {
         if ($this->getUser()) {
             return $this->redirectToRoute('lease_overview');
         }
