@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Form;
 
 use App\Entity\LeaseRequest;
+use App\Entity\Time;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -24,13 +25,12 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use App\Form\Type\CustomTimeType;
+use Symfony\Component\Form\CallbackTransformer;
 
 /**
  * Defines the form used to create and manipulate blog posts.
  *
- * @author Wouter van Harten <wouter@woutervanharten.nl>
- * @author Wouter van Harten <wouter@woutervanharten.nl>
  * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class LeaseRequestAdminType extends AbstractType {
@@ -38,6 +38,29 @@ class LeaseRequestAdminType extends AbstractType {
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void {
+        $timeOptions = [
+            'label' => 'label.start_time',
+            'hour_options' => array_combine(array_merge(array_map('strval', range(9, 22)), ['label.not_known.short']), array_merge(array_map('strval', range(9, 22)), [null])),
+            'minute_options' => array_combine(array_merge(array_map('strval', range(0, 49, 15)), ['label.not_known.short']), array_merge(array_map('strval', range(0, 49, 15)), [null])),
+        ];
+        $transformer = new CallbackTransformer(
+                function ($timeAsDateTime) {
+                    if (is_null($timeAsDateTime)) {
+                        return null;
+                    }
+                    $time = new Time();
+                    $time->setHour($timeAsDateTime->format('H'));
+                    $time->setMinute($timeAsDateTime->format('i'));
+                    return $time;
+                },
+                function ($timeAsCustom) {
+                    if (is_null($timeAsCustom->getHour()) || is_null($timeAsCustom->getMinute())) {
+                        return null;
+                    }
+                    return \DateTime::createFromFormat('H:i', $timeAsCustom->getHour() . ':' . sprintf('%02d', $timeAsCustom->getMinute()));
+                }
+            );
+
         $builder
             ->add('title', null, [
                 'attr' => ['autofocus' => true],
@@ -69,18 +92,8 @@ class LeaseRequestAdminType extends AbstractType {
                 'years' => array(date('Y'), date('Y') + 1),
                 'model_timezone' => 'Europe/Amsterdam',
             ])
-            ->add('key_deliver', TimeType::class, [
-                'label' => 'label.start_time',
-                'widget' => 'choice',
-                'hours' => range(9, 22),
-                'minutes' => range(0, 45, 15),
-            ])
-            ->add('key_return', TimeType::class, [
-                'label' => 'label.end_time',
-                'widget' => 'choice',
-                'hours' => range(9, 22),
-                'minutes' => range(0, 45, 15),
-            ])
+            ->add('key_deliver', CustomTimeType::class, $timeOptions)
+            ->add('key_return', CustomTimeType::class, $timeOptions)
             ->add('num_attendants', IntegerType::class, [
                 'label' => 'label.num_attendants',
                 'required' => true,
@@ -117,6 +130,11 @@ class LeaseRequestAdminType extends AbstractType {
                      'class' => 'btn btn-primary', ),
                  'label' => 'action.edit',
              ));
+
+        $builder->get('key_deliver')
+            ->addModelTransformer($transformer);
+        $builder->get('key_return')
+            ->addModelTransformer($transformer);
     }
 
     /**

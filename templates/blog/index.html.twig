@@ -62,7 +62,7 @@
                  <div class="faq_item">
                      <h4>3. {% trans %}faq.available.question{% endtrans %}</h4>
                      <div class="faq_item">
-                         {% trans %}faq.available.answer{% endtrans %}
+                         {% trans with {'%url%': path('calendar_show')} %}faq.available.answer{% endtrans %}
                      </div>
                  </div>
                  <div class="faq_item">

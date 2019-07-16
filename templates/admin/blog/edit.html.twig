@@ -99,10 +99,26 @@ Ik heb je onlangs een contract toegestuurd en volgens mijn administratie heb ik 
             {{ form_row(form.start_date)}}
             {{ form_row(form.end_date)}}
             <div style="display: flex; flex-wrap: wrap">
-                {{ form_row(form.key_deliver)}}
-                <div style="width: 20px">
+                <div style="padding-right: 20px">
+                    {{ form_label(form.key_deliver)}}
+                    <br>
+                    <div style=" display: flex">
+                        {{ form_row(form.key_deliver.hour)}}
+                        <div style="width: 5px">
+                        </div>
+                        {{ form_row(form.key_deliver.minute)}}
+                    </div>
                 </div>
-                {{ form_row(form.key_return)}}
+                <div>
+                    {{ form_label(form.key_return)}}
+                    <br>
+                    <div style="display: flex">
+                        {{ form_row(form.key_return.hour)}}
+                        <div style="width: 5px">
+                        </div>
+                        {{ form_row(form.key_return.minute)}}
+                    </div>
+                </div>
             </div>
             {{ form_row(form.num_attendants)}}
             {{ form_row(form.price)}}

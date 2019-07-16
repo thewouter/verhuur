@@ -108,6 +108,7 @@ label.noon: Lunch (12:30)
 label.afternoon: Namiddag (17:30)
 label.evening: Avond (22:00)
 label.not_known: Onbekend
+label.not_known.short: NVT
 label.regio_pp: Regio per persoon
 label.scouting_pp: Scouting per persoon
 label.regio_min: Regio minimale prijs
@@ -135,7 +136,7 @@ status.contract: Contract verstuurd
 status.signed: Contract ondertekend
 status.leased: Verhuur heeft plaatsgevonden
 status.deposit_retour: Borg retour
-status.rejected: Aabvraag afgewezen
+status.rejected: Aanvraag afgewezen
 status.retracted: Aanvraag ingetrokken
 status.occupied: Gebouw reeds verhuurd
 

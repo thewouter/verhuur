@@ -131,7 +131,7 @@ class LeaseRequestEditType extends AbstractType {
         $builder->get('key_deliver')
            ->addModelTransformer($transformer);
         $builder->get('key_return')
-          ->addModelTransformer($transformer);
+            ->addModelTransformer($transformer);
     }
 
     /**

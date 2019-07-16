@@ -131,6 +131,7 @@ label.noon: Noon (12:30)
 label.afternoon: Afternoon (17:30)
 label.evening: Evening (22:00)
 label.not_known: Unknown
+label.not_known.short: N/A
 label.regio_pp: Regio per person
 label.scouting_pp: Scouting per person
 label.regio_min: Regio minimal price
