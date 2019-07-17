@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use App\Entity\Comment;
-use App\Entity\LeaseRequest;
 use App\Entity\User;
 use App\Utils\Slugger;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -59,7 +57,7 @@ class AppFixtures extends Fixture {
 
     private function getPostData() {
         $posts = [];
-        foreach ($this->getPhrases() as $i => $title) {;
+        foreach ($this->getPhrases() as $i => $title) {
             $posts[] = [
                 $title,
                 Slugger::slugify($title),

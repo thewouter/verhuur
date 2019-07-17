@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
- * Defines the form used to create and manipulate times.
+ * Defines the form used to create and manipulate App\Entity\Time.
  *
  * @author Wouter van Harten <wouter@woutervanharten.nl>
  */

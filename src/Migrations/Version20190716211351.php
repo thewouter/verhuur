@@ -10,15 +10,12 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190716211351 extends AbstractMigration
-{
-    public function getDescription() : string
-    {
+final class Version20190716211351 extends AbstractMigration {
+    public function getDescription(): string {
         return '';
     }
 
-    public function up(Schema $schema) : void
-    {
+    public function up(Schema $schema): void {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
 
@@ -42,8 +39,7 @@ final class Version20190716211351 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_9BE13C3CF675F31B ON lease_request (author_id)');
     }
 
-    public function down(Schema $schema) : void
-    {
+    public function down(Schema $schema): void {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
 

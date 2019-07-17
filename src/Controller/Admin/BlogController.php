@@ -49,7 +49,6 @@ use Dompdf\Options;
  * @IsGranted("ROLE_ADMIN")
  *
  * @author Wouter van Harten <wouter@woutervanharten.nl>
- * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class BlogController extends AbstractController {
     private $mailer;

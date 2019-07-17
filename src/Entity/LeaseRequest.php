@@ -149,8 +149,6 @@ class LeaseRequest {
      */
     private $comments;
 
-
-
     private $association;
 
     private $contract;

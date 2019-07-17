@@ -69,7 +69,7 @@ class BlogController extends AbstractController {
      * Content-Type header for the response.
      * See https://symfony.com/doc/current/quick_tour/the_controller.html#using-formats
      */
-    public function index(Request $request, int $page, string $_format, LeaseRequestRepository $posts,  AuthenticationUtils $helper, EventDispatcherInterface $dispatcher): Response {
+    public function index(Request $request, int $page, string $_format, LeaseRequestRepository $posts, AuthenticationUtils $helper, EventDispatcherInterface $dispatcher): Response {
         if ($this->getUser()) {
             return $this->redirectToRoute('lease_overview');
         }

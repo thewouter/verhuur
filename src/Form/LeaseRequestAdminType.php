@@ -40,8 +40,38 @@ class LeaseRequestAdminType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options): void {
         $timeOptions = [
             'label' => 'label.start_time',
-            'hour_options' => array_combine(array_merge(array_map('strval', range(9, 22)), ['label.not_known.short']), array_merge(array_map('strval', range(9, 22)), [null])),
-            'minute_options' => array_combine(array_merge(array_map('strval', range(0, 49, 15)), ['label.not_known.short']), array_merge(array_map('strval', range(0, 49, 15)), [null])),
+            'hour_options' => array_combine(
+                array_merge(
+                    array_map(
+                        'strval',
+                        range(9, 22)
+                    ),
+                     ['label.not_known.short']
+                 ),
+                 array_merge(
+                     array_map(
+                         'strval',
+                         range(9, 22)
+                     ),
+                     [null]
+                 )
+             ),
+            'minute_options' => array_combine(
+                array_merge(
+                    array_map(
+                        'strval',
+                        range(0, 49, 15)
+                    ),
+                    ['label.not_known.short']
+                ),
+                array_merge(
+                    array_map(
+                        'strval',
+                        range(0, 49, 15)
+                    ),
+                    [null]
+                )
+            ),
         ];
         $transformer = new CallbackTransformer(
                 function ($timeAsDateTime) {

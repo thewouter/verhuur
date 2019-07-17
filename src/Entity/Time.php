@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+/**
+ * Custom time class used to add the NULL option to a form.
+ *
+ * @author Wouter van Harten <wouter@woutervanharten.nl>
+ */
 class Time {
     protected $hour;
 
