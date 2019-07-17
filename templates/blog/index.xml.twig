@@ -16,9 +16,6 @@
                 <guid>{{ url('blog_post', {'id': post.id}) }}</guid>
                 <pubDate>{{ post.publishedAt|date(format='r', timezone='GMT') }}</pubDate>
                 <author>{{ post.author.email }}</author>
-                {% for tag in post.tags %}
-                    <category>{{ tag.name }}</category>
-                {% endfor %}
             </item>
         {% endfor %}
     </channel>

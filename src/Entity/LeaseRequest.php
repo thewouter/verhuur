@@ -149,14 +149,7 @@ class LeaseRequest {
      */
     private $comments;
 
-    /**
-     * @var Tag[]|ArrayCollection
-     *
-     * @ORM\JoinTable(name="symfony_demo_post_tag")
-     * @ORM\OrderBy({"name": "ASC"})
-     * @Assert\Count(max="4", maxMessage="post.too_many_tags")
-     */
-    private $tags;
+
 
     private $association;
 
@@ -173,7 +166,6 @@ class LeaseRequest {
     public function __construct() {
         $this->publishedAt = new \DateTime();
         $this->comments = new ArrayCollection();
-        $this->tags = new ArrayCollection();
         $this->setStatus(0);
         $this->status = 0;
         $this->setAssociationType('ass_type.other');
@@ -242,22 +234,6 @@ class LeaseRequest {
 
     public function setSummary(string $summary): void {
         $this->summary = $summary;
-    }
-
-    public function addTag(Tag ...$tags): void {
-        foreach ($tags as $tag) {
-            if (!$this->tags->contains($tag)) {
-                $this->tags->add($tag);
-            }
-        }
-    }
-
-    public function removeTag(Tag $tag): void {
-        $this->tags->removeElement($tag);
-    }
-
-    public function getTags(): Collection {
-        return $this->tags;
     }
 
     private $start_date;

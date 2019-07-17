@@ -198,7 +198,6 @@ class BlogController extends AbstractController {
         if (!$this->isCsrfTokenValid('delete', $request->request->get('token'))) {
             return $this->redirectToRoute('admin_post_index');
         }
-        $post->getTags()->clear();
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($post);

@@ -36,9 +36,7 @@ class LeaseRequestRepository extends ServiceEntityRepository {
 
     public function findLatest(int $page = 1): Pagerfanta {
         $qb = $this->createQueryBuilder('p')
-            ->addSelect('a', 't')
             ->innerJoin('p.author', 'a')
-            ->leftJoin('p.tags', 't')
             ->where('p.publishedAt <= :now')
             ->orderBy('p.publishedAt', 'DESC')
             ->setParameter('now', new \DateTime());
