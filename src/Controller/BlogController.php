@@ -3,9 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
+ * This file is part of the Radix lease application.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -40,7 +38,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use \Datetime;
 
 /**
- * Controller used to manage blog contents in the public part of the site.
+ * Controller used to manage lease requests in the public part of the site.
  *
  * @Route("")
  *
@@ -61,7 +59,6 @@ class BlogController extends AbstractController {
 
     /**
      * @Route("/", defaults={"page": "1", "_format"="html"}, methods={"GET", "POST"}, name="homepage")
-     * @Route("/rss.xml", defaults={"page": "1", "_format"="xml"}, methods={"GET"}, name="blog_rss")
      * @Route("/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods={"GET"}, name="blog_index_paginated")
      * @Cache(smaxage="10")
      *
@@ -71,6 +68,9 @@ class BlogController extends AbstractController {
      */
     public function index(Request $request, int $page, string $_format, LeaseRequestRepository $posts, AuthenticationUtils $helper, EventDispatcherInterface $dispatcher): Response {
         if ($this->getUser()) {
+            if (in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
+                return $this->redirectToRoute('admin_index');
+            }
             return $this->redirectToRoute('lease_overview');
         }
 

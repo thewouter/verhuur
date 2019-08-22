@@ -102,6 +102,8 @@ menu.logout: Logout
 menu.rss: Blog Posts RSS
 menu.search: Search
 menu.statistics: Statistics
+menu.prices: Prices
+menu.payments: Payments
 
 label.association_type: Type of association
 label.start_date: Date of arrival
@@ -124,6 +126,7 @@ label.checked_calendar: I have checked the <a href="%url%">lease calendar</a>
 label.last_updated: Last updated
 label.paid: Already paid
 label.not_paid: Not paid yet
+label.deposit_retour: Deposit retour
 label.start_time: Key handover time
 label.end_time: key return time
 label.noon: Noon (12:30)
@@ -190,7 +193,7 @@ calendar.lease: The lease calendar
 menu.calendar: Lease calendar
 menu.ical: Export calendar
 
-help.homepage: Welcome to the lease application of Radix Enschede. Here you can request the lease of our building, manage you request and ask questions. <br>To request a lease make an account and fill out the form. If you want to update a request or ask a question, you can login with your credentials. <br><br> We haven't invested a lot of resources in security so don't choose your master password ;)
+help.homepage: Welcome to the lease application of Radix Enschede. Here you can request the lease of our building, manage you request and ask questions. <br>To request a lease login using your Google account, this way you do not have to remember another password.
 
 statistics.year: Overview %year%
 
@@ -201,7 +204,7 @@ help.info: >
   Because of this, it is easy to import it using different programs.
   You can add the calendar in your student email, or import it into your Google Calendar.
   Even programs like Outlook and Thunderbird (for example with the Lighning Add-on) can handle the link.
-help.search: Use the terms &ldquo;iCalendar&rdquo; or &ldquo;iCal&rdquo; when searching for more information; this is the name of the type of file the abacus-calendar uses.
+help.search: Use the terms &ldquo;iCalendar&rdquo; or &ldquo;iCal&rdquo; when searching for more information; this is the name of the type of file the lease-calendar uses.
 help.link: 'Use the following link for the radix-calendar: <strong>%url%</strong>'
 help.personal: '(Log in to get your personal calendar.)'
 help.used_calendars: "Many used calendars"
@@ -230,7 +233,7 @@ faq.request_how.answer: 'You can request the lease of our bulding Lambarene usin
     </ol>'
 faq.price.question: What does leasing Lambarene cost?
 faq.price.answer: 'Our prices can be found on the <a href="%url%">price list</a>.'
-prices: An indication of the prices. Gas, water and electra are included. <br> Under the category 'Regio' fall scouting associations from Scoutng Regio Essnlaand. <br> Under the category 'Scouting' reside All other associations linked to the World Scout Movement. <br> All other associations like student associations and fraternities are other associations.
+prices: An indication of the prices. Gas, water and electra are included. <br> Under the category 'Regio' fall scouting associations from Scouting Regio Essnlaand. <br> Under the category 'Scouting' reside All other associations linked to the World Scout Movement. <br> All other associations like student associations and fraternities are other associations.
 faq.available.question: Is the bulding available at this specific date I want to lease?
 faq.available.answer: You can check our  <a href="%url%">lease calendar</a> if the building is available at the date you want to lease it.
 faq.photos.question: Are there any photo's of the building?
@@ -244,3 +247,7 @@ faq.items.answer: 'In no particular order, we try to have:
         <li>A fridge</li>
         <li>A stove</li>
     </ol>'
+faq.beds.question: How many beds are available?
+faq.beds.answer: We do not have any beds available for lease, you can bring your own matrasses.
+faq.persons.question: How many people can stay in the building?
+faq.persons.answer: Due to restrictions of the fire brigade, a maximum of 30 people are allowed to sleep in the building. If you want to host more guests you can always erect a tent outside.

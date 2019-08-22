@@ -43,7 +43,7 @@ label.title: Titel
 label.author: Auteur
 label.author_email: Auteur e-mail
 label.username: Gebruikersnaam
-label.password: Wachtwoord
+label.fullname: Fullname
 label.role: Rol
 label.content: Inhoud
 label.summary: Samenvatting
@@ -60,6 +60,14 @@ menu.admin: Beheerpaneel
 menu.logout: Uitloggen
 menu.rss: Blogberichten RSS
 menu.search: Zoek
+menu.statistics: Statistieken
+menu.prices: Prijzen
+menu.payments: Betalingen
+
+help.homepage: Welcom bij de verhuurapplicatie van Radix Enschede. Hier kun je de huur van ons gebouw aanvragen en vragen te stellen. <br>Gebruik je Google account om in te loggen, hierdoor hoef je geen extra wachtwoord te onthouden.
+
+statistics.year: Overzicht %year%
+
 post.to_publish_a_comment: om een reactie toe te voegen
 post.num_comments: '{count, plural, one {# reactie} other {# reacties}}'
 post.commented_on: gereageerd op
@@ -103,6 +111,11 @@ label.upload_signed: Upload het getekende contract
 label.signed: Je hebt het contract reeds getekend!
 label.association: Vereniging
 label.checked_calendar: Ik heb de <a href="%url%">verhuur kalender</a> gechecked
+label.last_updated: Last updated
+label.paid: Reeds betaald
+label.not_paid: Nog niet betaald
+label.deposit_retour: Borg retour
+label.start_time: Sleutel afgifte
 label.noon: Lunch (12:30)
 label.afternoon: Namiddag (17:30)
 label.evening: Avond (22:00)
@@ -188,3 +201,32 @@ help.outlook.log_in: Log in op <a href="https://www.outlook.com/">Outlook.com</a
 help.outlook.import: Klik nu weer in dezelfde bovenste balk op &ldquo;Importeren&rdquo; en klik vervolgens op &ldquo;Abonneren&rdquo;.
 help.outlook.paste: Plak als &lsquo;URL van de agenda&rsquo; de link. Vul een naam voor de agenda in en klik op &ldquo;Abonneren&rdquo;.
 help.outlook.success: Nu zijn alle verhuurafspraken zichtbaar in je agenda en kan je ook automatisch de radix-agenda zien op je Windows Phone.
+
+faq.title: 'Veelgestelde vragen'
+faq.request_how.question: Hoe kan ik de huur van Lambarene aanvragen?
+faq.request_how.answer: 'Je kunt de huur van ons gebouw Lambarene aanvragen met deze webapplicatie als je de volgende stappen volgt:
+    <ol>
+        <li>Check of je datum nog beschikbaar is in de <a href="%url%">verhuurkalender</a>.</li>
+        <li>Login met je Google acccount en vul je telefoonnummer en adres aan zodat we je kunnen contacten.</li>
+        <li>Vul het aanvraagformulier in op de volgende pagina. Je wordt up-to-date gehouden over updates van onze kant via de email</li>
+    </ol>'
+faq.price.question: Wat kost het om Lambarene te huren?
+faq.price.answer: 'Onze prijzen kunnen gevonden worden in de <a href="%url%">prijslijst</a>.'
+prices: "Een indicatie van de prijzen: Gas, water en electra zijn inclusief. <br>Onder de categorie 'Regio' vallen scouting verenigingen uit Scouting Regio Essnlaand. <br>Onder de categorie 'Scouting' vallen alle andere scouting verenigingen die gelinkt zijn aan scouting Nederland of een ander lid van WOSM. <br> Alle andere verenigingen zoals studie- en studentenverenigingen en disputen vallen onder de categorie 'overige verenigingen'."
+faq.available.question: Is het gebouw op <Insert specefieke datum> beschikbaar?
+faq.available.answer: Je kan onze <a href="%url%">verhuurkalender</a> op de datum dat je het gebouw zou willen huren.
+faq.photos.question: Zijn er foto's van het gebouw?
+faq.photos.answer: Jazeker! Je kunt ze bekijken in ons <a href="%url%">fotoalbum</a>.
+faq.items.question: Welke items zijn er aanwezig in het gebouw?
+faq.items.answer: 'We proberen de volgende items aanwezig te hebben:
+    <ol>
+        <li>Wat borden en bestek</li>
+        <li>Een waterkoker</li>
+        <li>Een koffiezetapparaat</li>
+        <li>Een koelkast & vriezer</li>
+        <li>Een gasfornuis</li>
+    </ol>'
+faq.beds.question: Hoeveel bedden zijn er aanwezig?
+faq.beds.answer: We hebben geen bedden aanwezig, je kan je eigen luchtbed meenemen.
+faq.persons.question: Hoeveel mensen kunnen blijven slapen?
+faq.persons.answer: In verband met de brandweer kunnen er maximaal 30 personen binnen blijven slapen. Meer slaapplekken kunnen gecreerd worden door een tent op te zetten buiten.
