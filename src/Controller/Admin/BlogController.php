@@ -293,7 +293,7 @@ class BlogController extends AbstractController {
         $allRequests = $posts->findAll();
         $perYear = [];
         foreach ($allRequests as $request) {
-            $status = $request->getStatus();
+            $status = $request->getStatusText();
             if ($status != 'status.rejected' && $status != 'status.retracted') {
                 $request->setPriceRepository($priceRepository);
                 if (!in_array($request->getStartDate()->format('Y'), array_keys($perYear))) {

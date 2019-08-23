@@ -57,7 +57,8 @@ class LeaseRequest {
         "status.deposit_retour",
         "status.rejected",
         "status.retracted",
-        "status.occupied", );
+        "status.occupied",
+        "status.finished", );
 
     public const KEYTIMES = array(
         'label.noon' => '12:30',
