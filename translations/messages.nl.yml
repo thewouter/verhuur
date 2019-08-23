@@ -49,6 +49,8 @@ label.content: Inhoud
 label.summary: Samenvatting
 label.published_at: Geplaatst op
 label.actions: Acties
+label.switch_hidden: Switch afgewezen requests
+
 title.post_new: Bericht aanmaken
 action.edit_contents: Inhoud bewerken
 menu.toggle_nav: Wissel navigatie
@@ -151,6 +153,7 @@ status.deposit_retour: Borg retour
 status.rejected: Aanvraag afgewezen
 status.retracted: Aanvraag ingetrokken
 status.occupied: Gebouw reeds verhuurd
+status.finished: Verhuur afgehandeld
 
 lease.title: Verhuurzaak
 lease.status: Status
