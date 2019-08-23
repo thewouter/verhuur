@@ -26,6 +26,16 @@ security:
             # denying access is done in access_control or in your controllers
             anonymous: true
 
+            oauth:
+                resource_owners:
+                    google:             connect_google_check
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
+
+                oauth_user_provider:
+                    service: App\Security\UserProvider
+
             # This allows the user to login by submitting a username and password
             # Reference: https://symfony.com/doc/current/security/form_login_setup.html
             form_login:
@@ -41,15 +51,19 @@ security:
                 # session (for example when the users access directly to the login page).
                 default_target_path: lease_overview
 
+
+
             logout:
                 # The route name the user can go to in order to logout
                 path: security_logout
                 # The name of the route to redirect to after logging out
                 target: homepage
 
-            guard:
-                authenticators:
-                    - App\Security\GoogleAuthenticator
+
+
+            # guard:
+            #     authenticators:
+            #         - App\Security\GoogleAuthenticator
 
     access_control:
         # this is a catch-all for the admin area

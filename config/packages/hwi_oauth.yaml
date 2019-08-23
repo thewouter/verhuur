@@ -1,0 +1,12 @@
+hwi_oauth:
+    # list of names of the firewalls in which this bundle is active, this setting MUST be set
+    firewall_names: [main]
+
+    resource_owners:
+        google:
+            type:                google
+            client_id:           '%env(GOOGLE_CLIENT_ID_LOGIN)%'
+            client_secret:       '%env(GOOGLE_CLIENT_SECRET_LOGIN)%'
+            scope:               "email profile"
+            options:
+                access_type:     offline
