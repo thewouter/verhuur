@@ -49,7 +49,7 @@ label.content: Inhoud
 label.summary: Samenvatting
 label.published_at: Geplaatst op
 label.actions: Acties
-label.switch_hidden: Switch afgewezen requests
+label.switch_hidden: Switch afgewezen aanvragen
 
 title.post_new: Bericht aanmaken
 action.edit_contents: Inhoud bewerken
@@ -169,6 +169,8 @@ no_account: Heb je nog geen account? Maak er dan hier een aan.
 post.commented: Comment posted.
 overview: Overzicht verhuuraanvragen
 request.updated: Je aanvraag is geupdated!
+request.unanswerd: Openstaande vraag
+request.answered: Beantwoord
 menu.user: Account
 login.password_reset: Reset mijn wachtwoord
 
