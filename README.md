@@ -1,29 +1,21 @@
-Symfony Demo Application
+Radix Lease Application
 ========================
-
-The "Symfony Demo Application" is a reference application created to show how
-to develop applications following the [Symfony Best Practices][1].
 
 Requirements
 ------------
 
-  * PHP 7.1.3 or higher;
+  * PHP 7.2.0 or higher;
   * PDO-SQLite PHP extension enabled;
   * and the [usual Symfony application requirements][2].
 
 Installation
 ------------
 
-Install the [Symfony client][4] binary and run this command:
-
 ```bash
-$ symfony new --demo my_project
-```
-
-Alternatively, you can use Composer:
-
-```bash
-$ composer create-project symfony/symfony-demo my_project
+$ git pull
+$ composer install
+$ yarn install
+$ yarn encore [dev|production]
 ```
 
 Usage
@@ -41,15 +33,6 @@ $ symfony serve
 If you don't have the Symfony client installed, run `php bin/console server:run`.
 Alternatively, you can [configure a web server][3] like Nginx or Apache to run
 the application.
-
-Tests
------
-
-Execute this command to run tests:
-
-```bash
-$ cd my_project/
-$ ./bin/phpunit
 ```
 
 [1]: https://symfony.com/doc/current/best_practices/index.html
