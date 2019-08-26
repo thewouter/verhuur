@@ -9,49 +9,22 @@ use App\Entity\User;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
-use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 
-class UserProvider implements OAuthAwareUserProviderInterface {
+class UserProvider implements UserProviderInterface {
     private $entityManager;
 
     /**
      * UserProvider constructor.
      * @param EntityManagerInterface $entityManager
+     * @internal param Client $httpClient
+     * @internal param UserOptionService $userOptionService
+     * @internal param ProjectService $projectService
+     * @internal param SessionService $sessionService
+     * @internal param Session $session
+     * @internal param UserOptionService $userOptionsService
      */
     public function __construct(EntityManagerInterface $entityManager) {
         $this->entityManager = $entityManager;
-    }
-
-    public function loadUserByOAuthUserResponse(UserResponseInterface $response) {
-        $data = $response;
-        dump($data);
-        $username = $response->getUsername();
-        $email = $response->getEmail() ? $response->getEmail() : $username;
-        $service = $response->getResourceOwner()->getName();
-        dump($service);
-        dump($email);
-        $user = $this->loadUserByUsername($email);
-        //$user = $this->userManager->findUserBy(array($service.'Id' => $username));
-        //when the user is registrating
-        if (!$user) { // make new user if user was not found
-            $user = new User();
-            $user->setUsername(strtolower($username) . date("d-m-Y"));
-            $user->setEmail($email);
-            $user->setFullname($googleUser->getName());
-            $user->setPassword('Useless');
-            $user->setAddress('');
-            $user->setPhone('');
-            $this->em->persist($user);
-            $this->em->flush();
-        }
-        //if user exists - go with the HWIOAuth way
-        // $user = parent::loadUserByOAuthUserResponse($response);
-        // $serviceName = $response->getResourceOwner()->getName();
-        // $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
-        //update access token
-        // $user->{$setter}($response->getAccessToken());
-        return $user;
     }
 
     /**
@@ -66,9 +39,12 @@ class UserProvider implements OAuthAwareUserProviderInterface {
      *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function loadUserByUsername($email) {
-        $repository = $this->entityManager->getRepository('App:User');
-        return $repository->findOneBy(['email' => $email]);
+    public function loadUserByUsername($username) {
+        return $this->entityManager->createQueryBuilder('u')
+            ->where('u.email = :email')
+            ->setParameter('email', $username)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     /**
