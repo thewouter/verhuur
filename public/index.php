@@ -6,6 +6,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 require dirname(__DIR__).'/config/bootstrap.php';
 
+// Fix for missing google get variables on Hornet. I think something is wrong
+// with the Hornet config but they deny.
+if (strpos($_SERVER['REQUEST_URI'], '?') !== false) {
+    $getParamsString = explode('&', substr($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'], "?") + 1));
+    foreach ($getParamsString as $string) {
+        $pair = explode('=', $string);
+        $_GET[urldecode($pair[0])] = urldecode($pair[1]);
+    }
+}
+
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);
 
