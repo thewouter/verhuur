@@ -31,7 +31,8 @@ X-ALT-DESC;FMTTYPE=text/html:{% filter ical_escape('html') -%}
 {{ 'calendar.key_deliver' | trans }}
 {%- endfilter %}\n
 URL:{{ 'radixenschede.nl' | ical_escape }}\n
-END:VEVENT{% endif %}
+END:VEVENT
+{% endif %}
 {% if leaseRequest.keyReturn is defined%}
 BEGIN:VEVENT
 UID:{{ leaseRequest.id }}_return@radixenschede.nl\n
@@ -46,6 +47,7 @@ X-ALT-DESC;FMTTYPE=text/html:{% filter ical_escape('html') -%}
 {{ 'calendar.key_return' | trans }}
 {%- endfilter %}\n
 URL:{{ 'radixenschede.nl' | ical_escape }}\n
-END:VEVENT{% endif %}
+END:VEVENT
+{% endif %}
 {% endfor %}
 END:VCALENDAR{% endfilter %}
