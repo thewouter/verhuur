@@ -196,6 +196,7 @@ calendar.lease: The lease calendar
 
 menu.calendar: Lease calendar
 menu.ical: Export calendar
+menu.faq: Frequently asked questions
 
 help.homepage: Welcome to the lease application of Radix Enschede. Here you can request the lease of our building, manage you request and ask questions. <br>To request a lease login using your Google account, this way you do not have to remember another password.
 

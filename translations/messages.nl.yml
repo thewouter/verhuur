@@ -184,6 +184,7 @@ calendar.lease: De verhuurkalender van Lambarene
 
 menu.calendar: Verhuurkalender
 menu.ical: Verhuuragenda exporteren
+menu.faq: Veelgestelde vragen
 
 help.header: Hulp bij het gebruik van de radix-agenda.
 help.info: >
@@ -210,7 +211,7 @@ help.outlook.import: Klik nu weer in dezelfde bovenste balk op &ldquo;Importeren
 help.outlook.paste: Plak als &lsquo;URL van de agenda&rsquo; de link. Vul een naam voor de agenda in en klik op &ldquo;Abonneren&rdquo;.
 help.outlook.success: Nu zijn alle verhuurafspraken zichtbaar in je agenda en kan je ook automatisch de radix-agenda zien op je Windows Phone.
 
-faq.title: 'Veelgestelde vragen'
+faq.title: 'Veelgestelde vragen:'
 faq.request_how.question: Hoe kan ik de huur van Lambarene aanvragen?
 faq.request_how.answer: 'Je kunt de huur van ons gebouw Lambarene aanvragen met deze webapplicatie als je de volgende stappen volgt:
     <ol>

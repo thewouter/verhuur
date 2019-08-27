@@ -382,6 +382,14 @@ class BlogController extends AbstractController {
         return $this->render('calendar/show.html.twig', array());
     }
 
+
+    /**
+     * @Route("/faq", methods={"GET"}, name="faq_show")
+     */
+    public function faq(Request $request): Response {
+        return $this->render('blog/faq.html.twig', array());
+    }
+
     /**
      * @Route("/ical/help", methods={"GET"}, name="ical_help")
      */

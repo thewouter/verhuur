@@ -1,0 +1,58 @@
+<div class='new_user column'>
+    <p class="well"> {{'faq.title' | trans}} </p>
+    <div class="well">
+        <div class="faq_item">
+            <h4>1. {% trans %}faq.request_how.question{% endtrans %}</h4>
+            <div class="faq_item">
+                {% trans with {'%url%': path('calendar_show') } %}faq.request_how.answer{% endtrans %}
+            </div>
+        </div>
+        <div class="faq_item">
+            <h4>2. {% trans %}faq.price.question{% endtrans %}</h4>
+            <div class="faq_item">
+                {% trans with {'%url%' : path('prices_show') }%}faq.price.answer{% endtrans %}
+            </div>
+        </div>
+        <div class="faq_item">
+            <h4>3. {% trans %}faq.available.question{% endtrans %}</h4>
+            <div class="faq_item">
+                {% trans with {'%url%': path('calendar_show')} %}faq.available.answer{% endtrans %}
+            </div>
+        </div>
+        <div class="faq_item">
+            <h4>4. {% trans %}faq.photos.question{% endtrans %}</h4>
+            <div class="faq_item">
+                {% trans with {'%url%' : path('photos_show') } %}faq.photos.answer{% endtrans %}
+            </div>
+        </div>
+        <div class="faq_item">
+            <h4>5. {% trans %}faq.items.question{% endtrans %}</h4>
+            <div class="faq_item">
+                {% trans with {'%url%' : path('photos_show') } %}faq.items.answer{% endtrans %}
+            </div>
+        </div>
+        <div class="faq_item">
+            <h4>6. {% trans %}faq.beds.question{% endtrans %}</h4>
+            <div class="faq_item">
+                {% trans %}faq.beds.answer{% endtrans %}
+            </div>
+        </div>
+        <div class="faq_item">
+            <h4>7. {% trans %}faq.persons.question{% endtrans %}</h4>
+            <div class="faq_item">
+                {% trans %}faq.persons.answer{% endtrans %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style media="screen">
+
+    ol>li {
+        font-size: 11pt;
+    }
+
+    .faq_item {
+        margin-left: 10px;
+    }
+</style>

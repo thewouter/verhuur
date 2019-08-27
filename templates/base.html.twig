@@ -69,13 +69,18 @@
                                                         <i class="fa fa-edit" aria-hidden="true"></i> {{ 'menu.user'|trans }}
                                                     </a>
                                                 </li>
-                                                <li class="divider"></li>
                                                 <li>
                                                     <a href="{{ path('calendar_show') }}">
                                                         <i class="fa fa-calendar" aria-hidden="true"></i> {{ 'menu.calendar'|trans }}
                                                     </a>
                                                 </li>
+                                                <li>
+                                                    <a href="{{ path('faq_show') }}">
+                                                        <i class="fas fa-question" aria-hidden="true"></i> {{ 'menu.faq'|trans }}
+                                                    </a>
+                                                </li>
                                                 {% if is_granted('ROLE_ADMIN') %}
+                                                    <li class="divider"></li>
                                                     <li>
                                                         <a href="{{ path('ical_help') }}">
                                                             <i class="fa fa-plus" aria-hidden="true"></i> {{ 'menu.ical'|trans }}
