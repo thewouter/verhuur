@@ -50,6 +50,7 @@ label.summary: Samenvatting
 label.published_at: Geplaatst op
 label.actions: Acties
 label.switch_hidden: Switch afgewezen aanvragen
+label.deposit: Borg
 
 title.post_new: Bericht aanmaken
 action.edit_contents: Inhoud bewerken
