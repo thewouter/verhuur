@@ -290,7 +290,8 @@ class BlogController extends AbstractController {
                ->attach(\Swift_Attachment::fromPath($publicDirectory . self::REQUIREMENTS_FILE)->setFilename('huurvoorwaarden.pdf'));
         $this->mailer->send($message);
         $this->addFlash('success', 'contract.emailed');
-        $leaseRequest->setStatus(2);
+        $leaseRequest->setStatus(1);
+        $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('admin_post_edit', ['id' => $leaseRequest->getId()]);
     }
 
