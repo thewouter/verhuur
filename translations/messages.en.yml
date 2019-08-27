@@ -190,6 +190,7 @@ account.succesfull: Succesfully created account. Now fill out this form to reque
 contract_signed_remove: Delete signed contract
 contract.show: Download contract
 contract.send: Send contract
+contract.emailed: Contract succesfully send!
 
 calendar.lease: The lease calendar
 

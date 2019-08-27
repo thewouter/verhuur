@@ -105,11 +105,12 @@ class BlogController extends AbstractController {
      *
      * @Route("/{id<\d+>}/edit",methods={"GET", "POST"}, name="admin_post_edit")
      */
-    public function edit(Request $request, LeaseRequest $leaseRequest): Response {
+    public function edit(Request $request, LeaseRequest $leaseRequest, PriceRepository $repository): Response {
         $form = $this->createForm(LeaseRequestAdminType::class, $leaseRequest, array('signed_uploaded' => !is_null($leaseRequest->getContractSigned())));
 
         $em = $this->getDoctrine()->getManager();
         $leaseRequest->setRead(true);
+        $leaseRequest->setPriceRepository($repository);
         $em->flush();
 
         $oldSigned = $leaseRequest->getContractSigned();
@@ -212,7 +213,8 @@ class BlogController extends AbstractController {
      *
      *@Route("/{id}/contract.html", methods={"GET"}, name="admin_contract_html")
      */
-    public function contractHtml(Request $request, LeaseRequest $leaseRequest): Response {
+    public function contractHtml(Request $request, LeaseRequest $leaseRequest, PriceRepository $repository): Response {
+        $leaseRequest->setPriceRepository($repository);
         return $this->render('pdf/contract.html.twig', array(
              'leaseRequest' => $leaseRequest, ));
     }
@@ -220,10 +222,13 @@ class BlogController extends AbstractController {
     /**
      *@Route("/{id}/contract.pdf", methods={"GET"}, name="admin_contract_pdf")
      */
-    public function contractPdf(Request $request, LeaseRequest $leaseRequest): Response {
+    public function contractPdf(Request $request, LeaseRequest $leaseRequest, PriceRepository $repository): Response {
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
         $pdfOptions->set('enable_remote', true);
+
+
+        $leaseRequest->setPriceRepository($repository);
 
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
@@ -254,7 +259,7 @@ class BlogController extends AbstractController {
             "Attachment" => true,
             ]);
 
-        return $this->edit($request, $leaseRequest);
+        return $this->redirectToRoute('admin_post_edit', ['id' => $leaseRequest->getId()]);
     }
 
     /**
@@ -262,7 +267,9 @@ class BlogController extends AbstractController {
      *
      *@Route("/{id}/contract/send", methods={"GET"}, name="admin_contract_email")
      */
-    public function sendContract(Request $request, LeaseRequest $leaseRequest): Response {
+    public function sendContract(Request $request, LeaseRequest $leaseRequest, PriceRepository $repository): Response {
+
+        $leaseRequest->setPriceRepository($repository);
         if (is_null($leaseRequest->getContract())) {
             $this->addFlash('error', 'contract.no_available');
             return $this->edit($request, $leaseRequest);
@@ -283,7 +290,8 @@ class BlogController extends AbstractController {
                ->attach(\Swift_Attachment::fromPath($publicDirectory . self::REQUIREMENTS_FILE)->setFilename('huurvoorwaarden.pdf'));
         $this->mailer->send($message);
         $this->addFlash('success', 'contract.emailed');
-        return $this->edit($request, $leaseRequest);
+        $leaseRequest->setStatus(2);
+        return $this->redirectToRoute('admin_post_edit', ['id' => $leaseRequest->getId()]);
     }
 
     /**
