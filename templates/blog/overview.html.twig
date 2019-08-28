@@ -11,7 +11,7 @@
             <td> {{lease.title}} </td>
             <td> {{lease.statusText | trans}} </td>
             <td>{{ lease.startDate|date("d-m-Y") }}</td>
-            <td style="display: flex; ">
+            <td style="display: flex; flex-wrap:wrap; justify-content: center;">
                 <form action="{{path('lease_edit', {id: lease.id})}}" style="margin-right: 20px;">
                     <input class="btn btn-primary" type="submit" value="{{ 'lease.edit' | trans }}" />
                 </form>

@@ -16,10 +16,7 @@ $web-font-path: 'data:text/css;base64,';
 
 /* Basic styles
    ------------------------------------------------------------------------- */
-p, ul, ol {
-  font-size: 19px;
-  margin-bottom: 1.5em
-}
+
 
 li {
   margin-bottom: 0.5em
@@ -358,5 +355,21 @@ body#blog_search .post-metadata {
     }
     .edit-comments{
         order: 1;
+    }
+}
+
+p, ul, ol {
+  margin-bottom: 1.5em
+}
+
+@media (min-width:800px) {
+    p, ul, ol {
+      font-size: 19px;
+    }
+}
+
+@media (max-width:799px) {
+    p, ul, ol, th, td, form, .btn {
+      font-size: 13px;
     }
 }

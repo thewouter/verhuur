@@ -49,7 +49,7 @@
 {% endblock %}
 
 {% block main %}
-    <div style="display:flex; justify-content: space-between;" > <h1>{{ 'title.post_list'|trans }}</h1> <input type="button" id="filter" class="btn btn-primary" value="{{'label.switch_hidden' | trans}}" style="margin: 5px"></div>
+    <div style="display:flex; justify-content: space-between; flex-wrap: wrap;" > <h1>{{ 'title.post_list'|trans }}</h1> <input type="button" id="filter" class="btn btn-primary" value="{{'label.switch_hidden' | trans}}" style="margin: 5px"></div>
 
     <div id="cookie_accordion" style="display: none;">
         {% for request in posts %}
