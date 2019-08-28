@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p class="well"> {{'privacy.title' | trans}} </p>
+    <div class="well">
+        <div class="faq_item">
+            <h4><b>{% trans %}privacy.name{% endtrans %}</b></h4>
+            <div class="faq_item">
+                {% trans with {'%url%': path('calendar_show') } %}privacy.name.answer{% endtrans %}
+            </div>
+        </div>
+        <div class="faq_item">
+            <h4><b>{% trans %}privacy.email{% endtrans %}</b></h4>
+            <div class="faq_item">
+                {% trans with {'%url%' : path('prices_show') }%}privacy.email.answer{% endtrans %}
+            </div>
+        </div>
+        <div class="faq_item">
+            <h4><b>{% trans %}privacy.phone{% endtrans %}</b></h4>
+            <div class="faq_item">
+                {% trans with {'%url%': path('calendar_show')} %}privacy.phone.answer{% endtrans %}
+            </div>
+        </div>
+        <div class="faq_item">
+            <h4><b>{% trans %}privacy.address{% endtrans %}</b></h4>
+            <div class="faq_item">
+                {% trans with {'%url%' : path('photos_show') } %}privacy.address.answer{% endtrans %}
+            </div>
+        </div>
+        <div class="faq_item">
+            <h4><b>{% trans %}privacy.association{% endtrans %}</b></h4>
+            <div class="faq_item">
+                {% trans with {'%url%' : path('photos_show') } %}privacy.association.answer{% endtrans %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

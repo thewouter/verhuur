@@ -152,11 +152,16 @@
                         <div id="footer-copyright" class="col-md-6">
                             <p>&copy; {{ 'now'|date('Y') }} - Radix Enschede</p>
                             <p>{{ 'mit_license'|trans }}</p>
+
+
                         </div>
                         <div id="footer-resources" class="col-md-6">
                             <p>
                                 <a href="https://www.facebook.com/radixenschede" title="Radix Enschede Facebook">
-                                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                                    <i class="fab fa-facebook" aria-hidden="true"></i> Facebook
+                                </a><br>
+                                <a href="{{ path('privacy') }}" title="Privacy statement">
+                                    <i class="fas fa-user-secret" aria-hidden="true"></i> {% trans %}privacy.title{% endtrans %}
                                 </a>
                             </p>
                         </div>

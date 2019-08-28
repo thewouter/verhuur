@@ -390,6 +390,14 @@ class BlogController extends AbstractController {
         return $this->render('blog/faq.html.twig', array());
     }
 
+
+    /**
+     * @Route("/privacy", methods={"GET"}, name="privacy")
+     */
+    public function privacy(Request $request): Response {
+        return $this->render('blog/privacy.html.twig', array());
+    }
+
     /**
      * @Route("/ical/help", methods={"GET"}, name="ical_help")
      */

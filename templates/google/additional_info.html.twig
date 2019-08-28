@@ -4,8 +4,14 @@
 
 {% block main %}
     <h1>{{ 'title.edit_user'|trans }}</h1>
+
+
     <div class="well">
-        {% trans %}google.additional_info{% endtrans %}
+        {% trans %}google.additional_info{% endtrans %} <br>
+
+        <a href="{{ path('privacy') }}" target="_blank" title="Privacy statement">
+            <i class="fas fa-user-secret" aria-hidden="true"></i> {% trans %}privacy.question{% endtrans %}
+        </a>
         <br>
         <br>
     {{ form_start(form) }}

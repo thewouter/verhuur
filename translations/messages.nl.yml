@@ -176,7 +176,7 @@ menu.user: Account
 login.password_reset: Reset mijn wachtwoord
 
 contract_signed_remove: Verwijder getekend contract
-contract.show: Download contract
+contract.show: (Her)genereer contract
 contract.send: Verzend contract
 contract.emailed: Contract succesvol verstuurd!
 
@@ -211,6 +211,8 @@ help.outlook.import: Klik nu weer in dezelfde bovenste balk op &ldquo;Importeren
 help.outlook.paste: Plak als &lsquo;URL van de agenda&rsquo; de link. Vul een naam voor de agenda in en klik op &ldquo;Abonneren&rdquo;.
 help.outlook.success: Nu zijn alle verhuurafspraken zichtbaar in je agenda en kan je ook automatisch de radix-agenda zien op je Windows Phone.
 
+google.additional_info: We zijn nog een paar gegevens van je nodig om onze administratie compleet te maken, als je deze invult kun je een huuraanvraag doen!
+
 faq.title: 'Veelgestelde vragen:'
 faq.request_how.question: Hoe kan ik de huur van Lambarene aanvragen?
 faq.request_how.answer: 'Je kunt de huur van ons gebouw Lambarene aanvragen met deze webapplicatie als je de volgende stappen volgt:
@@ -239,3 +241,16 @@ faq.beds.question: Hoeveel bedden zijn er aanwezig?
 faq.beds.answer: We hebben geen bedden aanwezig, je kan je eigen luchtbed meenemen.
 faq.persons.question: Hoeveel mensen kunnen blijven slapen?
 faq.persons.answer: In verband met de brandweer kunnen er maximaal 30 personen binnen blijven slapen. Meer slaapplekken kunnen gecreerd worden door een tent op te zetten buiten.
+
+privacy.title: Privacy verklaring
+privacy.name: Naam
+privacy.name.answer: We gebruiken je naam zodat we weten met wie we converseren. Ook stellen we het contract op je naam. Je naam verkrijgen we vanuit je google account.
+privacy.email: Emailadres
+privacy.email.answer: We gebruiken je emailadres om je op de hoogte te houden over je verhuuraanvraag. Je email verkrijgen we uit je email account.
+privacy.phone: Telefoonnummer
+privacy.phone.answer: We gebruiken je telefoonnummer in het geval dat de email niet snel genoeg gaat.
+privacy.address: Adres
+privacy.address.answer: We gebruiken je adres in het geval dat de email mislukt. Verder gebruiken we je adres zodat we rekening kunnen houden met je reistijd richting Enschede.
+privacy.association: Vereniging
+privacy.association.answer: We willen graag weten welke vereniging komt huren om de prijs van de huur te bepalen. Ook gebruiken we de vereniging om de huur te checken in de lijst van verenigingen die zich misdragen hebben.
+privacy.question: Waar gebruiken je we gegevens voor? (Opent in een nieuw tabblads)

@@ -188,7 +188,7 @@ login.password_reset: Reset my password
 account.succesfull: Succesfully created account. Now fill out this form to request a lease of Lambarene
 
 contract_signed_remove: Delete signed contract
-contract.show: Download contract
+contract.show: (Re)generate contract
 contract.send: Send contract
 contract.emailed: Contract succesfully send!
 
@@ -228,6 +228,8 @@ help.outlook.import: Click &ldquo;Import&rdquo; in the same bar, and click &ldqu
 help.outlook.paste: Paste the link as &lsquo;URL of the calendar&rsquo;. Fill in a name for the calendar and click &ldquo;Subscribe&rdquo;.
 help.outlook.success: Now all radix leases are visible in your calendar. You can automatically also view this calendar on your Windows Phone.
 
+google.additional_info: We require some additional info from you to complete the registration. If you fill this out you can request a lease!
+
 faq.title: 'Frequently asked questions:'
 faq.request_how.question: How can I request a lease?
 faq.request_how.answer: 'You can request the lease of our bulding Lambarene using this webpage in the following steps:
@@ -256,3 +258,16 @@ faq.beds.question: How many beds are available?
 faq.beds.answer: We do not have any beds available for lease, you can bring your own matrasses.
 faq.persons.question: How many people can stay in the building?
 faq.persons.answer: Due to restrictions of the fire brigade, a maximum of 30 people are allowed to sleep in the building. If you want to host more guests you can always erect a tent outside.
+
+privacy.title: Privacy declaration
+privacy.name: Name
+privacy.name.answer: We use your name so we know with who we are chatting and to address messages to you more personally. Next to this, we use your name to put on the contract.
+privacy.email: Email Address
+privacy.email.answer: We use your email address to send you updates about your lease request.
+privacy.phone: Phone number
+privacy.phone.answer: We use your phone number to contact you in case we need to contact you directly, for example about the key handover.
+privacy.address: Address
+privacy.address.answer: We use your address in case the email fails. Next to this, we can determine the plan for handing over the keys from your address and travel time.
+privacy.association: Association
+privacy.association.answer: We would like to know the organization that wants to lease to verify the price category of the lease. Next to this, we use the association to check our banned associations list.
+privacy.question: What is your data used for? (Opens in new tab)
