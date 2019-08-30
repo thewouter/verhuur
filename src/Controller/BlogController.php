@@ -444,22 +444,24 @@ class BlogController extends AbstractController {
                     }
                 }
                 $leaseRequest = $user[0]->getLeases()[0];
-                $comment = new Comment();
-                if ($containsTXT) {
-                    $cont = base64_decode($parts[$containsTXT - 1]->getBody()->getData());
-                } elseif ($containsHTML) {
-                    $cont = base64_decode($parts[$containsHTML - 1]->getBody()->getData());
-                } else {
-                    $cont = 'email without TXT or HTML';
-                }
-                if ($leaseRequest->getComments()[0]->getContent() != $cont) {
-                    $comment->setContent(($cont));
-                    $comment->setAuthor($user[0]);
-                    $leaseRequest->addComment($comment);
-                    $leaseRequest->setRead(false);
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($comment);
-                    $em->flush();
+                if ($leaseRequest) { // TODO handle unknown email addresses
+                    $comment = new Comment();
+                    if ($containsTXT) {
+                        $cont = base64_decode($parts[$containsTXT - 1]->getBody()->getData());
+                    } elseif ($containsHTML) {
+                        $cont = base64_decode($parts[$containsHTML - 1]->getBody()->getData());
+                    } else {
+                        $cont = 'email without TXT or HTML';
+                    }
+                    if ($leaseRequest->getComments()[0]->getContent() != $cont) {
+                        $comment->setContent(($cont));
+                        $comment->setAuthor($user[0]);
+                        $leaseRequest->addComment($comment);
+                        $leaseRequest->setRead(false);
+                        $em = $this->getDoctrine()->getManager();
+                        $em->persist($comment);
+                        $em->flush();
+                    }
                 }
             }
         }
