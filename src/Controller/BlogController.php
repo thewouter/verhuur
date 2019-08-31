@@ -208,26 +208,26 @@ class BlogController extends AbstractController {
             if ($form->isSubmitted() && $form->isValid()) {
                 $leaseRequest->setAuthor($user);
                 $leaseRequest->setSlug(Slugger::slugify($user->getFullName() . '-' . $leaseRequest->getStartDate()->format("Y-m-d")));
+                if($form->has('contract_signed')){
+                    $file = $form->get('contract_signed')->getData();
+                    if ($file) {
+                        $fileName = '/signed/contract_' . $this->generateUniqueFileName() . '.' . $file->guessExtension();
 
-                $file = $form->get('contract_signed')->getData();
-                if ($file) {
-                    $fileName = '/signed/contract_' . $this->generateUniqueFileName() . '.' . $file->guessExtension();
-
-                    try {
-                        $file->move(
-                           $this->getParameter('contract_directory') . '/signed/',
-                           $fileName
-                       );
-                    } catch (FileException $e) {
-                        $this->addFlash('error', 'post.updated_unsuccessfully');
-                        return $this->redirectToRoute('admin_post_edit', ['id' => $leaseRequest->getId()]);
+                        try {
+                            $file->move(
+                               $this->getParameter('contract_directory') . '/signed/',
+                               $fileName
+                           );
+                        } catch (FileException $e) {
+                            $this->addFlash('error', 'post.updated_unsuccessfully');
+                            return $this->redirectToRoute('admin_post_edit', ['id' => $leaseRequest->getId()]);
+                        }
+                        $leaseRequest->setContractSigned($fileName);
+                        $leaseRequest->setStatus(2);
+                    } else {
+                        $leaseRequest->setContractSigned($oldSigned);
                     }
-                    $leaseRequest->setContractSigned($fileName);
-                    $leaseRequest->setStatus(2);
-                } else {
-                    $leaseRequest->setContractSigned($oldSigned);
                 }
-
                 $em->flush();
                 return $this->redirectToRoute('lease_edit', ['id' => $leaseRequest->getId()]);
             }
