@@ -1,14 +1,19 @@
 
-Bij deze het contract en huurvoorwaarden voor de huur van de Lambarene in de gewenste periode. Ik wil je verzoeken vooral de kampregels te lezen, gezien hier veel praktische zaken in staan. Zoals eenieder verplicht is zijn eigen afval af te voeren, dit laten liggen of bij de buren (voetbalvereniging Achilles) dumpen is absoluut niet toegestaan!<br>
+Bij deze het contract en huurvoorwaarden voor de huur van de Lambarene van {{leaseRequest.startDate | date('d/m/Y')}} tot en met {{leaseRequest.endDate | date('d/m/Y')}}. Ik wil je verzoeken vooral de kampregels te lezen, gezien hier veel praktische zaken in staan. Zoals eenieder verplicht is zijn eigen afval af te voeren, dit laten liggen of bij de buren (voetbalvereniging Achilles) dumpen is absoluut niet toegestaan!<br>
 <br>
 Je aanvraag voor het huren van de Lambarene is goedgekeurd. Dit is geen definitieve bevestiging! De aanvraag is pas definitief als het getekende contract door ons ontvangen is. Upload het getekende contract op de webiste.
 <br><br>
 De huur voor de gewenste periode bedraagt €{{leaseRequest.price}},- exclusief de €{{leaseRequest.deposit}},- borg en de energiekosten.
 <br><br>
-Dan rest verder de vraag hoe laat jullie bij het gebouw verwachten te zijn, en hoe laat jullie dit weer willen opleveren. Deze tijden wil ik liefst twee weken voor aanvang, uiterlijk één week voor aanvang hebben.
+{% if leaseRequest.keyDeliver and leaseRequest.keyReturn %}
+Je hebt aangegven om {{leaseRequest.keyDeliver|date('H:i')}} het gebouw in te willen en om {{leaseRequest.keyReturn|date('H:i')}} het gebouw weer te willen verlaten.
+{% else %}
+Dan rest verder de vraag hoe laat jullie bij het gebouw verwachten te zijn en hoe laat jullie dit weer willen opleveren. Deze tijden wil ik liefst twee weken voor aanvang, uiterlijk één week voor aanvang hebben.
 <br>
 Door de week graag op een van de volgende tijden: 12:30, 17:30, 22:00. In het weekend zijn soepelere tijden mogelijk.
 <br><br><br>
+{% endif %}
+
 
 Met vriendelijke groet,<br>
 Verhuurder<br>
