@@ -35,8 +35,9 @@
         {{form_row(commentForm.submit)}}
         {{form_end(commentForm)}}
 </div>
+<label>{% trans %}label.messages{% endtrans %}</label>
 <div class="container_comments">
     {% for comment in leaseRequest.comments %}
-           <div class="comment">  {{comment.author.fullName}}: <br><br>{{comment.content | nl2br }}</div> <hr/>
+           <div class="comment">  {{comment.author.fullName}}  ({{comment.publishedAt | date('d/m/Y')}}): <br><br>{{comment.content | nl2br }}</div> <hr/>
     {% endfor %}
  </div>
