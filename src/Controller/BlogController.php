@@ -173,7 +173,7 @@ class BlogController extends AbstractController {
     }
 
     /**
-     * @Route("/remove/{id<\d+>}", methods={"GET", "POST"}, name="lease_remove")
+     * @Route("/{id<\d+>}/remove", methods={"GET", "POST"}, name="lease_remove")
      */
     public function removeLease(Request $request, LeaseRequest $leaseRequest): Response {
         $status = $leaseRequest->getStatusText();
@@ -191,7 +191,7 @@ class BlogController extends AbstractController {
     }
 
     /**
-     * @Route("/edit/{id<\d+>}", methods={"GET", "POST"}, name="lease_edit")
+     * @Route("/{id<\d+>}/edit", methods={"GET", "POST"}, name="lease_edit")
      */
     public function editLease(Request $request, LeaseRequest $leaseRequest): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -342,7 +342,7 @@ class BlogController extends AbstractController {
 
 
     /**
-     * @Route("/contract/{id<\d+>}", methods={"GET"}, name="contract_download"))
+     * @Route("/{id<\d+>}/contract}", methods={"GET"}, name="contract_download"))
      */
     public function downloadContract(Request $request, LeaseRequest $leaseRequest): Response {
         $user = $this->getUser();

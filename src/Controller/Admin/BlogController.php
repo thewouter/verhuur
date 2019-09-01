@@ -120,6 +120,7 @@ class BlogController extends AbstractController {
             if ($oldSigned !== null && $form->get('remove_signed_contract')->isClicked()) {
                 unlink($this->getParameter('contract_directory') . $oldSigned);
                 $leaseRequest->setContractSigned(null);
+                $leaseRequests->setStatus(1);
             } else {
                 $leaseRequest->setSlug(Slugger::slugify($leaseRequest->getTitle()));
                 if ($oldSigned == null) {
