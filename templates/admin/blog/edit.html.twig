@@ -5,7 +5,6 @@
 {% block javascripts %}
 {{ encore_entry_script_tags('js/app') }}
 {{ encore_entry_script_tags('js/admin') }}
-    <!-- <script language="JavaScript" type="text/javascript" src="/build/js/jquery.js"></script> -->
     <script type="text/javascript">
     $(document).ready(function() {
         $("#default_1").click(function(){
@@ -127,10 +126,11 @@ Ik heb je onlangs een contract toegestuurd en volgens mijn administratie heb ik 
             {% if form.contract_signed is defined%}
                 {{ form_row(form.contract_signed)}}
             {% endif %}
-            {% if form.remove_signed_contract is defined %}
-                {{ form_row(form.remove_signed_contract)}}
-            {% endif %}
+
             {{ form_row(form.submit)}}
+            {% if form.remove_signed_contract is defined %}
+                {{ form_row(form.remove_signed_contract)}} <a href="{{ path('contract_download', {id: form.vars.data.id}) }}" class="btn btn-primary" style="margin-bottom: 1em;">{% trans %}label.download_signed_contract{% endtrans %}</a>
+            {% endif %}
             {{ form_end(form)}}
             {% if is_granted('ROLE_ADMIN') %}
                 <div style="display: flex; justify-content: space-around;" class="form-group">

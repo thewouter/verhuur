@@ -150,6 +150,7 @@ label.sure_remove: Are you sure that you want to remove this request?
 label.switch_hidden: Switch denied requests
 label.deposit: Deposit
 label.messages: 'Messages from Radix:'
+label.download_signed_contract: Download signed contract
 
 admin.title: Add admin
 admin.edit: Add a new admin to the application by entering the username associated with the new admin. Warning, this cannot be undone!

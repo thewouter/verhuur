@@ -125,7 +125,8 @@ class BlogController extends AbstractController {
                 if ($oldSigned == null) {
                     $file = $form->get('contract_signed')->getData();
                     if ($file) {
-                        $fileName = '/signed/contract_' . $this->generateUniqueFileName() . '.' . $file->guessExtension();
+                        $extension = $file->guessExtension();
+                        $fileName = '/signed/contract_' . $this->generateUniqueFileName() . '.' . $extension;
                         try {
                             $file->move(
                                 $this->getParameter('contract_directory') . '/signed/',
@@ -136,6 +137,21 @@ class BlogController extends AbstractController {
                             return $this->redirectToRoute('admin_post_edit', ['id' => $leaseRequest->getId()]);
                         }
                         $leaseRequest->setContractSigned($fileName);
+                        $publicDirectory = $this->getParameter('contract_directory');
+
+                        $user = $leaseRequest->getAuthor();
+                        $message = (new \Swift_Message('Radix Lambarene'))
+                            ->setFrom('verhuurder@radixenschede.nl')
+                            ->setTo($user->getEmail())
+                            ->setBody(
+                                $this->renderView(
+                                    'email/signed_contract.html.twig',
+                                    ['user' => $user]
+                                ),
+                                'text/html'
+                            )
+                            ->attach(\Swift_Attachment::fromPath($publicDirectory . $leaseRequest->getContractSigned())->setFilename('contract_signed.' . $extension));
+                        $this->mailer->send($message);
                     } else {
                         $leaseRequest->setContractSigned($oldSigned);
                     }

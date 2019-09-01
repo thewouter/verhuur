@@ -35,6 +35,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use \Datetime;
 
 /**
@@ -211,7 +213,8 @@ class BlogController extends AbstractController {
                 if($form->has('contract_signed')){
                     $file = $form->get('contract_signed')->getData();
                     if ($file) {
-                        $fileName = '/signed/contract_' . $this->generateUniqueFileName() . '.' . $file->guessExtension();
+                        $extension = $file->guessExtension();
+                        $fileName = '/signed/contract_' . $this->generateUniqueFileName() . '.' . $extension;
 
                         try {
                             $file->move(
@@ -224,6 +227,20 @@ class BlogController extends AbstractController {
                         }
                         $leaseRequest->setContractSigned($fileName);
                         $leaseRequest->setStatus(2);
+                        $publicDirectory = $this->getParameter('contract_directory');
+                        $message = (new \Swift_Message('Radix Lambarene'))
+                            ->setFrom('verhuurder@radixenschede.nl')
+                            ->setTo($user->getEmail())
+                            ->setBody(
+                                $this->renderView(
+                                    'email/signed_contract.html.twig',
+                                    ['user' => $user]
+                                ),
+                                'text/html'
+                            )
+                            ->attach(\Swift_Attachment::fromPath($publicDirectory . $leaseRequest->getContractSigned())->setFilename('contract_signed.' . $extension));
+                        $this->mailer->send($message);
+
                     } else {
                         $leaseRequest->setContractSigned($oldSigned);
                     }
@@ -321,6 +338,19 @@ class BlogController extends AbstractController {
             'post' => $post,
             'form' => $form->createView(),
         ]);
+    }
+
+
+    /**
+     * @Route("/contract/{id<\d+>}", methods={"GET"}, name="contract_download"))
+     */
+    public function downloadContract(Request $request, LeaseRequest $leaseRequest): Response {
+        $user = $this->getUser();
+        if ($user->getId() == $leaseRequest->getAuthor()->getId() || in_array("ROLE_ADMIN", $user->getRoles())){
+            $file = $this->getParameter('contract_directory') . $leaseRequest->getContractSigned();
+            return new BinaryFileResponse($file);
+        }
+        throw new AccessDeniedException('Unable to access this page!');
     }
 
     /**
