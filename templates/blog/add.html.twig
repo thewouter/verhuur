@@ -2,6 +2,15 @@
 
 {% block body_id 'blog_index' %}
 
+{% block javascripts %}
+{{ parent()}}
+<script type="text/javascript">
+    function handler(e){
+        document.getElementById("lease_request_end_date").setAttribute("min", e.target.value);
+    }
+</script>
+{% endblock %}
+
 {% block main %}
     {{ form_errors(form) }}
     {{ form_start(form) }}

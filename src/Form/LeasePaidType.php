@@ -22,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\CallbackTransformer;
 
 /**
- * Defines the form used to create and manipulate blog posts.
+ * Defines the form used to manage paid leaseRequests.
  *
  * @author Wouter van Harten <wouter@woutervanharten.nl>
  */

@@ -27,10 +27,8 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\CallbackTransformer;
 
 /**
- * Defines the form used to create and manipulate blog posts.
+ * Defines the form used to create leaseRequests.
  *
- * @author Wouter van Harten <wouter@woutervanharten.nl>
- * @author Wouter van Harten <wouter@woutervanharten.nl>
  * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class LeaseRequestType extends AbstractType {
@@ -76,6 +74,10 @@ class LeaseRequestType extends AbstractType {
                 'widget' => 'single_text',
                 'years' => array(date('Y'), date('Y') + 1),
                 'model_timezone' => 'Europe/Amsterdam',
+                'attr' => array(
+                    'min' => (new \DateTime())->format('Y-m-d'),
+                    'onchange' => 'handler(event)',
+                )
             ])
             ->add('end_date', DateType::class, [
                 'label' => 'label.end_date',
@@ -83,6 +85,9 @@ class LeaseRequestType extends AbstractType {
                 'widget' => 'single_text',
                 'years' => array(date('Y'), date('Y') + 1),
                 'model_timezone' => 'Europe/Amsterdam',
+                'attr' => array(
+                    'min' => (new \DateTime())->format('Y-m-d'),
+                )
             ])
             ->add('key_deliver', ChoiceType::class, [
                 'label' => 'label.start_time',
