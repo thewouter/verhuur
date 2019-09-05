@@ -109,7 +109,7 @@ label.updated: Laatste actie van huurder
 label.date: Datum van verhuur
 label.question: 'Stel een vraag:'
 label.phone: Telefoonnummer
-label.address: Adres
+label.address: Adres met Straatnaam, huisnummer, postcode en woonplaats
 label.upload_signed: Upload het getekende contract
 label.signed: Je hebt het contract reeds getekend!
 label.association: Vereniging

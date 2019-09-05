@@ -118,7 +118,7 @@ label.updated: Last activity of tenant
 label.date: Date of lease
 label.question: 'Ask us a question:'
 label.phone: Phone Number
-label.address: Address
+label.address: 'Address [ Example: (Examplestreet 49, 1234 RA Enschede, Netherlands) ]'
 label.upload_signed: Upload the signed contract
 label.signed: You have signed the contract!
 label.association: Association
