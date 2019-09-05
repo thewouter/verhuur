@@ -70,6 +70,10 @@ class LeaseRequestEditType extends AbstractType {
                 'label' => 'label.summary',
                 'disabled' => true,
             ])
+            ->add('association', null, [
+                'label' => 'label.association',
+                'disabled' => true,
+            ])
             ->add('association_type', ChoiceType::class, [
                 'label' => 'label.association_type',
                 'choices' => LeaseRequest::ASSOCIATION_TYPES,
