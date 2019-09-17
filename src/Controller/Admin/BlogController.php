@@ -3,10 +3,6 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -37,13 +33,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 
 /**
- * Controller used to manage blog contents in the backend.
- *
- * Please note that the application backend is developed manually for learning
- * purposes. However, in your real Symfony application you should use any of the
- * existing bundles that let you generate ready-to-use backends without effort.
- *
- * See http://knpbundles.com/keyword/admin
+ * Controller used to manage lease requests from the admin side.
  *
  * @Route("/admin/post")
  * @IsGranted("ROLE_ADMIN")
@@ -61,16 +51,6 @@ class BlogController extends AbstractController {
     }
 
     /**
-     * Lists all Post entities.
-     *
-     * This controller responds to two different routes with the same URL:
-     *   * 'admin_post_index' is the route with a name that follows the same
-     *     structure as the rest of the controllers of this class.
-     *   * 'admin_index' is a nice shortcut to the backend homepage. This allows
-     *     to create simpler links in the templates. Moreover, in the future we
-     *     could move this annotation to any other controller while maintaining
-     *     the route name and therefore, without breaking any existing link.
-     *
      * @Route("/", defaults={"page": "1"}, methods={"GET"}, name="admin_index")
      * @Route("/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods={"GET"}, name="admin_blog_index_paginated")
      * @Route("/", defaults={"page": "1"}, methods={"GET"}, name="admin_post_index")
@@ -120,7 +100,7 @@ class BlogController extends AbstractController {
             if ($oldSigned !== null && $form->get('remove_signed_contract')->isClicked()) {
                 unlink($this->getParameter('contract_directory') . $oldSigned);
                 $leaseRequest->setContractSigned(null);
-                $leaseRequests->setStatus(1);
+                $leaseRequest->setStatus(1);
             } else {
                 $leaseRequest->setSlug(Slugger::slugify($leaseRequest->getTitle()));
                 if ($oldSigned == null) {
@@ -206,28 +186,6 @@ class BlogController extends AbstractController {
     }
 
     /**
-     * Deletes a Post entity.
-     *
-     * @Route("/{id}/delete", methods={"POST"}, name="admin_post_delete")
-     * @IsGranted("delete", subject="post")
-     */
-    public function delete(Request $request, LeaseRequest $post): Response {
-        if (!$this->isCsrfTokenValid('delete', $request->request->get('token'))) {
-            return $this->redirectToRoute('admin_post_index');
-        }
-
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($post);
-        $em->flush();
-
-        $this->addFlash('success', 'post.deleted_successfully');
-
-        return $this->redirectToRoute('admin_post_index');
-    }
-
-    /**
-     *
-     *
      *@Route("/{id}/contract.html", methods={"GET"}, name="admin_contract_html")
      */
     public function contractHtml(Request $request, LeaseRequest $leaseRequest, PriceRepository $repository): Response {
@@ -280,8 +238,6 @@ class BlogController extends AbstractController {
     }
 
     /**
-     *
-     *
      *@Route("/{id}/contract/send", methods={"GET"}, name="admin_contract_email")
      */
     public function sendContract(Request $request, LeaseRequest $leaseRequest, PriceRepository $repository): Response {
