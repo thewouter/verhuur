@@ -44,13 +44,17 @@ class LeaseRequestRepository extends ServiceEntityRepository {
         return $this->createPaginator($qb->getQuery(), $page);
     }
 
-    public function findInDateRange(\DateTime $start, \DateTime $end): array {
-        return $this->createQueryBuilder('p')
+    public function findInDateRange(\DateTime $start, \DateTime $end, $visible = false): array {
+        $q = $this->createQueryBuilder('p')
             ->where('p.start_date >= :start AND p.start_date < :end')
             ->orWhere('p.end_date > :start AND p.end_date <= :end')
             ->setParameter('start', $start)
-            ->setParameter('end', $end)
-            ->getQuery()
+            ->setParameter('end', $end);
+        if ($visible) {
+            $q = $q->andWhere('p.status != 5')
+                ->andWhere('p.status != 6');
+        }
+        return $q->getQuery()
             ->getResult();
     }
 

@@ -21,6 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -195,6 +196,29 @@ class BlogController extends AbstractController {
     }
 
     /**
+     *@Route("/{year}/contracts.zip", methods={"GET"}, name="admin_contract_mass")
+     */
+    public function massContract(Request $request, String $contractDir, int $year, LeaseRequestRepository $repository): Response {
+        $zip = new \ZipArchive();
+        $fileName = "./contracts.zip";
+
+        if ($zip->open($fileName, (\ZipArchive::CREATE | \ZipArchive::OVERWRITE))!==TRUE) {
+            exit("cannot open <$fileName>\n");
+        }
+
+        $requests = $repository->findInDateRange( new \DateTime($year.'-0-0'), new \DateTime(($year+1).'-0-0'), $visible = true);
+        foreach ($requests as $request) {
+            $signed = $request->getContractSigned();
+            if ($signed){
+                $zip->addFile($contractDir . '/' . $signed, $localname = 'R'.$request->getId() . '.pdf');
+            }
+        }
+        $zip->close();
+
+        return new BinaryFileResponse($fileName);
+    }
+
+    /**
      *@Route("/{id}/contract.pdf", methods={"GET"}, name="admin_contract_pdf")
      */
     public function contractPdf(Request $request, LeaseRequest $leaseRequest, PriceRepository $repository): Response {
@@ -338,6 +362,7 @@ class BlogController extends AbstractController {
              'task' => $task,
              'form' => $form->createView(),
              'years' => $years,
+             'year' => $year,
          ));
     }
 

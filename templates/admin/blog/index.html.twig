@@ -54,9 +54,9 @@
     <div id="cookie_accordion" style="display: none;">
         {% for request in posts %}
             {% if request.read %}
-                <h3 class="{% if request.statusText == 'status.retracted' or request.statusText == 'status.rejected' or request.statusText == 'status.finished' %}status_disable{% endif %}">{{ request.author.fullName }} [{{ request.association }}]</h3>
+                <h3 class="{% if request.statusText == 'status.retracted' or request.statusText == 'status.rejected' or request.statusText == 'status.finished' %}status_disable{% endif %}">{{ request.author.fullName }} [{{ request.association }}]{% if request.statusText == 'status.retracted' or request.statusText == 'status.rejected' or request.statusText == 'status.finished' %}<i class="fas fa-times"></i>{% endif %}</h3>
             {% else %}
-                <h3 class="{% if request.statusText == 'status.retracted' or request.statusText == 'status.rejected' or request.statusText == 'status.finished' %}status_disable{% endif %}"><i class="far fa-envelope"></i> <b>{{ request.author.fullName }} [{{ request.association }}]</b></h3>
+                <h3 class="{% if request.statusText == 'status.retracted' or request.statusText == 'status.rejected' or request.statusText == 'status.finished' %}status_disable{% endif %}"><i class="far fa-envelope"></i> <b>{{ request.author.fullName }} [{{ request.association }}]</b>{% if request.statusText == 'status.retracted' or request.statusText == 'status.rejected' or request.statusText == 'status.finished' %}<i class="fas fa-times"></i>{% endif %}</h3>
             {% endif %}
             <div class="{% if request.statusText == 'status.retracted' or request.statusText == 'status.rejected'%}status_disable{% endif %}">
                 <table class="table table-striped table-middle-aligned {% if request.statusText == 'status.retracted' or request.statusText == 'status.rejected'%}status_disable{% endif %}">

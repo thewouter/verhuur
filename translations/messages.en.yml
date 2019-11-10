@@ -151,6 +151,8 @@ label.switch_hidden: Switch denied requests
 label.deposit: Deposit
 label.messages: 'Messages from Radix:'
 label.download_signed_contract: Download signed contract
+label.contract: Contract
+label.download_all: Download alle contracten uit %year%
 
 admin.title: Add admin
 admin.edit: Add a new admin to the application by entering the username associated with the new admin. Warning, this cannot be undone!

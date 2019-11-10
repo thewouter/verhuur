@@ -139,6 +139,8 @@ label.edit: Wijzigen
 label.sure_remove: Weet je zeker dat je deze aanvraag wil verwijderen?
 label.messages: 'Berichten van de verhuurder:'
 label.download_signed_contract: Download getekend contract
+label.contract: Contract
+label.download_all: Download alle contracten uit %year%
 
 admin.title: Admin toevoegen
 admin.edit: Voeg een nieuwe admin toe aan het systeem door zijn of haar gebruikersnaam hieronder in te vullen. Let op! dit kan niet ongedaan gemaakt worden.

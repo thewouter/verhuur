@@ -6,6 +6,7 @@ public/build/
 /.env.local
 /.env.*.local
 /public/bundles/
+/public/contracts.zip
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
