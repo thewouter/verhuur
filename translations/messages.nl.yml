@@ -46,11 +46,13 @@ label.username: Gebruikersnaam
 label.fullname: Fullname
 label.role: Rol
 label.content: Inhoud
-label.summary: Samenvatting
+label.summary: Plannen
+label.plans.question: Wat zijn je / uw plannen?
 label.published_at: Geplaatst op
 label.actions: Acties
 label.switch_hidden: Switch afgewezen aanvragen
 label.deposit: Borg
+label.end_time: Eindtijd
 
 title.post_new: Bericht aanmaken
 action.edit_contents: Inhoud bewerken
@@ -171,7 +173,7 @@ radix_lease_application: De radix verhuuraanvraag tool
 
 no_account: Heb je nog geen account? Maak er dan hier een aan.
 
-post.commented: Comment posted.
+post.commented: Bericht verstuurd, je krijgt binnen een week antwoord van ons!
 overview: Overzicht verhuuraanvragen
 request.updated: Je aanvraag is geupdated!
 request.unanswerd: Openstaande vraag

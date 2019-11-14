@@ -160,6 +160,7 @@ class BlogController extends AbstractController {
                 $leaseRequest->setSlug(Slugger::slugify($user->getFullName() . '-' . $leaseRequest->getStartDate()->format("Y-m-d")));
                 $user->addLease($leaseRequest);
                 $leaseRequest->setPrice($leaseRequest->guessPrice());
+                $leaseRequest->setTitle($user->getName() . '  ' . $leaseRequest->getAssociation());
                 $em->persist($leaseRequest);
                 $em->flush();
 

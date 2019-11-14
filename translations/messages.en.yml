@@ -55,7 +55,8 @@ label.new_password: New password
 label.new_password_confirm: Confirm password
 label.role: Role
 label.content: Content
-label.summary: Summary
+label.summary: Plans
+label.plans.question: What are your plans?
 label.published_at: Published at
 label.actions: Actions
 title.post_new: Post creation

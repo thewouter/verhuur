@@ -50,13 +50,11 @@ class LeaseRequestType extends AbstractType {
                     return \DateTime::createFromFormat('H:i', $timeAsText);
                 }
             );
+        $nextWeek = new \Datetime();
+        $nextWeek->add(new \DateInterval('P7D'));
         $builder
-            ->add('title', null, [
-                'attr' => ['autofocus' => true],
-                'label' => 'label.title',
-            ])
             ->add('summary', TextareaType::class, [
-                'label' => 'label.summary',
+                'label' => 'label.plans.question',
                 'attr' => array('rows' => '7'),
             ])
             ->add('association_type', ChoiceType::class, [
@@ -75,7 +73,7 @@ class LeaseRequestType extends AbstractType {
                 'years' => array(date('Y'), date('Y') + 1),
                 'model_timezone' => 'Europe/Amsterdam',
                 'attr' => array(
-                    'min' => (new \DateTime())->format('Y-m-d'),
+                    'min' => $nextWeek->format('Y-m-d'),
                     'onchange' => 'handler(event)',
                 )
             ])
