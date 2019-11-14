@@ -10,7 +10,6 @@
     td {
         max-width: 100px;
         overflow: hidden;
-        text-overflow: ellipsis;
         white-space: nowrap;
     }
 </style>
@@ -22,7 +21,9 @@
     <table>
         {% for price in prices.prices %}
             <tr>
-              <td>{{('label.' ~ price.id) | trans}}</td>
+              <td>{{('label.' ~ price.id) | trans}} {% for i in range(1,100) %}
+                  .
+              {% endfor %}</td>
               <td>{{price.price | localizedcurrency('EUR') }}</td>
             </tr>
         {% endfor %}

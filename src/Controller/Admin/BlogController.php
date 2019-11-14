@@ -254,7 +254,7 @@ class BlogController extends AbstractController {
         $this->getDoctrine()->getManager()->flush();
 
         // Output the generated PDF to Browser (force download)
-        $dompdf->stream("mypdf.pdf", [
+        $dompdf->stream("R" . $leaseRequest->getId() . ' ' . $leaseRequest->getAssociation() . ' - ' . $leaseRequest->getAuthor()->getFullName() . ".pdf", [
             "Attachment" => true,
             ]);
 

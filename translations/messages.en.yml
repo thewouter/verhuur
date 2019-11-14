@@ -198,6 +198,8 @@ contract.send: Send contract
 contract.emailed: Contract succesfully send!
 
 calendar.lease: The lease calendar
+calendar.key_return: Return keys
+calendar.key_deliver: Deliver keys
 
 menu.calendar: Lease calendar
 menu.ical: Export calendar
