@@ -187,6 +187,8 @@ contract.send: Verzend contract
 contract.emailed: Contract succesvol verstuurd!
 
 calendar.lease: De verhuurkalender van Lambarene
+calendar.key_return: Sleutel terug
+calendar.key_deliver: Sleutel afgeven
 
 menu.calendar: Verhuurkalender
 menu.ical: Verhuuragenda exporteren
