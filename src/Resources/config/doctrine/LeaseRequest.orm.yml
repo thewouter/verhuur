@@ -52,7 +52,7 @@ App\Entity\LeaseRequest:
             nullable: true
             column: price
         status:
-            type: string
+            type: integer
             nullable: true
             column: status
         num_attendants:
