@@ -17,6 +17,7 @@ use App\Twig\SourceCodeExtension;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
 /**
  * Defines the method that 'listens' to the 'kernel.controller' event, which is
@@ -38,7 +39,7 @@ class ControllerSubscriber implements EventSubscriberInterface {
         ];
     }
 
-    public function registerCurrentController(FilterControllerEvent $event): void {
+    public function registerCurrentController(ControllerEvent $event): void {
         // this check is needed because in Symfony a request can perform any
         // number of sub-requests. See
         // https://symfony.com/doc/current/components/http_kernel/introduction.html#sub-requests

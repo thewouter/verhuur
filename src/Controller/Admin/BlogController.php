@@ -66,7 +66,7 @@ class BlogController extends AbstractController {
             }
         }
         return $this->render('admin/blog/index.html.twig', [
-            'posts' => $requests,
+            'paginator' => $requests,
             'unread' => $unreadCount, ]);
     }
 

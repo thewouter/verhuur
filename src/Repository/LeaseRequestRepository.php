@@ -17,9 +17,8 @@ use App\Entity\LeaseRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use App\Entity\User;
-use Pagerfanta\Pagerfanta;
 
 /**
  * This custom Doctrine repository contains some methods which are useful when
@@ -34,14 +33,14 @@ class LeaseRequestRepository extends ServiceEntityRepository {
         parent::__construct($registry, LeaseRequest::class);
     }
 
-    public function findLatest(int $page = 1): Pagerfanta {
+    public function findLatest(int $page = 1): array {
         $qb = $this->createQueryBuilder('p')
             ->innerJoin('p.author', 'a')
             ->where('p.publishedAt <= :now')
             ->orderBy('p.publishedAt', 'DESC')
             ->setParameter('now', new \DateTime());
 
-        return $this->createPaginator($qb->getQuery(), $page);
+        return $this->createPaginator($qb, $page);
     }
 
     public function findInDateRange(\DateTime $start, \DateTime $end, $visible = false): array {
@@ -68,12 +67,27 @@ class LeaseRequestRepository extends ServiceEntityRepository {
         return $query->getQuery()->getResult();
     }
 
-    private function createPaginator(Query $query, int $page): Pagerfanta {
-        $paginator = new Pagerfanta(new DoctrineORMAdapter($query));
-        $paginator->setMaxPerPage(LeaseRequest::NUM_ITEMS);
-        $paginator->setCurrentPage($page);
-
-        return $paginator;
+    private function createPaginator(QueryBuilder $queryBuilder, int $currentPage, int $pageSize = LeaseRequest::NUM_ITEMS) {
+        $currentPage = $currentPage < 1 ? 1 : $currentPage;
+        $firstResult = ($currentPage - 1) * $pageSize;
+        $query = $queryBuilder
+            ->setFirstResult($firstResult)
+            ->setMaxResults($pageSize)
+            ->getQuery();
+        $paginator = new Paginator($query);
+        $numResults = $paginator->count();
+        $hasPreviousPage = $currentPage > 1;
+        $hasNextPage = ($currentPage * $pageSize) < $numResults;
+        return [
+            'results' => $paginator->getIterator(),
+            'currentPage' => $currentPage,
+            'hasPreviousPage' => $hasPreviousPage,
+            'hasNextPage' => $hasNextPage,
+            'previousPage' => $hasPreviousPage ? $currentPage - 1 : null,
+            'nextPage' => $hasNextPage ? $currentPage + 1 : null,
+            'numPages' => (int) ceil($numResults / $pageSize),
+            'haveToPaginate' => $numResults > $pageSize,
+        ];
     }
 
     /**
@@ -127,5 +141,22 @@ class LeaseRequestRepository extends ServiceEntityRepository {
         return array_filter($terms, function ($term) {
             return 2 <= mb_strlen($term);
         });
+    }
+
+    /**
+     * Finds all requests which have been denied due to occupancy in daterange..
+     */
+    public function findOccupiedByDateRange(\DateTime $start_date, \DateTime $end_date): array {
+        return $this->createQueryBuilder('r')
+            ->where('r.start_date BETWEEN :start AND :end')
+            ->orWhere('r.start_date BETWEEN :start AND :end')
+            ->orWhere('r.start_date < :start AND r.end_date > :end')
+            ->orWhere('r.start_date > :start AND r.end_date < :end')
+            ->andWhere('r.status = 5 OR r.status = 6' )
+            ->orderBy('r.publishedAt')
+            ->setParameter('start', $start_date)
+            ->setParameter('end', $end_date)
+            ->getQuery()
+            ->getResult();
     }
 }
