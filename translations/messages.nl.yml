@@ -162,6 +162,7 @@ status.rejected: Aanvraag afgewezen
 status.retracted: Aanvraag ingetrokken
 status.occupied: Gebouw reeds verhuurd
 status.finished: Verhuur afgehandeld
+status.reopened: Datum weder beschikbaar
 
 lease.title: Verhuurzaak
 lease.status: Status

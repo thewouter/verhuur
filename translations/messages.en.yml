@@ -173,6 +173,8 @@ status.rejected: Lease rejected
 status.retracted: Lease retracted
 status.occupied: Building occupied
 status.finished: Request finished
+status.reopened: Date available again
+
 
 lease.title: Lease case
 lease.status: Status

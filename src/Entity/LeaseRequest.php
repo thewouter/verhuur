@@ -56,6 +56,7 @@ class LeaseRequest {
         "status.rejected",
         "status.retracted",
         "status.occupied",
+        "status.reopened",
         "status.finished", );
 
     public const KEYTIMES = array(
