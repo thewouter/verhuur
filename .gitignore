@@ -34,3 +34,4 @@ yarn-error.log
 *token.json
 public/contracts/pdf/unsigned*
 public/contracts/pdf/signed*
+/.idea/

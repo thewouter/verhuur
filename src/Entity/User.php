@@ -21,7 +21,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table(name="symfony_demo_user")
+ * @ORM\Table(name="user")
  *
  * Defines the properties of the User entity to represent the application users.
  * See https://symfony.com/doc/current/book/doctrine.html#creating-an-entity-class
@@ -33,72 +33,92 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class User implements UserInterface, \Serializable {
-    /**
-    * @var ArrayCollection
-    *
-    */
-    private $leases;
-
-    private $password_reset;
-
-    private $confirmed;
 
     public function __construct() {
         $this->leases = new ArrayCollection();
         $this->confirmed = false;
     }
-
     /**
      * @var int
      *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
+     * @ORM\Column(name="full_name", type="string", length=255, nullable=false)
      */
     private $fullName;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Length(min=2, max=50)
+     * @ORM\Column(name="username", type="string", length=255, nullable=false)
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true)
-     * @Assert\Email()
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(name="password", type="string", length=255, nullable=false)
      */
     private $password;
 
     /**
-     * @var array
+     * @var json
      *
-     * @ORM\Column(type="json")
+     * @ORM\Column(name="roles", type="json", nullable=false)
      */
-    private $roles = [];
+    private $roles;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="text", length=255, nullable=false)
+     */
     private $address;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="text", length=255, nullable=false)
+     */
     private $phone;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="password_reset", type="text", nullable=true)
+     */
+    private $password_reset;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="confirmed", type="integer", nullable=false)
+     */
+    private $confirmed;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\LeaseRequest", mappedBy="author")
+     * @ORM\OrderBy({
+     *     "publishedAt"="DESC"
+     * })
+     */
+    private $leases;
 
     public function getId(): ?int {
         return $this->id;

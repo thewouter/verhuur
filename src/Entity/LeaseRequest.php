@@ -20,8 +20,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
- * @ORM\Table(name="symfony_demo_post")
+ * @ORM\Entity(repositoryClass="App\Repository\LeaseRequestRepository")
+ * @ORM\Table(name="lease_request")
  *
  * Defines the properties of the Post entity to represent the blog posts.
  *
@@ -77,88 +77,160 @@ class LeaseRequest {
     private const SCOUTING_DAY = 'scouting_day';
     private const REGIO_DAY = 'regio_day';
 
-    private $status;
-
-    private $num_attendants;
-
-    private $read;
-
-    private $paid;
-
-    private $deposit_retour;
-
     /**
      * @var int
      *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank
+     * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(name="slug", type="string", length=255, nullable=false)
      */
     private $slug;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="post.blank_summary")
-     * @Assert\Length(max=255)
+     * @ORM\Column(name="summary", type="string", length=255, nullable=false)
      */
     private $summary;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(name="published_at", type="datetime", nullable=false)
      */
     private $publishedAt;
 
     /**
-     * @var User
+     * @var \DateTime|null
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(name="start_date", type="datetime", nullable=true)
      */
-    private $author;
+    private $start_date;
 
     /**
-     * @var Comment[]|ArrayCollection
+     * @var \DateTime|null
      *
-     * @ORM\OneToMany(
-     *      targetEntity="Comment",
-     *      mappedBy="post",
-     *      orphanRemoval=true,
-     *      cascade={"persist"}
-     * )
-     * @ORM\OrderBy({"publishedAt": "DESC"})
+     * @ORM\Column(name="end_date", type="datetime", nullable=true)
+     */
+    private $end_date;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="association_type", type="string", nullable=false)
+     */
+    private $association_type;
+
+    /**
+     * @var float|null
+     *
+     * @ORM\Column(name="price", type="float", nullable=true)
+     */
+    private $price;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="status", type="integer", nullable=true)
+     */
+    private $status;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="num_attendants", type="integer", nullable=false)
+     */
+    private $num_attendants;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="association", type="string", nullable=false)
+     */
+    private $association;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="contract", type="string", nullable=true)
+     */
+    private $contract;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="contract_signed", type="string", nullable=true)
+     */
+    private $contract_signed;
+
+    /**
+     * @var bool|null
+     *
+     * @ORM\Column(name="read", type="boolean", nullable=true)
+     */
+    private $read;
+
+    /**
+     * @var float|null
+     *
+     * @ORM\Column(name="paid", type="float", nullable=true)
+     */
+    private $paid;
+
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="key_deliver", type="datetime", nullable=true)
+     */
+    private $key_deliver;
+
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="key_return", type="datetime", nullable=true)
+     */
+    private $key_return;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="deposit_retour", type="integer")
+     */
+    private $deposit_retour;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="post", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({
+     *     "publishedAt"="DESC"
+     * })
      */
     private $comments;
 
-    private $association;
-
-    private $contract;
-
-    private $contract_signed;
-
-    private $key_deliver;
-
-    private $key_return;
-
-    private $priceRepository;
+    /**
+     * @var \App\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="leases", cascade={"persist","remove"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * })
+     */
+    private $author;
 
     public function __construct() {
         $this->publishedAt = new \DateTime();
@@ -232,14 +304,6 @@ class LeaseRequest {
     public function setSummary(string $summary): void {
         $this->summary = $summary;
     }
-
-    private $start_date;
-
-    private $end_date;
-
-    private $association_type;
-
-    private $price;
 
     public function getStartDate(): ?\DateTimeInterface {
         return $this->start_date;
@@ -360,12 +424,12 @@ class LeaseRequest {
         return $this;
     }
 
+    private $priceRepository;
+
     public function getDeposit(): float {
         switch ($this->getAssociationType()) {
-            case 'ass_type.regio':
-                return $this->priceRepository->findById(self::DEPOSIT_SCOUTING)[0]->getPrice();
-                break;
             case 'ass_type.scouting':
+            case 'ass_type.regio':
                 return $this->priceRepository->findById(self::DEPOSIT_SCOUTING)[0]->getPrice();
                 break;
             default:

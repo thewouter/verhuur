@@ -59,7 +59,7 @@ class BlogController extends AbstractController {
     public function index(LeaseRequestRepository $posts, PriceRepository $repository, int $page): Response {
         $requests = $posts->findLatest($page);
         $unreadCount = 0;
-        foreach ($requests as $key => $value) {
+        foreach ($requests['results'] as $key => $value) {
             $value->setPriceRepository($repository);
             if (!$value->getRead()) {
                 $unreadCount = $unreadCount + 1;

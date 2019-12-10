@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="symfony_demo_comment")
+ * @ORM\Table(name="comment")
  *
  * Defines the properties of the Comment entity to represent the blog comments.
  * See https://symfony.com/doc/current/book/doctrine.html#creating-an-entity-class
@@ -26,7 +26,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Tip: if you have an existing database, you can generate these entity class automatically.
  * See https://symfony.com/doc/current/cookbook/doctrine/reverse_engineering.html
  *
- * @author Wouter van Harten <wouter@woutervanharten.nl>
  * @author Wouter van Harten <wouter@woutervanharten.nl>
  */
 class Comment {
@@ -42,7 +41,7 @@ class Comment {
     /**
      * @var LeaseRequest
      *
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="LeaseRequest", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $post;
