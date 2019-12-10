@@ -19,6 +19,7 @@ use App\Form\CommentType;
 use App\Form\UserType;
 use App\Form\LeaseRequestType;
 use App\Form\LeaseRequestEditType;
+use App\Repository\FrontMessageRepository;
 use App\Repository\LeaseRequestRepository;
 use App\Repository\UserRepository;
 use App\Repository\PriceRepository;
@@ -67,8 +68,12 @@ class BlogController extends AbstractController {
      * NOTE: For standard formats, Symfony will also automatically choose the best
      * Content-Type header for the response.
      * See https://symfony.com/doc/current/quick_tour/the_controller.html#using-formats
+     * @param Request $request
+     * @param AuthenticationUtils $helper
+     * @param FrontMessageRepository $frontMessageRepository
+     * @return Response
      */
-    public function index(Request $request, int $page, string $_format, LeaseRequestRepository $posts, AuthenticationUtils $helper, EventDispatcherInterface $dispatcher): Response {
+    public function index(Request $request, AuthenticationUtils $helper, FrontMessageRepository $frontMessageRepository): Response {
         if ($this->getUser()) {
             if (in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
                 return $this->redirectToRoute('admin_index');
@@ -107,10 +112,16 @@ class BlogController extends AbstractController {
             }
         }
 
+        $frontMessage = $frontMessageRepository->findOneByDateTime(new \DateTime());
+        dump($frontMessage);
+
+
         return $this->render('blog/index.html.twig', array(
             'last_username' => $last_username,
             'error' => $error,
-            'new_user_form' => $form->createView(), ));
+            'new_user_form' => $form->createView(),
+            'frontMessage' => $frontMessage,
+            ));
     }
 
     /**

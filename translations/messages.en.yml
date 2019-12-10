@@ -105,6 +105,7 @@ menu.search: Search
 menu.statistics: Statistics
 menu.prices: Prices
 menu.payments: Payments
+menu.front_messages: Announcments
 
 label.association_type: Type of association
 label.start_date: Date of arrival
@@ -155,6 +156,8 @@ label.download_signed_contract: Download signed contract
 label.contract: Contract
 label.download_all: Download all contracts in %year%
 label.total: Total
+label.body: Message body
+label.new_front_message: New announcment
 
 admin.title: Add admin
 admin.edit: Add a new admin to the application by entering the username associated with the new admin. Warning, this cannot be undone!
@@ -283,3 +286,4 @@ privacy.address.answer: We use your address in case the email fails. Next to thi
 privacy.association: Association
 privacy.association.answer: We would like to know the organization that wants to lease to verify the price category of the lease. Next to this, we use the association to check our banned associations list.
 privacy.question: What is your data used for? (Opens in new tab)
+

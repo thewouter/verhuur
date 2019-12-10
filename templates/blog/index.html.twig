@@ -23,12 +23,24 @@
 {% endblock %}
 
 {% block main %}
+    {% for warning in frontMessage %}
+        <div class="column well" style="border-radius: 10px; margin:5px; border: 2px #7f5006; border-style: solid; background-color: antiquewhite;">
+            <h2>
+                {{ warning.title }}
+            </h2>
+
+            <p>
+                {{ warning.body }}
+            </p>
+        </div>
+    {% endfor %}
 
     <div class="column well" style="margin:5px">
         <p>
             {{ 'help.homepage' | trans | raw}}
         </p>
     </div>
+
     <br>
     <div class="row">
          <div class='login column'>

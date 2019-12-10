@@ -9,14 +9,18 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Entity\FrontMessage;
 use App\Entity\LeaseRequest;
 use App\Entity\Comment;
 use App\Entity\Prices;
 use App\Entity\Task;
+use App\Form\FrontMessageType;
+use App\Repository\FrontMessageRepository;
 use App\Repository\LeaseRequestRepository;
 use App\Repository\PriceRepository;
 use App\Repository\UserRepository;
 use App\Utils\Slugger;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -407,5 +411,45 @@ class BlogController extends AbstractController {
              'form' => $form->createView(),
              'adminForm' => $adminForm->createView(),
          ));
+    }
+
+    /**
+     * @Route("/announcements", methods={"GET", "POST"}, name="admin_front_messages")
+     * @param Request $request
+     * @param FrontMessageRepository $repository
+     * @return Response
+     */
+    public function frontMessages(Request $request, FrontMessageRepository $repository): Response{
+        $messages = $repository->findAll();
+        usort($messages, function ($a, $b) {
+            return $a->getStartDate() < $b->getStartDate();
+        });
+        $frontMessage = new FrontMessage();
+        $form = $this->createForm(FrontMessageType::class, $frontMessage);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($frontMessage);
+            $em->flush();
+            return $this->redirectToRoute('admin_front_messages');
+        }
+
+        return $this->render('admin/front_messages.html.twig', array(
+            'messages' => $messages,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/announcements/{id<\d+>}/remove", methods={"GET"}, name="admin_front_message_delete")
+     * @param int $id
+     * @param FrontMessageRepository $repository
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteFrontMessage(int $id, FrontMessageRepository $repository): Response {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($repository->findOneBy(array('id' => $id)));
+        $em->flush();
+        return $this->redirectToRoute('admin_front_messages');
     }
 }

@@ -19,6 +19,7 @@ title.login: Veilig inloggen
 title.post_list: Aanvragenlijst
 title.edit_post: 'Bewerk bericht #{id, number}'
 title.add_comment: Voeg een reactie toe
+title.edit_user: Edit gebruiker
 title.comment_error: Er is een fout opgetreden bij het opslaan van je reactie
 action.show: Weergeven
 action.show_post: Bericht weergeven
@@ -68,6 +69,7 @@ menu.search: Zoek
 menu.statistics: Statistieken
 menu.prices: Prijzen
 menu.payments: Betalingen
+menu.front_messages: Mededelingen
 
 help.homepage: Welcom bij de verhuurapplicatie van Radix Enschede. Hier kun je de huur van ons gebouw aanvragen en vragen te stellen. <br>Gebruik je Google account om in te loggen, hierdoor hoef je geen extra wachtwoord te onthouden.
 
@@ -144,6 +146,8 @@ label.download_signed_contract: Download getekend contract
 label.contract: Contract
 label.download_all: Download alle contracten uit %year%
 label.total: Totaal
+label.body: Inhoud van het bericht
+label.new_front_message: Nieuw bericht
 
 admin.title: Admin toevoegen
 admin.edit: Voeg een nieuwe admin toe aan het systeem door zijn of haar gebruikersnaam hieronder in te vullen. Let op! dit kan niet ongedaan gemaakt worden.

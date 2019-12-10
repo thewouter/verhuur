@@ -1,0 +1,33 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block main %}
+    <h1>
+        {{ 'label.new_front_message' | trans }}
+    </h1>
+    <div class="well">
+        {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.body) }}
+        {{ form_row(form.start_date) }}
+        {{ form_row(form.end_date) }}
+        {{ form_end(form) }}
+    </div>
+
+    {% for message in messages %}
+        <div class="column well" style="border-radius: 10px; margin:5px; border: 2px #7f5006; border-style: solid; background-color: antiquewhite;">
+            <h2>
+                {{ message.title }} ({{ message.startDate | date("Y/m/d  H:i") }} &mdash; {{ message.endDate | date("Y/m/d  H:i") }})
+            </h2>
+
+            <p>
+                {{ message.body }}
+            </p>
+            <form action="{{ path('admin_front_message_delete', {'id': message.id}) }}">
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+            </form>
+        </div>
+    {% endfor %}
+
+
+
+{% endblock %}
