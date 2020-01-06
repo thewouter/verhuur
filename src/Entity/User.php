@@ -80,7 +80,7 @@ class User implements UserInterface, \Serializable {
      *
      * @ORM\Column(name="roles", type="json", nullable=false)
      */
-    private $roles;
+    private $roles = [];
 
     /**
      * @var string

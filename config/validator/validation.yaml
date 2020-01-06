@@ -1,3 +1,12 @@
 App\Entity\LeaseRequest:
     constraints:
         - App\Validator\Constraints\DateRange: ~
+
+App\Entity\User:
+    properties:
+        phone:
+            - Length:
+                  min: 10
+                  max: 14
+                  minMessage: phone.short
+                  maxMessage: phone.long
