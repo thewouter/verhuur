@@ -44,7 +44,7 @@ label.title: Titel
 label.author: Auteur
 label.author_email: Auteur e-mail
 label.username: Gebruikersnaam
-label.fullname: Fullname
+label.fullname: Volledige naam
 label.role: Rol
 label.content: Inhoud
 label.summary: Plannen
@@ -148,6 +148,7 @@ label.download_all: Download alle contracten uit %year%
 label.total: Totaal
 label.body: Inhoud van het bericht
 label.new_front_message: Nieuw bericht
+label.email: Email adres
 
 admin.title: Admin toevoegen
 admin.edit: Voeg een nieuwe admin toe aan het systeem door zijn of haar gebruikersnaam hieronder in te vullen. Let op! dit kan niet ongedaan gemaakt worden.
@@ -245,7 +246,7 @@ faq.photos.answer: Jazeker! Je kunt ze bekijken in ons <a href="%url%">fotoalbum
 faq.items.question: Welke items zijn er aanwezig in het gebouw?
 faq.items.answer: 'We proberen de volgende items aanwezig te hebben:
     <ol>
-        <li>Wat borden en bestek (5-10 stuks)</li>
+        <li>Wat borden (5-10 stuks)</li>
         <li>Een waterkoker</li>
         <li>Een koffiezetapparaat</li>
         <li>Een koelkast & vriezer</li>
@@ -256,7 +257,7 @@ faq.beds.answer: We hebben geen bedden aanwezig, je kan je eigen luchtbed meenem
 faq.persons.question: Hoeveel mensen kunnen blijven slapen?
 faq.persons.answer: In verband met de brandweer kunnen er maximaal 30 personen binnen blijven slapen. Meer slaapplekken kunnen gecreerd worden door een tent op te zetten buiten.
 faq.fire.question: Is het mogelijk om kampvuur te stoken?
-faq.fire.answer: Een klein kampvuur is mogelijk in onze kampvuurplaats mits er een emmer water bij staat.
+faq.fire.answer: Een klein kampvuur is mogelijk in onze kampvuurplaats mits er voldoende blusmogelijkheden paraat staan.
 
 privacy.title: Privacy verklaring
 privacy.name: Naam
@@ -269,5 +270,5 @@ privacy.address: Adres
 privacy.address.answer: We gebruiken je adres in het geval dat de email mislukt. Verder gebruiken we je adres zodat we rekening kunnen houden met je reistijd richting Enschede.
 privacy.association: Vereniging
 privacy.association.answer: We willen graag weten welke vereniging komt huren om de prijs van de huur te bepalen. Ook gebruiken we de vereniging om de huur te checken in de lijst van verenigingen die zich misdragen hebben.
-privacy.question: Waar gebruiken je we gegevens voor? (Opent in een nieuw tabblads)
+privacy.question: Waar gebruiken je we gegevens voor? (Opent in een nieuw tabblad)
 

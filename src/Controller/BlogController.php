@@ -72,6 +72,7 @@ class BlogController extends AbstractController {
      * @param AuthenticationUtils $helper
      * @param FrontMessageRepository $frontMessageRepository
      * @return Response
+     * @throws \Exception
      */
     public function index(Request $request, AuthenticationUtils $helper, FrontMessageRepository $frontMessageRepository): Response {
         if ($this->getUser()) {
@@ -113,7 +114,6 @@ class BlogController extends AbstractController {
         }
 
         $frontMessage = $frontMessageRepository->findOneByDateTime(new \DateTime());
-        dump($frontMessage);
 
 
         return $this->render('blog/index.html.twig', array(
@@ -135,9 +135,9 @@ class BlogController extends AbstractController {
 
     /**
      * @Route("/overview", methods={"GET", "POST"}, name="lease_overview")
-     *
+     * @return Response
      */
-    public function leaseStatus(Request $request): Response {
+    public function leaseStatus(): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $user = $this->getUser();
         $repository = $this->getDoctrine()->getRepository('App:LeaseRequest');
@@ -154,7 +154,9 @@ class BlogController extends AbstractController {
 
     /**
      * @Route("/addlease", methods={"GET", "POST"}, name="lease_add")
-     *
+     * @param Request $request
+     * @param PriceRepository $repository
+     * @return Response
      */
     public function leaseAdd(Request $request, PriceRepository $repository): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -171,7 +173,7 @@ class BlogController extends AbstractController {
                 $leaseRequest->setSlug(Slugger::slugify($user->getFullName() . '-' . $leaseRequest->getStartDate()->format("Y-m-d")));
                 $user->addLease($leaseRequest);
                 $leaseRequest->setPrice($leaseRequest->guessPrice());
-                $leaseRequest->setTitle($user->getName() . '  ' . $leaseRequest->getAssociation());
+                $leaseRequest->setTitle($user->getFullName() . '  ' . $leaseRequest->getAssociation());
                 $em->persist($leaseRequest);
                 $em->flush();
 
@@ -186,11 +188,13 @@ class BlogController extends AbstractController {
 
     /**
      * @Route("/{id<\d+>}/remove", methods={"GET", "POST"}, name="lease_remove")
+     * @param Request $request
+     * @param LeaseRequest $leaseRequest
+     * @return Response
+     * @throws \Exception
      */
     public function removeLease(Request $request, LeaseRequest $leaseRequest): Response {
         $status = $leaseRequest->getStatusText();
-        dump($leaseRequest);
-        dump($leaseRequest->getStartDate());
         $now = new DateTime();
         if (($status === 'status.placed' || $status === 'status.contract') && $leaseRequest->getStartDate() > $now) {
             $leaseRequest->setStatus(6);
@@ -204,6 +208,9 @@ class BlogController extends AbstractController {
 
     /**
      * @Route("/{id<\d+>}/edit", methods={"GET", "POST"}, name="lease_edit")
+     * @param Request $request
+     * @param LeaseRequest $leaseRequest
+     * @return Response
      */
     public function editLease(Request $request, LeaseRequest $leaseRequest): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -289,6 +296,8 @@ class BlogController extends AbstractController {
      * after performing a database query looking for a Post with the 'slug'
      * value given in the route.
      * See https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
+     * @param LeaseRequest $post
+     * @return Response
      */
     public function leaseRequestShow(LeaseRequest $post): Response {
         return $this->render('blog/post_show.html.twig', ['post' => $post]);
@@ -298,6 +307,10 @@ class BlogController extends AbstractController {
      * NOTE: The ParamConverter mapping is required because the route parameter
      * (postSlug) doesn't match any of the Doctrine entity properties (slug).
      * See https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html#doctrine-converter
+     * @param Request $request
+     * @param LeaseRequest $post
+     * @param EventDispatcherInterface $eventDispatcher
+     * @return Response
      */
     public function commentNew(Request $request, LeaseRequest $post, EventDispatcherInterface $eventDispatcher): Response {
         $comment = new Comment();
@@ -342,6 +355,8 @@ class BlogController extends AbstractController {
      *
      * The "id" of the Post is passed in and then turned into a Post object
      * automatically by the ParamConverter.
+     * @param LeaseRequest $post
+     * @return Response
      */
     public function commentForm(LeaseRequest $post): Response {
         $form = $this->createForm(CommentType::class);
@@ -355,6 +370,9 @@ class BlogController extends AbstractController {
 
     /**
      * @Route("/{id<\d+>}/contract}", methods={"GET"}, name="contract_download"))
+     * @param Request $request
+     * @param LeaseRequest $leaseRequest
+     * @return Response
      */
     public function downloadContract(Request $request, LeaseRequest $leaseRequest): Response {
         $user = $this->getUser();
@@ -367,6 +385,9 @@ class BlogController extends AbstractController {
 
     /**
      * @Route("/search", methods={"GET"}, name="blog_search")
+     * @param Request $request
+     * @param LeaseRequestRepository $posts
+     * @return Response
      */
     public function search(Request $request, LeaseRequestRepository $posts): Response {
         if (!$request->isXmlHttpRequest()) {
@@ -393,8 +414,10 @@ class BlogController extends AbstractController {
 
     /**
      * @Route("/ical.ics", methods={"GET"}, name="ical")
+     * @param LeaseRequestRepository $repository
+     * @return Response
      */
-    public function ical(Request $request, LeaseRequestRepository $repository): Response {
+    public function ical(LeaseRequestRepository $repository): Response {
         $leaseRequests = $repository->findUpcomingAndLastYear();
         $response = $this->render('calendar/ical.ics.twig', array('leaseRequests' => $leaseRequests));
         $response->setContent(trim($response->getContent()));
@@ -406,6 +429,9 @@ class BlogController extends AbstractController {
 
     /**
      * @Route("/ical_admin.ics", methods={"GET"}, name="ical_admin")
+     * @param Request $request
+     * @param LeaseRequestRepository $repository
+     * @return Response
      */
     public function icalAdmin(Request $request, LeaseRequestRepository $repository): Response {
         $leaseRequests = $repository->findUpcomingAndLastYear();
@@ -419,6 +445,8 @@ class BlogController extends AbstractController {
 
     /**
      * @Route("/calendar", methods={"GET"}, name="calendar_show")
+     * @param Request $request
+     * @return Response
      */
     public function leaseCalendar(Request $request): Response {
         return $this->render('calendar/show.html.twig', array());
@@ -427,28 +455,34 @@ class BlogController extends AbstractController {
 
     /**
      * @Route("/faq", methods={"GET"}, name="faq_show")
+     * @return Response
      */
-    public function faq(Request $request): Response {
+    public function faq(): Response {
         return $this->render('blog/faq.html.twig', array());
     }
 
 
     /**
      * @Route("/privacy", methods={"GET"}, name="privacy")
+     * @return Response
      */
-    public function privacy(Request $request): Response {
+    public function privacy(): Response {
         return $this->render('blog/privacy.html.twig', array());
     }
 
     /**
      * @Route("/ical/help", methods={"GET"}, name="ical_help")
+     * @return Response
      */
-    public function icalHelp(Request $request): Response {
+    public function icalHelp(): Response {
         return $this->render('calendar/help.html.twig', array());
     }
 
     /**
      * @Route("/mail/update", methods={"POST"}, name="email_update_hook")
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @return Response
      */
     public function updateMail(Request $request, UserRepository $userRepository): Response {
         $gmail = $this->google_service;
@@ -512,8 +546,9 @@ class BlogController extends AbstractController {
 
     /**
      * @Route("/mail/watch", methods={"GET", "POST"}, name="email_update_watch")
+     * @return Response
      */
-    public function updateMailWatch(Request $request, UserRepository $userRepository): Response {
+    public function updateMailWatch(): Response {
         try {
             $watchreq = new \Google_Service_Gmail_WatchRequest();
             $watchreq->setLabelIds(array('INBOX'));

@@ -9,3 +9,4 @@ daterange.violation.crossing: De einddatum moet na de begindatum zijn!
 daterange.violation.occupied: Deze data zijn al bezet.
 phone.short: Je telefoonnummer kan niet korter zijn dan tien cijfers
 phone.long: Geen valide telefoonnummer
+too_long: Te lang!

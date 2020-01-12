@@ -10,3 +10,4 @@ daterange.violation.crossing: The end date has to be afther the start date!
 daterange.violation.occupied: These dates are already occupied!
 phone.short: Your phone number should be at least ten digits
 phone.long: Not a valid phone number
+too_long: Too long

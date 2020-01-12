@@ -1,4 +1,15 @@
 App\Entity\LeaseRequest:
+    properties:
+        association:
+            - Length:
+                  max: 50
+                  maxMessage: too_long
+        summary:
+            - Length:
+                  max: 100
+                  maxMessage: too_long
+        num_attendants:
+            - Positive: ~
     constraints:
         - App\Validator\Constraints\DateRange: ~
 

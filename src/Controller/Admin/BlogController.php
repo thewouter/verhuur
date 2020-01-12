@@ -59,6 +59,10 @@ class BlogController extends AbstractController {
      * @Route("/", defaults={"page": "1"}, methods={"GET"}, name="admin_index")
      * @Route("/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods={"GET"}, name="admin_blog_index_paginated")
      * @Route("/", defaults={"page": "1"}, methods={"GET"}, name="admin_post_index")
+     * @param LeaseRequestRepository $posts
+     * @param PriceRepository $repository
+     * @param int $page
+     * @return Response
      */
     public function index(LeaseRequestRepository $posts, PriceRepository $repository, int $page): Response {
         $requests = $posts->findLatest($page);
@@ -78,8 +82,10 @@ class BlogController extends AbstractController {
      * Unread lease request
      *
      * @route("{id<\d+>}/unread", name="admin_post_unread")
+     * @param LeaseRequest $leaseRequest
+     * @return Response
      */
-    public function unread(Request $request, LeaseRequest $leaseRequest): Response {
+    public function unread(LeaseRequest $leaseRequest): Response {
         $leaseRequest->setRead(false);
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('admin_index');
@@ -89,6 +95,10 @@ class BlogController extends AbstractController {
      * Displays a form to edit an existing LeaseRequest entity.
      *
      * @Route("/{id<\d+>}/edit",methods={"GET", "POST"}, name="admin_post_edit")
+     * @param Request $request
+     * @param LeaseRequest $leaseRequest
+     * @param PriceRepository $repository
+     * @return Response
      */
     public function edit(Request $request, LeaseRequest $leaseRequest, PriceRepository $repository): Response {
         $form = $this->createForm(LeaseRequestAdminType::class, $leaseRequest, array('signed_uploaded' => !is_null($leaseRequest->getContractSigned())));
@@ -191,18 +201,26 @@ class BlogController extends AbstractController {
     }
 
     /**
-     *@Route("/{id}/contract.html", methods={"GET"}, name="admin_contract_html")
+     * @Route("/{id}/contract.html", methods={"GET"}, name="admin_contract_html")
+     * @param LeaseRequest $leaseRequest
+     * @param PriceRepository $repository
+     * @return Response
      */
-    public function contractHtml(Request $request, LeaseRequest $leaseRequest, PriceRepository $repository): Response {
+    public function contractHtml(LeaseRequest $leaseRequest, PriceRepository $repository): Response {
         $leaseRequest->setPriceRepository($repository);
         return $this->render('pdf/contract.html.twig', array(
              'leaseRequest' => $leaseRequest, ));
     }
 
     /**
-     *@Route("/{year}/contracts.zip", methods={"GET"}, name="admin_contract_mass")
+     * @Route("/{year}/contracts.zip", methods={"GET"}, name="admin_contract_mass")
+     * @param String $contractDir
+     * @param int $year
+     * @param LeaseRequestRepository $repository
+     * @return Response
+     * @throws \Exception
      */
-    public function massContract(Request $request, String $contractDir, int $year, LeaseRequestRepository $repository): Response {
+    public function massContract(String $contractDir, int $year, LeaseRequestRepository $repository): Response {
         $zip = new \ZipArchive();
         $fileName = "./contracts.zip";
 
@@ -223,9 +241,12 @@ class BlogController extends AbstractController {
     }
 
     /**
-     *@Route("/{id}/contract.pdf", methods={"GET"}, name="admin_contract_pdf")
+     * @Route("/{id}/contract.pdf", methods={"GET"}, name="admin_contract_pdf")
+     * @param LeaseRequest $leaseRequest
+     * @param PriceRepository $repository
+     * @return Response
      */
-    public function contractPdf(Request $request, LeaseRequest $leaseRequest, PriceRepository $repository): Response {
+    public function contractPdf(LeaseRequest $leaseRequest, PriceRepository $repository): Response {
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
         $pdfOptions->set('enable_remote', true);
@@ -266,7 +287,11 @@ class BlogController extends AbstractController {
     }
 
     /**
-     *@Route("/{id}/contract/send", methods={"GET"}, name="admin_contract_email")
+     * @Route("/{id}/contract/send", methods={"GET"}, name="admin_contract_email")
+     * @param Request $request
+     * @param LeaseRequest $leaseRequest
+     * @param PriceRepository $repository
+     * @return Response
      */
     public function sendContract(Request $request, LeaseRequest $leaseRequest, PriceRepository $repository): Response {
 
@@ -297,9 +322,12 @@ class BlogController extends AbstractController {
     }
 
     /**
-     *@Route("/statistics", methods={"GET"}, name="admin_statistics")
+     * @Route("/statistics", methods={"GET"}, name="admin_statistics")
+     * @param LeaseRequestRepository $posts
+     * @param PriceRepository $priceRepository
+     * @return Response
      */
-    public function statistics(Request $request, LeaseRequestRepository $posts, PriceRepository $priceRepository): Response {
+    public function statistics(LeaseRequestRepository $posts, PriceRepository $priceRepository): Response {
         $allRequests = $posts->findAll();
         $perYear = [];
         foreach ($allRequests as $request) {
@@ -328,7 +356,12 @@ class BlogController extends AbstractController {
     }
 
     /**
-     *@Route("/payments/{year}", methods={"GET", "POST"}, name="admin_payments_overview")
+     * @Route("/payments/{year}", methods={"GET", "POST"}, name="admin_payments_overview")
+     * @param Request $webRequest
+     * @param LeaseRequestRepository $posts
+     * @param PriceRepository $priceRepository
+     * @param int $year
+     * @return Response
      */
     public function payments(Request $webRequest, LeaseRequestRepository $posts, PriceRepository $priceRepository, int $year): Response {
         $allRequests = $posts->findAll();
@@ -371,7 +404,11 @@ class BlogController extends AbstractController {
     }
 
     /**
-     *@Route("/prices/edit", methods={"GET", "POST"}, name="prices_edit")
+     * @Route("/prices/edit", methods={"GET", "POST"}, name="prices_edit")
+     * @param Request $request
+     * @param PriceRepository $prices
+     * @param UserRepository $userRepository
+     * @return Response
      */
     public function prices(Request $request, PriceRepository $prices, UserRepository $userRepository): Response {
         $allPrices = $prices->findAll();
@@ -396,7 +433,7 @@ class BlogController extends AbstractController {
         if ($adminForm->isSubmitted() && $adminForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $data = $adminForm->getData();
-            $user = $userRepository->findOneBy(array('username' => $data['username']));
+            $user = $userRepository->findOneBy(array('email' => $data['username']));
             if (is_null($user)) {
                 $this->addFlash('error', 'admin.user_not_found');
             } else {
