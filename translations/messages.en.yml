@@ -189,6 +189,7 @@ lease.new: New lease application
 request.updated: Your request has been updated!
 request.answered: Answered by %name%
 request.unanswerd: Outstanding question
+request.added: Your request has been added!
 
 radix_lease_application: The radix lease application
 

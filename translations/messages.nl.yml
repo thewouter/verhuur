@@ -185,6 +185,7 @@ overview: Overzicht verhuuraanvragen
 request.updated: Je aanvraag is geupdated!
 request.unanswerd: Openstaande vraag
 request.answered: Beantwoord
+request.added: Je aanvraag is toegevoegd!
 menu.user: Account
 login.password_reset: Reset mijn wachtwoord
 
