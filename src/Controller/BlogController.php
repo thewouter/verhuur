@@ -177,6 +177,20 @@ class BlogController extends AbstractController {
                 $em->persist($leaseRequest);
                 $em->flush();
 
+                $message = (new \Swift_Message('Radix Lambarene'))
+                    ->setFrom('verhuurder@radixenschede.nl')
+                    ->setTo($leaseRequest->getAuthor()->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'email/new_request.twig',
+                            [
+                                'leaseRequest' => $leaseRequest,
+                                ]
+                        ),
+                        'text/html'
+                    );
+                $this->mailer->send($message);
+
                 return $this->redirectToRoute('lease_overview');
             }
         }
