@@ -1,4 +1,4 @@
-{% filter ical_wrap %}BEGIN:VCALENDAR
+{% apply ical_wrap %}BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Radix Enschede Verhuurkalender//NONSGML v1.0//NL
 METHOD:PUBLISH
@@ -12,9 +12,9 @@ DTEND;VALUE=DATE:{{ leaseRequest.endDate | date('Ymd', 'UTC') }}T{{ leaseRequest
 SUMMARY:{{ (leaseRequest.author.fullName ~ " " ~ leaseRequest.association ~ " " ~ (leaseRequest.statusText | trans)) | ical_escape }}\n
 LOCATION:Lambarene\n
 DESCRIPTION:{{ leaseRequest.summary }}\n
-X-ALT-DESC;FMTTYPE=text/html:{% filter ical_escape('html') -%}
+X-ALT-DESC;FMTTYPE=text/html:{% apply ical_escape('html') -%}
 {{ leaseRequest.summary | raw }}
-{%- endfilter %}\n
+{%- endapply %}\n
 URL:{{ 'radixenschede.nl' | ical_escape }}\n
 END:VEVENT
 {% if leaseRequest.keyDeliver is defined%}
@@ -27,9 +27,9 @@ DTEND:{{ leaseRequest.startDate | date('Ymd', 'UTC') }}T{{ leaseRequest.keyDeliv
 SUMMARY:{{ (leaseRequest.author.fullName ~ " " ~ leaseRequest.association ~ " " ~ (leaseRequest.statusText | trans)) | ical_escape }}\n
 LOCATION:Lambarene\n
 DESCRIPTION:{{ 'calendar.key_deliver' | trans }}\n
-X-ALT-DESC;FMTTYPE=text/html:{% filter ical_escape('html') -%}
+X-ALT-DESC;FMTTYPE=text/html:{% apply ical_escape('html') -%}
 {{ 'calendar.key_deliver' | trans }}
-{%- endfilter %}\n
+{%- endapply %}\n
 URL:{{ 'radixenschede.nl' | ical_escape }}\n
 END:VEVENT
 {% endif %}
@@ -43,11 +43,11 @@ DTEND:{{ leaseRequest.endDate | date('Ymd', 'UTC') }}T{{ leaseRequest.keyReturn 
 SUMMARY:{{ (leaseRequest.author.fullName ~ " " ~ leaseRequest.association ~ " " ~ (leaseRequest.statusText | trans)) | ical_escape }}\n
 LOCATION:Lambarene\n
 DESCRIPTION:{{ 'calendar.key_return' | trans }}\n
-X-ALT-DESC;FMTTYPE=text/html:{% filter ical_escape('html') -%}
+X-ALT-DESC;FMTTYPE=text/html:{% apply ical_escape('html') -%}
 {{ 'calendar.key_return' | trans }}
-{%- endfilter %}\n
+{%- endapply %}\n
 URL:{{ 'radixenschede.nl' | ical_escape }}\n
 END:VEVENT
 {% endif %}
 {% endfor %}
-END:VCALENDAR{% endfilter %}
+END:VCALENDAR{% endapply %}

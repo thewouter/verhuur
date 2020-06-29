@@ -1,4 +1,4 @@
-{% filter ical_wrap %}BEGIN:VCALENDAR
+{% apply ical_wrap %}BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Radix Enschede Verhuurkalender//NONSGML v1.0//NL
 METHOD:PUBLISH
@@ -12,10 +12,10 @@ DTEND;VALUE=DATE:{{ leaseRequest.endDate | date('Ymd', 'UTC') }}T{{ leaseRequest
 SUMMARY:{{ (leaseRequest.association | trans) | ical_escape }}\n
 LOCATION:Lambarene\n
 DESCRIPTION:{{ leaseRequest.association }}\n
-X-ALT-DESC;FMTTYPE=text/html:{% filter ical_escape('html') -%}
+X-ALT-DESC;FMTTYPE=text/html:{% apply ical_escape('html') -%}
 {{ leaseRequest.association | raw }}
-{%- endfilter %}\n
+{%- endapply %}\n
 URL:{{ 'radixenschede.nl' | ical_escape }}\n
 END:VEVENT
 {% endfor %}
-END:VCALENDAR{% endfilter %}
+END:VCALENDAR{% endapply %}
