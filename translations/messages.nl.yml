@@ -157,6 +157,18 @@ admin.admin_added: Nieuwe admin toegevoegd
 
 prices.title: Wijzigen prijzen
 prices.edit: Wijzig de prijzen in het formulier hieronder. Let op! Dit heeft geen gevolgen voor eerder ingekomen aanvragen.
+prices: "Een indicatie van de prijzen: Gas, water en electra zijn inclusief. <br><br>Onder de categorie 'Regio' vallen scouting verenigingen uit Scouting Regio Essnlaand. <br><br>Onder de categorie 'Scouting' vallen alle andere scouting verenigingen die gelinkt zijn aan scouting Nederland of een ander lid van WOSM. <br><br> Alle andere verenigingen zoals studie- en studentenverenigingen en disputen vallen onder de categorie 'overige verenigingen'. <br><br> De prijzen zijn per dag."
+regio: Regio Essnlaand
+scouting: Scouting
+other_less_15: Overige groepen, < 15 personen
+other_more_15: Overige groepen, > 15 personen
+pppn: p.p.p.n.
+min_night: Minimale prijs per nacht
+day_only: 'Dagdeel<br><ul>
+                        <li>Geen overnachting</li>
+                        <li>Oplevering voor <br> 22:00</li>
+                      </ul> '
+deposit: Borg
 
 status.placed: Aanvraag ingediend
 status.contract: Contract verstuurd
@@ -239,7 +251,6 @@ faq.request_how.answer: 'Je kunt de huur van ons gebouw Lambarene aanvragen met 
     </ol>'
 faq.price.question: Wat kost het om Lambarene te huren?
 faq.price.answer: 'Onze prijzen kunnen gevonden worden in de <a href="%url%">prijslijst</a>.'
-prices: "Een indicatie van de prijzen: Gas, water en electra zijn inclusief. <br>Onder de categorie 'Regio' vallen scouting verenigingen uit Scouting Regio Essnlaand. <br>Onder de categorie 'Scouting' vallen alle andere scouting verenigingen die gelinkt zijn aan scouting Nederland of een ander lid van WOSM. <br> Alle andere verenigingen zoals studie- en studentenverenigingen en disputen vallen onder de categorie 'overige verenigingen'. <br> De prijzen zijn per dag."
 faq.available.question: Is het gebouw op <Insert specefieke datum> beschikbaar?
 faq.available.answer: Je kan onze <a href="%url%">verhuurkalender</a> op de datum dat je het gebouw zou willen huren.
 faq.photos.question: Zijn er foto's van het gebouw?

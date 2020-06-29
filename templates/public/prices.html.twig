@@ -16,17 +16,91 @@
 {% endblock %}
 
 {% block body %}
-<div class="well">
-    <p>{{ 'prices' | trans | raw }}</p>
-    <table>
-        {% for price in prices.prices %}
+    <div class="well">
+        <p>{{ 'prices' | trans | raw }}</p>
+
+
+        <style type="text/css">
+            .tg  {
+                border-collapse:collapse;
+                border-spacing:0;
+                table-layout: fixed;
+            }
+            .tg td{
+                border-color:black;
+                border-style:solid;
+                border-width:1px;
+                font-family:Arial, sans-serif;
+                font-size:14px;
+                overflow:hidden;
+                padding:10px 5px;
+                word-break:normal;
+            }
+            .tg th{
+                border-color:black;
+                border-style:solid;
+                border-width:1px;
+                font-family:Arial, sans-serif;
+                font-size:14px;
+                font-weight:normal;
+                overflow:hidden;
+                padding:10px 5px;
+                word-break:normal;
+            }
+            .tg .tg-0pky{
+                border-color:inherit;
+                text-align:left;
+                vertical-align:top;
+            }
+            .tg .tg-0lax{
+                text-align:left;
+                vertical-align:top
+            }
+            td>ul>li {
+                font-size: 14px;
+                word-wrap: break-spaces;
+            }
+        </style>
+        <table class="tg">
+            <thead>
             <tr>
-              <td>{{('label.' ~ price.id) | trans}} {% for i in range(1,100) %}
-                  .
-              {% endfor %}</td>
-              <td>{{price.price | localizedcurrency('EUR') }}</td>
+                <th class="tg-0pky"></th>
+                <th class="tg-0pky">{{'regio' | trans}}<br></th>
+                <th class="tg-0pky">{{'scouting' | trans}}</th>
+                <th class="tg-0pky">{{'other_less_15' | trans}}</th>
+                <th class="tg-0lax">{{'other_more_15' | trans}}</th>
             </tr>
-        {% endfor %}
-    </table>
-</div>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tg-0pky">{{'pppn' | trans}}</td>
+                <td class="tg-0pky">{{ prices.prices['regio_pp'].price | localizedcurrency('EUR') }}</td>
+                <td class="tg-0pky">{{ prices.prices['scouting_pp'].price | localizedcurrency('EUR') }}</td>
+                <td class="tg-0pky">{{ 'not_available' | trans }}</td>
+                <td class="tg-0lax">{{ 'not_available' | trans }}</td>
+            </tr>
+            <tr>
+                <td class="tg-0pky">{{'min_night' | trans}}</td>
+                <td class="tg-0pky">{{ prices.prices['regio_min'].price | localizedcurrency('EUR') }}</td>
+                <td class="tg-0pky">{{ prices.prices['scouting_min'].price | localizedcurrency('EUR') }}</td>
+                <td class="tg-0pky">{{ prices.prices['other_min'].price | localizedcurrency('EUR') }}</td>
+                <td class="tg-0lax">{{ prices.prices['other_max'].price | localizedcurrency('EUR') }}</td>
+            </tr>
+            <tr>
+                <td class="tg-0pky">{{'day_only' | trans | raw}}</td>
+                <td class="tg-0pky">{{ prices.prices['regio_day'].price | localizedcurrency('EUR') }}</td>
+                <td class="tg-0pky">{{ prices.prices['scouting_day'].price | localizedcurrency('EUR') }}</td>
+                <td class="tg-0pky">{{ prices.prices['other_day'].price | localizedcurrency('EUR') }}</td>
+                <td class="tg-0lax">{{ prices.prices['other_day'].price | localizedcurrency('EUR') }}</td>
+            </tr>
+            <tr>
+                <td class="tg-0pky">{{'deposit' | trans}}</td>
+                <td class="tg-0pky">{{ prices.prices['deposit_scouting'].price | localizedcurrency('EUR') }}</td>
+                <td class="tg-0pky">{{ prices.prices['deposit_scouting'].price | localizedcurrency('EUR') }}</td>
+                <td class="tg-0pky">{{ prices.prices['deposit_other'].price | localizedcurrency('EUR') }}</td>
+                <td class="tg-0lax">{{ prices.prices['deposit_other'].price | localizedcurrency('EUR') }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

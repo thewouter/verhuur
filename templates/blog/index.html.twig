@@ -44,16 +44,16 @@
     <br>
     <div class="row">
          <div class='login column'>
-         <div class="well">
-             <div class="btn white darken-4 col google_login">
-                  <a href="{{path('connect_google')}}" style="text-transform:none">
-                      <div class="left">
-                          <img width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
-                      </div>
-                      Login with Google
-                  </a>
+             <div class="well">
+                 <div class="btn white darken-4 col google_login">
+                      <a href="{{path('connect_google')}}" style="text-transform:none">
+                          <div class="left">
+                              <img width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+                          </div>
+                          Login with Google
+                      </a>
+                 </div>
              </div>
-         </div>
             <!-- {% if not app.user %} {{ include('security/login.html.twig') }} {% endif %} -->
          </div>
          {% include 'blog/faq_fragment.html.twig' %}

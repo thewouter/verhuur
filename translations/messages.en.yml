@@ -166,6 +166,18 @@ admin.admin_added: New admin added
 
 prices.title: Edit prices
 prices.edit: 'Edit the prices using the form underneath. Warning: this has no effect on already submitted requests, only on new requests'
+prices: An indication of the prices. Gas, water and electra are included. <br><br>  Under the category 'Regio' fall scouting associations from Scouting Regio Essnlaand. <br><br>  Under the category 'Scouting' reside All other associations linked to the World Scout Movement. <br><br>  All other associations like student associations and fraternities are other associations. <br><br> The prices are listed per day.
+regio: Regio Essnlaand
+scouting: Scouting
+other_less_15: Other groups, < 15 persons
+other_more_15: Other groups, > 15 persons
+pppn: p.p.p.n.
+min_night: Minimal price per night
+day_only: 'Day only<br><ul>
+                        <li>No overnight stay</li>
+                        <li>Key return before <br> 22:00</li>
+                      </ul> '
+deposit: Borg
 
 status.placed: Request placed
 status.contract: Contract send
@@ -254,7 +266,6 @@ faq.request_how.answer: 'You can request the lease of our bulding Lambarene usin
     </ol>'
 faq.price.question: What does leasing Lambarene cost?
 faq.price.answer: 'Our prices can be found on the <a href="%url%">price list</a>.'
-prices: An indication of the prices. Gas, water and electra are included. <br> Under the category 'Regio' fall scouting associations from Scouting Regio Essnlaand. <br> Under the category 'Scouting' reside All other associations linked to the World Scout Movement. <br> All other associations like student associations and fraternities are other associations. . <br> The prices are listed per day.
 faq.available.question: Is the bulding available at this specific date I want to lease?
 faq.available.answer: You can check our  <a href="%url%">lease calendar</a> if the building is available at the date you want to lease it.
 faq.photos.question: Are there any photo's of the building?

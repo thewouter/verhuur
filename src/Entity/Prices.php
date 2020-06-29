@@ -22,7 +22,7 @@ class Prices {
 
     public function addPrice(Price $price): self {
         if (!$this->prices->contains($price)) {
-            $this->prices[] = $price;
+            $this->prices[$price->getId()] = $price;
         }
         return $this;
     }
