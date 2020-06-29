@@ -296,3 +296,12 @@ photo:
   toilets: Toiletten
   shower: Douche
   anderezaal: Andere zaal
+
+admin:
+  hint:
+    lease_ok: Verhuur OK
+    contract_send: Contract verstuurd
+    signature_required: Geen handtekening
+    cantus: Cantuswaarschuwing
+    no_payment: Geen betaling ontvangen
+    no_phone: Geen telefonisch contact

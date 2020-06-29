@@ -8,8 +8,7 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $("#default_1").click(function(){
-            console.log("test");
-            $("#comment_content").val("Dag,\n\
+            $("#comment_content").val($("#comment_content").val() + "Dag,\n\
 \n\
 Je aanvraag voor het huren van de Lambarene is goedgekeurd. Dit is geen definitieve bevestiging! De aanvraag is pas definitief als het getekende contract door ons ontvangen is.\n\
 \n\
@@ -35,50 +34,42 @@ In antwoord op je vraag:\n\
 ===Verder moet ik erbij vermelden dat wij maximaal plaats kunnen bieden aan 30 slapers.\n\
 \n\
 =========================\n\
-\n\
-        ")
+")
         });
         $("#default_4").click(function(){
-            $("#comment_content").val("\n\
-\n\
-Tot slot nog een algemene opmerking die ik voor elke cantus maak: bij oplevering dient het gebouw schoon en bruikbaar te zijn, een volgende huurder moet er gewoon in kunnen overnachten zonder problemen. Er mag dus geen bloem (meer) aan het plafond zitten, het mag niet naar bier stinken (desnoods ruikt het dan naar schoonmaakmiddel), etc. Dit is geen kritiek op jullie, maar zeg ik enkel zodat jullie hiermee rekening kunnen houden. Eerdere cantussen hebben dit gedaan door een stuk zeil of plastic op de vloer te leggen zodat hier geen bierlucht in kan trekken, bijvoorbeeld.\n\
-\n\
-        ")
+            $("#comment_content").val($("#comment_content").val() + "Tot slot nog een algemene opmerking die ik voor elke cantus maak: bij oplevering dient het gebouw schoon en bruikbaar te zijn, een volgende huurder moet er gewoon in kunnen overnachten zonder problemen. Er mag dus geen bloem (meer) aan het plafond zitten, het mag niet naar bier stinken (desnoods ruikt het dan naar schoonmaakmiddel), etc. Dit is geen kritiek op jullie, maar zeg ik enkel zodat jullie hiermee rekening kunnen houden. Eerdere cantussen hebben dit gedaan door een stuk zeil of plastic op de vloer te leggen zodat hier geen bierlucht in kan trekken, bijvoorbeeld.\n\
+")
         });
         $("#default_2").click(function(){
-            $("#comment_content").val("Dag,\n\
+            $("#comment_content").val($("#comment_content").val() + "Dag,\n\
 \n\
 Graag het contract ondertekenen en een gescand exemplaar uploaden of per mail retourneren.\n\
-\n\
-        ")
+")
         });
         $("#default_3").click(function(){
-            $("#comment_content").val("\n\
-\n\
-Dag,\n\
+            $("#comment_content").val($("#comment_content").val() + "Dag,\n\
 \n\
 Ik heb je onlangs een contract toegestuurd en volgens mijn administratie heb ik deze nog niet retour mogen ontvangen. Klopt dat?\n\
-        ")
+")
         });
         $("#default_5").click(function(){
-            $("#comment_content").val("\n\
-            Dag,\n\
+            $("#comment_content").val($("#comment_content").val() + "Dag,\n\
 \n\
-            Ik heb nog geen betaling van je mogen ontvangen voor de verhuur van de Lambarene. Klopt dat?\n\
-        ")
+Ik heb nog geen betaling van je mogen ontvangen voor de verhuur van de Lambarene. Klopt dat?\n\
+")
         });
         $("#default_6").click(function(){
-            $("#comment_content").val("Dag,\n\
-            De verhuur van de Lambarene wordt geregeld door een aantal leden van Radix op een vrijwillige basis. Omdat deze leden overdag en 's avonds niet altijd bereikbaar zijn handelen we het liefst alles per mail af. Normaliter heb je dan ook binnen een aantal dagen antwoord.\n\
-            Ook omdat de verhuur door meerdere mensen wordt afgehandeld, is het handig om alles wat besproken is op de mail te hebben staan.\n\
+            $("#comment_content").val($("#comment_content").val() + "Dag,\n\n\
+De verhuur van de Lambarene wordt geregeld door een aantal leden van Radix op een vrijwillige basis. Omdat deze leden overdag en 's avonds niet altijd bereikbaar zijn handelen we het liefst alles per mail af. Normaliter heb je dan ook binnen een aantal dagen antwoord.\n\
+Ook omdat de verhuur door meerdere mensen wordt afgehandeld, is het handig om alles wat besproken is op de mail te hebben staan.\n\
 \n\
-            Om zoveel mogelijk vragen af te vangen proberen we via onze site alvast zoveel mogelijk informatie te verschaffen. Zo staat de inventaris, impressiefoto's, en veel nuttige informatie op www.radixenschede.nl/verhuur.\n\
+Om zoveel mogelijk vragen af te vangen proberen we via onze site alvast zoveel mogelijk informatie te verschaffen. Zo staat de inventaris, impressiefoto's, en veel nuttige informatie op www.radixenschede.nl/verhuur.\n\
 \n\
-            Ik snap dat dit soms wat onpraktisch kan overkomen, tenslotte zou het met één telefoontje allemaal geregeld zijn. In de praktijk blijkt echter dat een hoop communicatie intern dan langs elkaar loopt, en het veelal niet bij één telefoontje blijft. Het desbetreffende lid dient vervolgens alles wat besproken is weer op de mail te zetten, zodat deze miscommunicatie juist niet ontstaat.\n\
-            Vaak dient een open mailconversatie ook als kattenbelletje dat er bijvoorbeeld nog een contract opgesteld moet worden, iets wat er na een telefoongesprek, wat haastig is gevoerd tijdens een college of onderweg, er nog wel eens bij in kan schieten.\n\
+Ik snap dat dit soms wat onpraktisch kan overkomen, tenslotte zou het met één telefoontje allemaal geregeld zijn. In de praktijk blijkt echter dat een hoop communicatie intern dan langs elkaar loopt, en het veelal niet bij één telefoontje blijft. Het desbetreffende lid dient vervolgens alles wat besproken is weer op de mail te zetten, zodat deze miscommunicatie juist niet ontstaat.\n\
+Vaak dient een open mailconversatie ook als kattenbelletje dat er bijvoorbeeld nog een contract opgesteld moet worden, iets wat er na een telefoongesprek, wat haastig is gevoerd tijdens een college of onderweg, er nog wel eens bij in kan schieten.\n\
 \n\
-            Ik hoop dat ik voldoende heb gemotiveerd waarom we verhuurzaken uitsluitend per mail afhandelen.\n\
-        ")
+Ik hoop dat ik voldoende heb gemotiveerd waarom we verhuurzaken uitsluitend per mail afhandelen.\n\
+")
         });
     });
     </script>
@@ -87,6 +78,8 @@ Ik heb je onlangs een contract toegestuurd en volgens mijn administratie heb ik 
 
 
 {% block main %}
+
+
     <div class="row">
         <div class="column edit-data">
             {{ form_errors(form) }}

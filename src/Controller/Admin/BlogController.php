@@ -163,6 +163,7 @@ class BlogController extends AbstractController {
         $commentForm->handleRequest($request);
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $comment->setAuthor($this->getUser());
+            $comment->setContent($comment->getContent() . "\n\n - Radix Enschede \n\n---=== www.radixenschede.nl ===---");
             $leaseRequest->addComment($comment);
             $em->persist($comment);
             $em->flush();

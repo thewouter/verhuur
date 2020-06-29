@@ -19,17 +19,50 @@
     }
 
 </style>
+<style>
+    /* Tooltip container */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+        opacity: 1;
+    }
+
+    /* Tooltip text */
+    .tooltip>.tooltiptext {
+        visibility: hidden;
+        width: fit-content;
+
+        background-color: #2C3E50;
+        color: #fff;
+        text-align: center;
+        padding: 5px;
+        border-radius: 6px;
+
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        z-index: 1;
+        bottom: 110%;
+        left: 50%;
+        margin-left: -50%;
+    }
+
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+</style>
 
 <div> {{form_start(commentForm)}}
     {{form_row(commentForm.content)}}
     {% if admin %}
     <div style="display: flex; justify-content:space-between">
-        <div class=" btn btn-primary" id="default_1" > <i class="fa fa-check"></i> </div>
-        <div class=" btn btn-primary" id="default_2" ><i class="fa fa-file-contract"></i></div>
-        <div class=" btn btn-primary" id="default_3" ><i class="fa fa-file-signature"></i></div>
-        <div class=" btn btn-primary" id="default_4" ><i class="fa fa-beer"></i></div>
-        <div class=" btn btn-primary" id="default_5" ><i class="fab fa-creative-commons-nc-eu"></i></div>
-        <div class=" btn btn-primary" id="default_6" ><i class="fa fa-phone-slash "></i></div>
+        <div class="tooltip btn btn-primary" id="default_1" > <i class="fa fa-check"></i> <span class="tooltiptext">{{'admin.hint.lease_ok' | trans}}</span> </div>
+        <div class="tooltip btn btn-primary" id="default_2" ><i class="fa fa-file-contract"></i><span class="tooltiptext">{{'admin.hint.contract_send' | trans}}</span> </div>
+        <div class="tooltip btn btn-primary" id="default_3" ><i class="fa fa-file-signature"></i><span class="tooltiptext">{{'admin.hint.signature_required' | trans}}</span></div>
+        <div class="tooltip btn btn-primary" id="default_4" ><i class="fa fa-beer"></i><span class="tooltiptext">{{'admin.hint.cantus' | trans}}</span> </div>
+        <div class="tooltip btn btn-primary" id="default_5" ><i class="fab fa-creative-commons-nc-eu"></i><span class="tooltiptext">{{'admin.hint.no_payment' | trans}}</span> </div>
+        <div class="tooltip btn btn-primary" id="default_6" ><i class="fa fa-phone-slash "></i><span class="tooltiptext">{{'admin.hint.no_phone' | trans}}</span> </div>
     </div>
     {% endif %}
         {{form_row(commentForm.submit)}}

@@ -311,3 +311,12 @@ photo:
   toilets: Toilets
   shower: Shower
   anderezaal: Andere zaal
+
+admin:
+  hint:
+    lease_ok: Lease OK
+    contract_send: Contract send
+    signature_required: No signature yet
+    cantus: Cantus caution
+    no_payment: No payment received
+    no_phone: No phone contact
