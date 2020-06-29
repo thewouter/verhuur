@@ -299,3 +299,15 @@ privacy.association: Association
 privacy.association.answer: We would like to know the organization that wants to lease to verify the price category of the lease. Next to this, we use the association to check our banned associations list.
 privacy.question: What is your data used for? (Opens in new tab)
 
+photo:
+  fireplace: Campfire place
+  outside: Outside of building
+  entrance: Entrance
+  radixzaal: Radix Zaal
+  fridge: Fridge
+  kitchen: Kitchen
+  hall: Hallway
+  radixzaal_oud: Radix Zaal
+  toilets: Toilets
+  shower: Shower
+  anderezaal: Andere zaal

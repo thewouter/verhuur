@@ -284,3 +284,15 @@ privacy.association: Vereniging
 privacy.association.answer: We willen graag weten welke vereniging komt huren om de prijs van de huur te bepalen. Ook gebruiken we de vereniging om de huur te checken in de lijst van verenigingen die zich misdragen hebben.
 privacy.question: Waar gebruiken je we gegevens voor? (Opent in een nieuw tabblad)
 
+photo:
+  fireplace: Kampvuurplaats
+  outside: Buitenkant van het gebouw
+  entrance: Ingang van het terrein
+  radixzaal: Radix Zaal
+  fridge: Koelkast
+  kitchen: Keuken
+  hall: Gang
+  radixzaal_oud: Radix Zaal
+  toilets: Toiletten
+  shower: Douche
+  anderezaal: Andere zaal

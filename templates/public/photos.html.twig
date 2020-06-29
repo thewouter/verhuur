@@ -45,22 +45,33 @@
 <div class="row">
   <div class="column">
     <img src="{{asset('build/lambarene/campfire.jpg')}}">
-    <img src="{{asset('build/lambarene/entrance.jpg')}}">
-    <img src="{{asset('build/lambarene/kitchen.jpg')}}">
-    <img src="{{asset('build/lambarene/left_room.jpg')}}">
+    {{ 'photo.fireplace' | trans }}
     <img src="{{asset('build/lambarene/building_outside.jpg')}}">
+    {{ 'photo.outside' | trans }}
+    <img src="{{asset('build/lambarene/building_outside_2.jpg')}}">
+    {{ 'photo.outside' | trans }}
+    <img src="{{asset('build/lambarene/entrance.jpg')}}">
+    {{ 'photo.entrance' | trans }}
   </div>
     <div class="column">
       <img src="{{asset('build/lambarene/right_room.jpg')}}">
-      <img src="{{asset('build/lambarene/shower.jpg')}}">
+      {{ 'photo.radixzaal' | trans }}
+      <img src="{{asset('build/lambarene/fridge.jpg')}}">
+      {{ 'photo.fridge' | trans }}
+      <img src="{{asset('build/lambarene/kitchen.jpg')}}">
+      {{ 'photo.kitchen' | trans }}
       <img src="{{asset('build/lambarene/toilet_kitchen.jpg')}}">
-      <img src="{{asset('build/lambarene/building_outside.jpg')}}">
+      {{ 'photo.hall' | trans }}
     </div>
       <div class="column">
-        <img src="{{asset('build/lambarene/toilets.jpg')}}">
-        <img src="{{asset('build/lambarene/fridge.jpg')}}">
-        <img src="{{asset('build/lambarene/building_outside_2.jpg')}}">
         <img src="{{asset('build/lambarene/radix_hok_oud.jpg')}}">
+        {{ 'photo.radixzaal_oud' | trans }}
+        <img src="{{asset('build/lambarene/toilets.jpg')}}">
+        {{ 'photo.toilets' | trans }}
+        <img src="{{asset('build/lambarene/shower.jpg')}}">
+        {{ 'photo.shower' | trans }}
+        <img src="{{asset('build/lambarene/left_room.jpg')}}">
+        {{ 'photo.anderezaal' | trans }}
       </div>
 </div>
 {% endblock %}
