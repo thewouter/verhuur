@@ -160,7 +160,7 @@ label.body: Message body
 label.new_front_message: New announcment
 
 admin.title: Add admin
-admin.edit: Add a new admin to the application by entering the username associated with the new admin. Warning, this cannot be undone!
+admin.edit: Add a new admin to the application by entering the email address associated with the new admin. Warning, this cannot be undone!
 admin.user_not_found: User not found
 admin.admin_added: New admin added
 

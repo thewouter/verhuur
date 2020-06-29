@@ -151,7 +151,7 @@ label.new_front_message: Nieuw bericht
 label.email: Email adres
 
 admin.title: Admin toevoegen
-admin.edit: Voeg een nieuwe admin toe aan het systeem door zijn of haar gebruikersnaam hieronder in te vullen. Let op! dit kan niet ongedaan gemaakt worden.
+admin.edit: Voeg een nieuwe admin toe aan het systeem door zijn of haar emailadres hieronder in te vullen. Let op! dit kan niet (nog) ongedaan gemaakt worden.
 admin.user_not_found: Gebruiker niet gevonden
 admin.admin_added: Nieuwe admin toegevoegd
 
