@@ -251,8 +251,8 @@ faq.request_how.answer: 'Je kunt de huur van ons gebouw Lambarene aanvragen met 
     </ol>'
 faq.price.question: Wat kost het om Lambarene te huren?
 faq.price.answer: 'Onze prijzen kunnen gevonden worden in de <a href="%url%">prijslijst</a>.'
-faq.available.question: Is het gebouw op <Insert specefieke datum> beschikbaar?
-faq.available.answer: Je kan onze <a href="%url%">verhuurkalender</a> op de datum dat je het gebouw zou willen huren.
+faq.available.question: Is het gebouw op ... beschikbaar?
+faq.available.answer: Je kan in onze <a href="%url%">verhuurkalender</a> kijken of het gebouw bezet is op een bepaalde datum.
 faq.photos.question: Zijn er foto's van het gebouw?
 faq.photos.answer: Jazeker! Je kunt ze bekijken in ons <a href="%url%">fotoalbum</a>.
 faq.items.question: Welke items zijn er aanwezig in het gebouw?
@@ -267,7 +267,7 @@ faq.items.answer: 'We proberen de volgende items aanwezig te hebben:
 faq.beds.question: Hoeveel bedden zijn er aanwezig?
 faq.beds.answer: We hebben geen bedden aanwezig, je kan je eigen luchtbed meenemen.
 faq.persons.question: Hoeveel mensen kunnen blijven slapen?
-faq.persons.answer: In verband met de brandweer kunnen er maximaal 30 personen binnen blijven slapen. Meer slaapplekken kunnen gecreerd worden door een tent op te zetten buiten.
+faq.persons.answer: In verband met de brandveiligheid kunnen er maximaal 30 personen binnen blijven slapen. Je kan meer slaapplekken maken door tenten mee te nemen om buiten op te zetten, er is ruimte genoeg voor een boel kleine tentjes (1-8 personen) en ook voor grotere tenten zijn wel een aantal plekken te vinden.
 faq.fire.question: Is het mogelijk om kampvuur te stoken?
 faq.fire.answer: Een klein kampvuur is mogelijk in onze kampvuurplaats mits er voldoende blusmogelijkheden paraat staan.
 
