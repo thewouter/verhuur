@@ -57,12 +57,18 @@ class LeaseRequestRepository extends ServiceEntityRepository {
             ->getResult();
     }
 
-    public function findUpcomingAndLastYear(): array {
+    public function findUpcomingAndLastYear($allVisible = true): array {
         $yearAgo = new \DateTime();
         $yearAgo->modify('-1 year');
         $query = $this->createQueryBuilder('p')
             ->where('p.start_date >= :start')
             ->setParameter('start', $yearAgo);
+
+        if (!$allVisible) {
+            $query = $query
+                ->andWhere('p.status != 5')
+                ->andWhere('p.status != 6');
+        }
         $query->orderBy('p.publishedAt', 'ASC');
         return $query->getQuery()->getResult();
     }

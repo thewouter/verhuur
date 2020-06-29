@@ -48,16 +48,16 @@ class LeaseRequest {
         "Overig" => 'ass_type.other', );
 
     public const STATUSES = array(
-        "status.placed",
-        "status.contract",
-        "status.signed",
-        "status.leased",
-        "status.deposit_retour",
-        "status.rejected",
-        "status.retracted",
-        "status.occupied",
-        "status.reopened",
-        "status.finished", );
+        "status.placed",        //  0
+        "status.contract",      //  1
+        "status.signed",        //  2
+        "status.leased",        //  3
+        "status.deposit_retour",//  4
+        "status.rejected",      //  5
+        "status.retracted",     //  6
+        "status.occupied",      //  7
+        "status.reopened",      //  8
+        "status.finished", );   //  9
 
     public const KEYTIMES = array(
         'label.noon' => '12:30',

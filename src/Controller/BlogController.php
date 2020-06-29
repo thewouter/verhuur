@@ -432,7 +432,7 @@ class BlogController extends AbstractController {
      * @return Response
      */
     public function ical(LeaseRequestRepository $repository): Response {
-        $leaseRequests = $repository->findUpcomingAndLastYear();
+        $leaseRequests = $repository->findUpcomingAndLastYear(false);
         $response = $this->render('calendar/ical.ics.twig', array('leaseRequests' => $leaseRequests));
         $response->setContent(trim($response->getContent()));
         $response->headers->set('Content-Type', "text/calendar");
@@ -448,7 +448,7 @@ class BlogController extends AbstractController {
      * @return Response
      */
     public function icalAdmin(Request $request, LeaseRequestRepository $repository): Response {
-        $leaseRequests = $repository->findUpcomingAndLastYear();
+        $leaseRequests = $repository->findUpcomingAndLastYear(false);
         $response = $this->render('calendar/ical_admin.ics.twig', array('leaseRequests' => $leaseRequests));
         $response->setContent(trim($response->getContent()));
         $response->headers->set('Content-Type', "text/calendar");

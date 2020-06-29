@@ -7,8 +7,8 @@ BEGIN:VEVENT
 UID:{{ leaseRequest.id }}@radixenschede.nl\n
 ORGANIZER:mailto:verhuurder@radixenschede.nl\n
 DTSTAMP:{{ 'now' | date('Ymd', 'UTC') }}T{{ 'now' | date('His', 'UTC') }}Z\n
-DTSTART;VALUE=DATE:{{ leaseRequest.startDate | date('Ymd', 'UTC') }}T{{ leaseRequest.startDate | date('His', 'UTC') }}Z\n
-DTEND;VALUE=DATE:{{ leaseRequest.endDate | date('Ymd', 'UTC') }}T{{ leaseRequest.endDate | date('His', 'UTC') }}Z\n
+DTSTART;VALUE=DATE:{{ leaseRequest.startDate | date('Ymd', 'UTC') }}\n
+DTEND;VALUE=DATE:{{ leaseRequest.endDate | date_modify("+1 day") | date('Ymd', 'UTC') }}\n
 SUMMARY:{{ (leaseRequest.association | trans) | ical_escape }}\n
 LOCATION:Lambarene\n
 DESCRIPTION:{{ leaseRequest.association }}\n
