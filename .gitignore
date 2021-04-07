@@ -36,3 +36,6 @@ yarn-error.log
 public/contracts/pdf/unsigned*
 public/contracts/pdf/signed*
 /.idea/
+
+/public/contracts.zip
+
