@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p class="well"> {{'bug_report.title' | trans}} </p>
+    <div class="well">
+        {{'bug_report.description' | trans | raw}}
+        <br>
+        <br>
+
+        {{ form(form) }}
+    </div>
+
+    <style>
+         hr {
+             margin-top: 1rem;
+             margin-bottom: 1rem;
+             border: 0;
+             border-top: 1px solid rgba(0, 0, 0, 0.1);
+         }
+    </style>
+
+    <div class="well" style="margin-bottom: 10px">
+        {% for bug in reports %}
+            <div>
+                <h3>{{ bug.title }}</h3>
+                {{ bug.comment }}
+            </div>
+            {% if not loop.last %}
+                <hr>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
