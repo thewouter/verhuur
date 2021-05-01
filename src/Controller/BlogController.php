@@ -506,7 +506,14 @@ class BlogController extends AbstractController {
             $bug_report->setDate(new DateTime());
             $em->persist($bug_report);
             $em->flush();
-
+            $message = (new \Swift_Message('Bug reported'))
+                ->setFrom('verhuurder@radixenschede.nl')
+                ->setTo('www@radixenschede.nl')
+                ->setBody(
+                    $bug_report->getTitle() . '<br>' . $bug_report->getComment() . '<br><br><br>' .
+                    'Misschien moeten we hier iets mee'
+                );
+                 $this->mailer->send($message);
             return $this->RedirectToRoute('bug_report');
         }
         if (in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
