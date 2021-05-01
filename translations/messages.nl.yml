@@ -149,6 +149,9 @@ label.total: Totaal
 label.body: Inhoud van het bericht
 label.new_front_message: Nieuw bericht
 label.email: Email adres
+label.start_date_message: Publicatiedatum
+label.end_date_message: Einde publicatie
+
 
 admin.title: Admin toevoegen
 admin.edit: Voeg een nieuwe admin toe aan het systeem door zijn of haar emailadres hieronder in te vullen. Let op! dit kan niet (nog) ongedaan gemaakt worden.

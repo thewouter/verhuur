@@ -158,6 +158,8 @@ label.download_all: Download all contracts in %year%
 label.total: Total
 label.body: Message body
 label.new_front_message: New announcment
+label.start_date_message: Publication date
+label.end_date_message: End publication
 
 admin.title: Add admin
 admin.edit: Add a new admin to the application by entering the email address associated with the new admin. Warning, this cannot be undone!

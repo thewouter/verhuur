@@ -42,11 +42,11 @@ class FrontMessageType extends AbstractType {
                 'required' => true,
             ))
             ->add('start_date', DateTimePickerType::class, array(
-                'label' => 'label.start_date',
+                'label' => 'label.start_date_message',
                 'required' => true,
             ))
             ->add('end_date', DateTimePickerType::class, array(
-                'label' => 'label.end_date',
+                'label' => 'label.end_date_message',
                 'required' => true,
             ))
             ->add('submit', SubmitType::class, array(
