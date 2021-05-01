@@ -308,3 +308,7 @@ admin:
     cantus: Cantuswaarschuwing
     no_payment: Geen betaling ontvangen
     no_phone: Geen telefonisch contact
+bug_report:
+    title: Bugs rapporteren of een feature suggereren
+    description: Heb je een bug gevonden in deze website? Of heb je een tip hoe we de website kunnen verbeteren? Dan horen we dat graag!. <br> Als je het formulier hieronder invult gaan we er mee aan de slag!
+    title_short: Bugs rapporteren

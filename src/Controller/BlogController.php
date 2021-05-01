@@ -11,14 +11,17 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\BugReport;
 use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\LeaseRequest;
 use App\Events;
+use App\Form\BugReportType;
 use App\Form\CommentType;
 use App\Form\UserType;
 use App\Form\LeaseRequestType;
 use App\Form\LeaseRequestEditType;
+use App\Repository\BugReportRepository;
 use App\Repository\FrontMessageRepository;
 use App\Repository\LeaseRequestRepository;
 use App\Repository\UserRepository;
@@ -35,6 +38,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -351,7 +355,7 @@ class BlogController extends AbstractController {
             // passed in the event and they can even modify the execution flow, so
             // there's no guarantee that the rest of this controller will be executed.
             // See https://symfony.com/doc/current/components/event_dispatcher.html
-            $eventDispatcher->dispatch(Events::COMMENT_CREATED, $event);
+//            $eventDispatcher->dispatch(Events::COMMENT_CREATED, $event);
 
             return $this->redirectToRoute('blog_post', ['slug' => $post->getSlug()]);
         }
@@ -482,6 +486,39 @@ class BlogController extends AbstractController {
      */
     public function privacy(): Response {
         return $this->render('blog/privacy.html.twig', array());
+    }
+
+
+    /**
+     * @Route("/bug", methods={"GET", "POST"}, name="bug_report")
+     * @param Request $request
+     * @return Response
+     */
+    public function bug(Request $request, BugReportRepository $bugReportRepository): Response {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        $bug_report = new BugReport();
+        $form = $this->createForm(BugReportType::class, $bug_report);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $bug_report->setUser($this->getUser());
+            $bug_report->setDate(new DateTime());
+            $em->persist($bug_report);
+            $em->flush();
+
+            return $this->RedirectToRoute('bug_report');
+        }
+        if (in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
+            $reports = $bugReportRepository->findAll();
+        } else {
+            $reports = $this->getUser()->getBugReports()->toArray();
+        }
+
+        return $this->render('blog/bug.html.twig', array(
+            'form' => $form->createView(),
+            'reports' => $reports,
+        ));
     }
 
     /**

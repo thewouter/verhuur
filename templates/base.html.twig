@@ -168,6 +168,11 @@
                                 <a href="{{ path('privacy') }}" title="Privacy statement">
                                     <i class="fas fa-user-secret" aria-hidden="true"></i> {% trans %}privacy.title{% endtrans %}
                                 </a>
+                                {% if app.user %}
+                                    <a href="{{ path('bug_report') }}" title="Report a bug"><br>
+                                        <i class="fas fa-bug" aria-hidden="true"></i> {% trans %}bug_report.title_short{% endtrans %}
+                                    </a>
+                                {% endif %}
                             </p>
                         </div>
                     </div>

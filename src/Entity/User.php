@@ -37,6 +37,7 @@ class User implements UserInterface, \Serializable {
     public function __construct() {
         $this->leases = new ArrayCollection();
         $this->confirmed = false;
+        $this->bugReports = new ArrayCollection();
     }
     /**
      * @var int
@@ -119,6 +120,11 @@ class User implements UserInterface, \Serializable {
      * })
      */
     private $leases;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BugReport::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $bugReports;
 
     public function getId(): ?int {
         return $this->id;
@@ -287,6 +293,36 @@ class User implements UserInterface, \Serializable {
 
     public function setConfirmed($confirmed): self {
         $this->confirmed = $confirmed;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BugReport[]
+     */
+    public function getBugReports(): Collection
+    {
+        return $this->bugReports;
+    }
+
+    public function addBugReport(BugReport $bugReport): self
+    {
+        if (!$this->bugReports->contains($bugReport)) {
+            $this->bugReports[] = $bugReport;
+            $bugReport->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBugReport(BugReport $bugReport): self
+    {
+        if ($this->bugReports->removeElement($bugReport)) {
+            // set the owning side to null (unless already changed)
+            if ($bugReport->getUser() === $this) {
+                $bugReport->setUser(null);
+            }
+        }
 
         return $this;
     }

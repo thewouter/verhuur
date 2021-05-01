@@ -2,12 +2,12 @@
 namespace App\EventListener;
 
 use App\Entity\Comment;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use App\Entity\LeaseRequest;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 
 class RequestDeniedListener {
 
-    public function preUpdate(LifecycleEventArgs $args) {
+    public function preUpdate(PreUpdateEventArgs $args) {
         $entity = $args->getObject();
         // only act on some "LeaseRequest" entity
         if (!$entity instanceof LeaseRequest or !in_array('status', array_keys($args->getEntityChangeSet()))) {

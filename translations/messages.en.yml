@@ -322,3 +322,7 @@ admin:
     cantus: Cantus caution
     no_payment: No payment received
     no_phone: No phone contact
+bug_report:
+  title: Report a bug or suggest a feature
+  description: Have you found a bug? Or do you have <i>the</i> best tip for this site? Please suggest it to us so we can make it happen!
+  title_short: Report a bug
