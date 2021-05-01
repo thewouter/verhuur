@@ -14,6 +14,7 @@ Installation
 ```bash
 $ git pull
 $ composer install
+$ bin/console doctrine:migrations:migrate
 $ yarn install
 $ yarn encore [dev|production]
 ```
