@@ -117,7 +117,7 @@ label.address: Adres met Straatnaam, huisnummer, postcode en woonplaats
 label.upload_signed: Upload het getekende contract
 label.signed: Je hebt het contract reeds getekend!
 label.association: Vereniging
-label.checked_calendar: Ik heb de <a href="%url%">verhuur kalender</a> gechecked
+label.checked_calendar: Ik heb de <a href="%url%" target="_blank">verhuur kalender</a> gechecked (Opent in nieuw tabblad).
 label.last_updated: Last updated
 label.paid: Reeds betaald
 label.not_paid: Nog niet betaald

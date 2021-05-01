@@ -124,7 +124,7 @@ label.address: 'Address [ Example: (Examplestreet 49, 1234 RA Enschede, Netherla
 label.upload_signed: Upload the signed contract
 label.signed: You have signed the contract!
 label.association: Association
-label.checked_calendar: I have checked the <a href="%url%">lease calendar</a>
+label.checked_calendar: I have checked the <a href="%url%" target="_blank">lease calendar</a> (Opens in new tab).
 label.last_updated: Last updated
 label.paid: Already paid
 label.not_paid: Not paid yet
