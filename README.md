@@ -14,6 +14,9 @@ Installation
 ```bash
 $ git pull
 $ composer install
+```
+Add .env.local file with required secrets and ./credentials.json file for gmail hook
+```
 $ bin/console doctrine:migrations:migrate
 $ yarn install
 $ yarn encore [dev|production]
