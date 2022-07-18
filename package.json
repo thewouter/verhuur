@@ -10,7 +10,7 @@
     "highlight.js": "^9.12.0",
     "imports-loader": "^0.8.0",
     "jquery": "^3.5.0",
-    "jquery-ui": "^1.12.1",
+    "jquery-ui": "^1.13.2",
     "lato-font": "^3.0.0",
     "node-sass": "^4.9.3",
     "sass-loader": "^7.1.0",
